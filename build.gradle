@@ -1,0 +1,41 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+
+    dependencies {
+        //classpath "com.novoda:bintray-release:0.3.4"
+        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.6'
+    }
+}
+
+
+subprojects{
+    group 'top.jfunc.network'
+    version '1.0'
+
+    apply plugin: 'java'
+    apply plugin: 'maven'
+    apply plugin: 'idea'
+    apply plugin: 'eclipse'
+    apply plugin: 'maven-publish'
+    //用于上传到jcenter
+    apply plugin: 'com.jfrog.bintray'
+
+    sourceCompatibility = 1.8
+    ext {
+        //springVersion = '4.3.5.RELEASE'
+    }
+
+    repositories {
+        mavenLocal()
+        mavenCentral()
+        jcenter()
+    }
+
+    dependencies {
+        //导入本地的依赖包
+        //compile fileTree(dir: 'libs', include: ['*.jar'])
+        //testCompile group: 'junit', name: 'junit', version: '4.12'
+    }
+}

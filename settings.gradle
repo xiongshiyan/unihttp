@@ -1,0 +1,7 @@
+rootProject.name = 'httpclient-interfacing'
+include 'httpclient-core'
+include 'httpclient-jdk'
+include 'httpclient-okhttp3'
+include 'httpclient-apache'
+include 'httpclient-jodd'
+
