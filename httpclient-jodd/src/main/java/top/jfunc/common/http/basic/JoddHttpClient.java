@@ -146,7 +146,7 @@ public class JoddHttpClient extends AbstractConfigurableHttp implements HttpTemp
      */
     protected void initSSL(HttpRequest httpRequest, HostnameVerifier hostnameVerifier , SSLSocketFactory sslSocketFactory , X509TrustManager trustManager , top.jfunc.common.http.base.ProxyInfo proxyInfo) {
         SocketHttpConnectionProvider httpConnectionProvider = null;
-        if(ParamUtil.isHttps(httpRequest.url())){
+        if("https".equals(httpRequest.protocol())){
             httpConnectionProvider = new SSLSocketHttpConnectionProvider(getSSLSocketFactory());
         }else {
             httpConnectionProvider = new SocketHttpConnectionProvider();

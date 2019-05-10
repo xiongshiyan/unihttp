@@ -41,12 +41,9 @@ public class JoddSmartHttpClient extends JoddHttpClient implements SmartHttpClie
         httpRequest.timeout(getReadTimeoutWithDefault(request.getReadTimeout()));
 
         //4.SSL设置
-        if(ParamUtil.isHttps(completedUrl)){
-            //默认设置这些
-            initSSL(httpRequest , RequestSSLUtil.getHostnameVerifier(request , getHostnameVerifier()) ,
-                    RequestSSLUtil.getSSLSocketFactory(request , getSSLSocketFactory()) ,
-                    RequestSSLUtil.getX509TrustManager(request , getX509TrustManager()), request.getProxyInfo());
-        }
+        initSSL(httpRequest , RequestSSLUtil.getHostnameVerifier(request , getHostnameVerifier()) ,
+                RequestSSLUtil.getSSLSocketFactory(request , getSSLSocketFactory()) ,
+                RequestSSLUtil.getX509TrustManager(request , getX509TrustManager()), request.getProxyInfo());
 
         //5.处理body
         if(contentCallback != null && method.hasContent()){
