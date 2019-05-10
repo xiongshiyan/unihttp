@@ -1,7 +1,12 @@
 rootProject.name = 'httpclient-interfacing'
+
 include 'httpclient-core'
 include 'httpclient-jdk'
 include 'httpclient-okhttp3'
 include 'httpclient-apache'
 include 'httpclient-jodd'
+include 'httpclient-okhttp3-spring-boot-starter'
+include 'httpclient-apache-spring-boot-starter'
+include 'httpclient-jdk-spring-boot-starter'
+include 'httpclient-jodd-spring-boot-starter'
 
