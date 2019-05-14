@@ -85,7 +85,7 @@ public class ApacheHttpClient extends AbstractConfigurableHttp implements HttpTe
         try {
 
             //5.创建http客户端
-            //CloseableHttpClient httpClient = HttpClients.createDefault();
+            ///CloseableHttpClient httpClient = HttpClients.createDefault();
             httpClient = getCloseableHttpClient(completedUrl ,getHostnameVerifier() , getSSLContext());
 
             //6.发送请求
@@ -113,9 +113,6 @@ public class ApacheHttpClient extends AbstractConfigurableHttp implements HttpTe
 //            }else {
 //                convert = resultCallback.convert(statusCode , inputStream , resultCharset , parseHeaders(response));
 //            }
-            /*if(null == inputStream){
-                inputStream = top.jfunc.common.http.IoUtil.emptyInputStream();
-            }*/
 
             InputStream inputStream = getStreamFrom(entity, false);
 

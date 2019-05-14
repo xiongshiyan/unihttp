@@ -263,7 +263,7 @@ public class NativeHttpClient extends AbstractConfigurableHttp implements HttpTe
         if(null == headers){
             headers = new ArrayListMultimap<>();
         }
-        //headers.put("Connection" , "Keep-Alive");
+        ///headers.put("Connection" , "Keep-Alive");
         headers.put("Charset" , "UTF-8");
         headers.put("Content-Type" , "multipart/form-data; boundary=" + BOUNDARY);
         return headers;
@@ -394,10 +394,16 @@ public class NativeHttpClient extends AbstractConfigurableHttp implements HttpTe
         }
     }*/
 
+    @Override
+    public String toString() {
+        return "impl httpclient interface HttpClient with jdk HttpURLConnection";
+    }
+
     /**
      * form-data的格式为：
      */
-/*
+    /// 文件上传格式
+    /*
     --*****xsyloveyou******
     Content-Disposition: form-data; name="k1"
 
@@ -418,10 +424,5 @@ public class NativeHttpClient extends AbstractConfigurableHttp implements HttpTe
             我是文件内容2
     --*****xsyloveyou******--
 
-*/
-
-    @Override
-    public String toString() {
-        return "impl httpclient interface HttpClient with jdk HttpURLConnection";
-    }
+     */
 }
