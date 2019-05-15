@@ -9,6 +9,7 @@ import java.io.*;
 public class FormFile{
     /**上传文件的数据 */
     private InputStream inStream;
+    /**文件长度*/
     private long        fileLen;
     /**文件名称 */
     private String      filName;
