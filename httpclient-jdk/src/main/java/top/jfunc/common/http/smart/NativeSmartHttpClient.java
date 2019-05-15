@@ -106,10 +106,13 @@ public class NativeSmartHttpClient extends NativeHttpClient implements SmartHttp
     public Response post(Request req) throws IOException {
         Request request = beforeTemplate(req);
         /*Response response = template(request.getUrl(), Method.POST, request.getContentType(),
-                connection -> writeContent(connection, request.getBody(), request.getBodyCharset()),
+                connection -> writeContent(connection, request.getBodyIfNullWithParams(), request.getBodyCharset()),
                 request.getHeaders(), request.getConnectionTimeout(), request.getReadTimeout(),
                 request.getResultCharset(), request.isIncludeHeaders(), Response::with);*/
-        Response response = template(request, Method.POST , connection -> writeContent(connection, request.getBody(), getBodyCharsetWithDefault(request.getBodyCharset())) , Response::with);
+        Response response = template(request, Method.POST , connection -> {
+            String body = request.getBodyIfNullWithParams();
+            writeContent(connection, body, getBodyCharsetWithDefault(request.getBodyCharset()));
+        }, Response::with);
         return afterTemplate(request , response);
     }
 
@@ -118,7 +121,10 @@ public class NativeSmartHttpClient extends NativeHttpClient implements SmartHttp
         Request request = beforeTemplate(req);
         ContentCallback<HttpURLConnection> contentCallback = null;
         if(method.hasContent()){
-            contentCallback = connection -> writeContent(connection, request.getBody(), getBodyCharsetWithDefault(request.getBodyCharset()));
+            contentCallback = connection -> {
+                String body = request.getBodyIfNullWithParams();
+                writeContent(connection, body, getBodyCharsetWithDefault(request.getBodyCharset()));
+            };
         }
         Response response = template(request, method , contentCallback , Response::with);
         return afterTemplate(request , response);
