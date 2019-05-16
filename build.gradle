@@ -36,6 +36,6 @@ subprojects{
     dependencies {
         //导入本地的依赖包
         //compile fileTree(dir: 'libs', include: ['*.jar'])
-        //testCompile group: 'junit', name: 'junit', version: '4.12'
+        testCompile group: 'junit', name: 'junit', version: '4.12'
     }
 }

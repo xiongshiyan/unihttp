@@ -183,4 +183,22 @@ public class ParamUtil {
         }
         return baseUrl + inputUrl;
     }
+
+    /**
+     * 处理路径参数
+     * @param originUrl 形如 http://httpbin.org/book/{id}
+     * @param routeParams 参数值
+     * @return 处理过后的URL
+     */
+    public static String replaceRouteParamsIfNecessary(String originUrl , Map<String , String> routeParams){
+        if(null == routeParams || 0 == routeParams.size()){
+            return originUrl;
+        }
+        String url = originUrl;
+        for (Map.Entry<String, String> entry : routeParams.entrySet()) {
+            url = url.replaceFirst("\\{" + entry.getKey() + "\\}", entry.getValue());
+        }
+
+        return url;
+    }
 }
