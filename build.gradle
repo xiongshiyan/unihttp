@@ -37,5 +37,7 @@ subprojects{
         //导入本地的依赖包
         //compile fileTree(dir: 'libs', include: ['*.jar'])
         testCompile group: 'junit', name: 'junit', version: '4.12'
+        // https://mvnrepository.com/artifact/org.mock-server/mockserver-netty
+        testCompile group: 'org.mock-server', name: 'mockserver-netty', version: '5.5.4'
     }
 }
