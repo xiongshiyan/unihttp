@@ -76,18 +76,10 @@ public class OkHttp3Client extends AbstractConfigurableHttp implements HttpTempl
             response = client.newCall(request).execute();
 
             //5.获取响应
-//            return getReturnMsg(response , resultCharset , includeHeaders , resultCallback);
             inputStream = getStreamFrom(response , false);
 
             int statusCode = response.code();
             return resultCallback.convert(statusCode , inputStream, getResultCharsetWithDefault(resultCharset), parseHeaders(response , includeHeaders));
-            ///保留起
-            /*if (HttpStatus.HTTP_OK == statusCode) {
-                convert = resultCallback.convert(HttpStatus.HTTP_OK , inputStream, resultCharset, includeHeaders ? parseHeaders(response) : new HashMap<>(0));
-            }else {
-                convert = resultCallback.convert(statusCode , inputStream , resultCharset , parseHeaders(response));
-            }
-            return convert;*/
         } catch (IOException e) {
             throw e;
         } catch (Exception e){

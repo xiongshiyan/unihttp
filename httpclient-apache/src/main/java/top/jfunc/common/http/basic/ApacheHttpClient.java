@@ -97,27 +97,7 @@ public class ApacheHttpClient extends AbstractConfigurableHttp implements HttpTe
 
             entity = response.getEntity();
 
-//            if (HttpStatus.HTTP_OK == statusCode) {
-//                //7.封装返回参数
-//                InputStream inputStream = entity.getContent();
-//                R convert = resultCallback.convert(inputStream, resultCharset, includeHeader ? parseHeaders(response) : new HashMap<>(0));
-//                IoUtil.close(inputStream);
-//                return convert;
-//            }else {
-//                String errorMsg = EntityUtils.toString(entity, resultCharset);
-//                throw new HttpException(statusCode,errorMsg,parseHeaders(response));
-//            }
-            //InputStream inputStream = entity.getContent();
-//            R convert;
-//            if (HttpStatus.HTTP_OK == statusCode) {
-//                //7.封装返回参数
-//                convert = resultCallback.convert(HttpStatus.HTTP_OK , inputStream, resultCharset, includeHeader ? parseHeaders(response) : new HashMap<>(0));
-//            }else {
-//                convert = resultCallback.convert(statusCode , inputStream , resultCharset , parseHeaders(response));
-//            }
-
             InputStream inputStream = getStreamFrom(entity, false);
-
 
             R convert = resultCallback.convert(statusCode , inputStream, getResultCharsetWithDefault(resultCharset),  parseHeaders(response , includeHeader));
             IoUtil.close(inputStream);

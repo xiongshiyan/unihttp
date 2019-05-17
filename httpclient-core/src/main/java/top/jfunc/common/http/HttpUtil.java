@@ -44,7 +44,7 @@ public class HttpUtil {
      *     HttpUtil.post(...)
      *     HttpUtil.getAsBytes(...)
      *     HttpUtil.getAsFile(...) 文件下载
-     *     HttpUtil.uploadContentCallback(...) 文件上传
+     *     HttpUtil.upload(...) 文件上传
      * </pre>
      * @since 1.0.1
      */
