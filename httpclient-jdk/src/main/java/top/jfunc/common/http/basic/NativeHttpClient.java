@@ -6,9 +6,9 @@ import top.jfunc.common.utils.ArrayListMultimap;
 import top.jfunc.common.utils.IoUtil;
 
 import javax.net.ssl.*;
-import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.ProtocolException;
+import java.io.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
