@@ -1,7 +1,6 @@
 package top.jfunc.common.http.smart;
 
 import top.jfunc.common.http.Method;
-import top.jfunc.common.http.ParamUtil;
 import top.jfunc.common.http.base.Config;
 import top.jfunc.common.http.base.ContentCallback;
 import top.jfunc.common.http.basic.AbstractHttpClient;
@@ -31,8 +30,7 @@ public abstract class AbstractSmartHttpClient<CC> extends AbstractHttpClient<CC>
     @Override
     public Response get(Request req) throws IOException {
         Request request = beforeTemplate(req);
-        Response response = template(request.setUrl(ParamUtil.contactUrlParams(request.getUrl(), request.getParams(), getBodyCharsetWithDefault(request.getBodyCharset()))) ,
-                Method.GET , null , Response::with);
+        Response response = template(request, Method.GET , null , Response::with);
         return afterTemplate(request , response);
     }
 
@@ -74,7 +72,7 @@ public abstract class AbstractSmartHttpClient<CC> extends AbstractHttpClient<CC>
     public Response upload(Request req) throws IOException {
         Request request = beforeTemplate(req);
         Response response = template(request , Method.POST ,
-                uploadContentCallback(request.getParams(), request.getFormFiles()) , Response::with);
+                uploadContentCallback(request.getFormParams(), request.getFormFiles()) , Response::with);
         return afterTemplate(request , response);
     }
 
