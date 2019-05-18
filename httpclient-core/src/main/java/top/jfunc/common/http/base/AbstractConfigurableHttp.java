@@ -1,6 +1,5 @@
 package top.jfunc.common.http.base;
 
-import top.jfunc.common.http.Method;
 import top.jfunc.common.http.ParamUtil;
 import top.jfunc.common.utils.ArrayListMultimap;
 
