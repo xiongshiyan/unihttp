@@ -50,11 +50,11 @@ public abstract class AbstractSmartHttpClient<CC> extends AbstractHttpClient<CC>
     }
 
     @Override
-    public Response httpMethod(Request req, Method method) throws IOException {
-        Request request = beforeTemplate(req);
+    public Response httpMethod(HttpRequest req, Method method) throws IOException {
+        HttpRequest request = beforeTemplate(req);
         ContentCallback<CC> contentCallback = null;
-        if(method.hasContent()){
-            String body = request.getBody();
+        if(method.hasContent() && request instanceof StringBodyRequest){
+            String body = ((StringBodyRequest)request).getBody();
             contentCallback = bodyContentCallback(body, getBodyCharsetWithDefault(request.getBodyCharset()) , request.getContentType());
         }
         Response response = template(request, method , contentCallback, Response::with);
