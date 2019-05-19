@@ -5,10 +5,12 @@ import top.jfunc.common.http.base.*;
 import top.jfunc.common.utils.ArrayListMultimap;
 import top.jfunc.common.utils.IoUtil;
 
-import javax.net.ssl.*;
+import javax.net.ssl.HostnameVerifier;
+import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLSocketFactory;
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.ProtocolException;
-import java.io.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -49,12 +51,6 @@ public class NativeHttpClient extends AbstractConfigurableHttp implements HttpTe
             String completedUrl = addBaseUrlIfNecessary(url);
             connect = (HttpURLConnection)new java.net.URL(completedUrl).openConnection();
 
-            //2.处理header
-            setConnectProperty(connect, method, contentType,
-                    mergeDefaultHeaders(headers),
-                    getConnectionTimeoutWithDefault(connectTimeout),
-                    getReadTimeoutWithDefault(readTimeout));
-
             ////////////////////////////////////ssl处理///////////////////////////////////
             if(connect instanceof HttpsURLConnection){
                 //默认设置这些
@@ -63,15 +59,20 @@ public class NativeHttpClient extends AbstractConfigurableHttp implements HttpTe
             }
             ////////////////////////////////////ssl处理///////////////////////////////////
 
-            //3.留给子类复写的机会:给connection设置更多参数
+            //2.留给子类复写的机会:给connection设置更多参数
             doWithConnection(connect);
 
-            //5.写入内容，只对post有效
+            //3.写入内容，只对post有效
             if(contentCallback != null && method.hasContent()){
                 contentCallback.doWriteWith(connect);
             }
 
-            //4.连接
+            //4.处理header
+            setConnectProperty(connect, method, contentType,
+                    mergeDefaultHeaders(headers),
+                    getConnectionTimeoutWithDefault(connectTimeout),
+                    getReadTimeoutWithDefault(readTimeout));
+            //5.连接
             connect.connect();
 
             //6.获取返回值
@@ -316,6 +317,9 @@ public class NativeHttpClient extends AbstractConfigurableHttp implements HttpTe
         out.close();*/
     }
 
+
+
+
     public static void disconnectQuietly(HttpURLConnection connect) {
         if(null != connect){
             try {
@@ -323,7 +327,6 @@ public class NativeHttpClient extends AbstractConfigurableHttp implements HttpTe
             } catch (Exception e) {}
         }
     }
-
     ///
     /*
     protected void initDefaultSSL(String sslVer) {
@@ -340,16 +343,10 @@ public class NativeHttpClient extends AbstractConfigurableHttp implements HttpTe
         }
     }*/
 
-    @Override
-    public String toString() {
-        return "impl httpclient interface HttpClient with jdk HttpURLConnection";
-    }
-
     /**
      * form-data的格式为：
      */
-    /// 文件上传格式
-    /*
+/*
     --*****xsyloveyou******
     Content-Disposition: form-data; name="k1"
 
@@ -370,5 +367,6 @@ public class NativeHttpClient extends AbstractConfigurableHttp implements HttpTe
             我是文件内容2
     --*****xsyloveyou******--
 
-     */
+*/
+
 }

@@ -61,13 +61,13 @@ public class OkHttp3Client extends AbstractConfigurableHttp implements HttpTempl
             //2.1设置URL
             Request.Builder builder = new Request.Builder().url(completedUrl);
 
-            //2.2设置headers
-            setRequestHeaders(builder , contentType , mergeDefaultHeaders(headers));
-
-            //2.3处理请求体
+            //2.2处理请求体
             if(null != contentCallback && method.hasContent()){
                 contentCallback.doWriteWith(builder);
             }
+
+            //2.3设置headers
+            setRequestHeaders(builder , contentType , mergeDefaultHeaders(headers));
 
             //3.构造请求
             Request request = builder.build();
@@ -78,8 +78,7 @@ public class OkHttp3Client extends AbstractConfigurableHttp implements HttpTempl
             //5.获取响应
             inputStream = getStreamFrom(response , false);
 
-            int statusCode = response.code();
-            return resultCallback.convert(statusCode , inputStream, getResultCharsetWithDefault(resultCharset), parseHeaders(response , includeHeaders));
+            return resultCallback.convert(response.code() , inputStream, getResultCharsetWithDefault(resultCharset), parseHeaders(response , includeHeaders));
         } catch (IOException e) {
             throw e;
         } catch (Exception e){
@@ -265,11 +264,5 @@ public class OkHttp3Client extends AbstractConfigurableHttp implements HttpTempl
             IoUtil.close(stream);
             IoUtil.close(source);
         }
-    }
-
-
-    @Override
-    public String toString() {
-        return "impl httpclient interface HttpClient with OkHttp3";
     }
 }

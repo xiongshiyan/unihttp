@@ -34,22 +34,21 @@ import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLException;
 import javax.net.ssl.SSLHandshakeException;
+import java.io.*;
 import java.net.ConnectException;
 import java.net.InetSocketAddress;
 import java.net.Proxy;
 import java.net.UnknownHostException;
-
-import java.io.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 /**
- * 使用Apache HttpClient 实现 HttpClient、HttpTemplate接口
+ * 使用Apache HttpClient 实现的Http请求类
  * @author 熊诗言2017/12/01
  */
-public class ApacheHttpClient extends AbstractConfigurableHttp implements HttpTemplate<HttpEntityEnclosingRequest> , HttpClient {
+public class ApacheHttpClient extends AbstractConfigurableHttp implements HttpTemplate<HttpEntityEnclosingRequest>, HttpClient {
     protected int _maxRetryTimes = 1;
 
     @Override
@@ -66,20 +65,21 @@ public class ApacheHttpClient extends AbstractConfigurableHttp implements HttpTe
         //URI uri = builder.build();*/
         HttpUriRequest httpUriRequest = createHttpUriRequest(completedUrl , method);
 
-        //2.设置请求头
-        setRequestHeaders(httpUriRequest, contentType, mergeDefaultHeaders(headers));
 
-        //3.设置请求参数
+        //2.设置请求参数
         setRequestProperty((HttpRequestBase) httpUriRequest,
                 getConnectionTimeoutWithDefault(connectTimeout),
                 getReadTimeoutWithDefault(readTimeout));
 
-        //4.创建请求内容，如果有的话
+        //3.创建请求内容，如果有的话
         if(httpUriRequest instanceof HttpEntityEnclosingRequest){
             if(contentCallback != null){
                 contentCallback.doWriteWith((HttpEntityEnclosingRequest)httpUriRequest);
             }
         }
+
+        //4.设置请求头
+        setRequestHeaders(httpUriRequest, contentType, mergeDefaultHeaders(headers));
 
         CloseableHttpClient httpClient = null;
         CloseableHttpResponse response = null;
@@ -101,6 +101,7 @@ public class ApacheHttpClient extends AbstractConfigurableHttp implements HttpTe
 
             R convert = resultCallback.convert(statusCode , inputStream, getResultCharsetWithDefault(resultCharset),  parseHeaders(response , includeHeader));
             IoUtil.close(inputStream);
+
             return convert;
         } catch (IOException e) {
             throw e;
@@ -122,7 +123,7 @@ public class ApacheHttpClient extends AbstractConfigurableHttp implements HttpTe
 
     @Override
     public String post(String url, String body, String contentType, Map<String, String> headers, Integer connectTimeout, Integer readTimeout, String bodyCharset, String resultCharset) throws IOException {
-        return template(url,Method.POST, contentType, (request -> setRequestBody(request , body ,getBodyCharsetWithDefault(bodyCharset))),
+        return template(url, Method.POST, contentType, (request -> setRequestBody(request , body ,getBodyCharsetWithDefault(bodyCharset))),
                 ArrayListMultimap.fromMap(headers),
                 connectTimeout, readTimeout , resultCharset,false, (s, b,r,h)-> IoUtil.read(b ,r));
     }
@@ -144,13 +145,13 @@ public class ApacheHttpClient extends AbstractConfigurableHttp implements HttpTe
 
     @Override
     public String upload(String url, ArrayListMultimap<String,String> headers, Integer connectTimeout, Integer readTimeout, String resultCharset, FormFile... files) throws IOException{
-        return template(url,Method.POST, null, (request -> addFormFiles(request, null , files)),
+        return template(url, Method.POST, null, (request -> addFormFiles(request, null , files)),
                 headers, connectTimeout, readTimeout , resultCharset,false, (s, b,r,h)-> IoUtil.read(b ,r));
     }
 
     @Override
     public String upload(String url, ArrayListMultimap<String, String> params, ArrayListMultimap<String, String> headers, Integer connectTimeout, Integer readTimeout, String resultCharset, FormFile... files) throws IOException {
-        return template(url,Method.POST, null, (request -> addFormFiles(request, params ,files)),
+        return template(url, Method.POST, null, (request -> addFormFiles(request, params ,files)),
                 headers, connectTimeout, readTimeout , resultCharset,false, (s, b,r,h)-> IoUtil.read(b ,r));
     }
 
@@ -364,11 +365,5 @@ public class ApacheHttpClient extends AbstractConfigurableHttp implements HttpTe
             arrayListMultimap.put(header.getName() , header.getValue());
         }
         return arrayListMultimap.getMap();
-    }
-
-
-    @Override
-    public String toString() {
-        return "impl httpclient interface HttpClient with Apache httpclient";
     }
 }
