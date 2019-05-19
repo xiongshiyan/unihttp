@@ -5,6 +5,11 @@ import top.jfunc.common.http.base.Config;
 import top.jfunc.common.http.base.ContentCallback;
 import top.jfunc.common.http.basic.AbstractHttpClient;
 import top.jfunc.common.http.base.FormFile;
+import top.jfunc.common.http.request.DownLoadRequest;
+import top.jfunc.common.http.request.HttpRequest;
+import top.jfunc.common.http.request.StringBodyRequest;
+import top.jfunc.common.http.request.UploadRequest;
+import top.jfunc.common.http.request.impl.GetRequest;
 import top.jfunc.common.utils.ArrayListMultimap;
 import top.jfunc.common.utils.IoUtil;
 
@@ -28,16 +33,16 @@ public abstract class AbstractSmartHttpClient<CC> extends AbstractHttpClient<CC>
 
 
     @Override
-    public Response get(Request req) throws IOException {
-        Request request = beforeTemplate(req);
+    public Response get(HttpRequest req) throws IOException {
+        HttpRequest request = beforeTemplate(req);
         Response response = template(request, Method.GET , null , Response::with);
         return afterTemplate(request , response);
     }
 
     @Override
-    public Response post(Request req) throws IOException {
-        Request request = beforeTemplate(req);
-        String body = request.getBodyIfNullWithParams();
+    public Response post(StringBodyRequest req) throws IOException {
+        StringBodyRequest request = beforeTemplate(req);
+        String body = request.getBody();
         Response response = template(request, Method.POST ,
                 bodyContentCallback(body, getBodyCharsetWithDefault(request.getBodyCharset()) , request.getContentType()) ,
                 Response::with);
@@ -49,7 +54,7 @@ public abstract class AbstractSmartHttpClient<CC> extends AbstractHttpClient<CC>
         Request request = beforeTemplate(req);
         ContentCallback<CC> contentCallback = null;
         if(method.hasContent()){
-            String body = request.getBodyIfNullWithParams();
+            String body = request.getBody();
             contentCallback = bodyContentCallback(body, getBodyCharsetWithDefault(request.getBodyCharset()) , request.getContentType());
         }
         Response response = template(request, method , contentCallback, Response::with);
@@ -57,29 +62,29 @@ public abstract class AbstractSmartHttpClient<CC> extends AbstractHttpClient<CC>
     }
 
     @Override
-    public byte[] getAsBytes(Request req) throws IOException {
-        Request request = beforeTemplate(req);
+    public byte[] getAsBytes(HttpRequest req) throws IOException {
+        HttpRequest request = beforeTemplate(req);
         return template(request , Method.GET , null , (s, b, r, h)-> IoUtil.stream2Bytes(b));
     }
 
     @Override
-    public File getAsFile(Request req) throws IOException {
-        Request request = beforeTemplate(req);
+    public File getAsFile(DownLoadRequest req) throws IOException {
+        DownLoadRequest request = beforeTemplate(req);
         return template(request , Method.GET, null , (s, b, r, h)-> IoUtil.copy2File(b, request.getFile()));
     }
 
     @Override
-    public Response upload(Request req) throws IOException {
-        Request request = beforeTemplate(req);
+    public Response upload(UploadRequest req) throws IOException {
+        UploadRequest request = beforeTemplate(req);
         Response response = template(request , Method.POST ,
                 uploadContentCallback(request.getFormParams(), request.getFormFiles()) , Response::with);
         return afterTemplate(request , response);
     }
 
     @Override
-    public Response afterTemplate(Request request, Response response) throws IOException{
+    public Response afterTemplate(HttpRequest request, Response response) throws IOException{
         if(request.isRedirectable() && response.needRedirect()){
-            return get(Request.of(response.getRedirectUrl()));
+            return get(GetRequest.of(response.getRedirectUrl()));
         }
         return response;
     }

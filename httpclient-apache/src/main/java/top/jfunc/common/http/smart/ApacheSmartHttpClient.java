@@ -14,6 +14,11 @@ import top.jfunc.common.http.base.Config;
 import top.jfunc.common.http.base.ContentCallback;
 import top.jfunc.common.http.base.ResultCallback;
 import top.jfunc.common.http.basic.ApacheHttpClient;
+import top.jfunc.common.http.request.DownLoadRequest;
+import top.jfunc.common.http.request.HttpRequest;
+import top.jfunc.common.http.request.StringBodyRequest;
+import top.jfunc.common.http.request.UploadRequest;
+import top.jfunc.common.http.request.impl.GetRequest;
 import top.jfunc.common.utils.IoUtil;
 
 import javax.net.ssl.HostnameVerifier;
@@ -23,10 +28,10 @@ import java.io.IOException;
 import java.io.InputStream;
 
 /**
- * 使用Apache HttpClient 实现 SmartHttpClient、SmartHttpTemplate接口
- * @author xiongshiyan at 2019/5/8 , contact me with email yanshixiong@126.com or phone 15208384257
+ * 使用Apache HttpClient 实现的Http请求类
+ * @author 熊诗言2017/12/01
  */
-public class ApacheSmartHttpClient extends ApacheHttpClient implements SmartHttpClient , SmartHttpTemplate<HttpEntityEnclosingRequest> {
+public class ApacheSmartHttpClient extends ApacheHttpClient implements SmartHttpClient, SmartHttpTemplate<HttpEntityEnclosingRequest> {
 
     @Override
     public ApacheSmartHttpClient setConfig(Config config) {
@@ -35,20 +40,20 @@ public class ApacheSmartHttpClient extends ApacheHttpClient implements SmartHttp
     }
 
     @Override
-    public <R> R template(Request request, Method method , ContentCallback<HttpEntityEnclosingRequest> contentCallback , ResultCallback<R> resultCallback) throws IOException {
+    public <R> R template(HttpRequest httpRequest, Method method , ContentCallback<HttpEntityEnclosingRequest> contentCallback , ResultCallback<R> resultCallback) throws IOException {
         //1.获取完整的URL
-        String completedUrl = handleUrlIfNecessary(request.getUrl() , request.getRouteParams() ,request.getQueryParams() , request.getBodyCharset());
+        String completedUrl = handleUrlIfNecessary(httpRequest.getUrl() , httpRequest.getRouteParams() ,httpRequest.getQueryParams() , httpRequest.getBodyCharset());
 
         HttpUriRequest httpUriRequest = createHttpUriRequest(completedUrl, method);
 
         //2.设置请求头
-        setRequestHeaders(httpUriRequest, request.getContentType(), mergeDefaultHeaders(request.getHeaders()));
+        setRequestHeaders(httpUriRequest, httpRequest.getContentType(), mergeDefaultHeaders(httpRequest.getHeaders()));
 
         //3.设置请求参数
         setRequestProperty((HttpRequestBase) httpUriRequest,
-                getConnectionTimeoutWithDefault(request.getConnectionTimeout()),
-                getReadTimeoutWithDefault(request.getReadTimeout()),
-                request.getProxyInfo());
+                getConnectionTimeoutWithDefault(httpRequest.getConnectionTimeout()),
+                getReadTimeoutWithDefault(httpRequest.getReadTimeout()),
+                httpRequest.getProxyInfo());
 
         //4.创建请求内容，如果有的话
         if(httpUriRequest instanceof HttpEntityEnclosingRequest){
@@ -66,8 +71,8 @@ public class ApacheSmartHttpClient extends ApacheHttpClient implements SmartHttp
             SSLContext sslContext = null;
             //https默认设置这些
             if(ParamUtil.isHttps(completedUrl)){
-                hostnameVerifier = RequestSSLUtil.getHostnameVerifier(request , getHostnameVerifier());
-                sslContext = RequestSSLUtil.getSSLContext(request , getSSLContext());
+                hostnameVerifier = getHostnameVerifierWithDefault(httpRequest.getHostnameVerifier());
+                sslContext = getSSLContextWithDefault(httpRequest.getSslContext());
             }
             ////////////////////////////////////ssl处理///////////////////////////////////
 
@@ -77,13 +82,14 @@ public class ApacheSmartHttpClient extends ApacheHttpClient implements SmartHttp
             int statusCode = response.getStatusLine().getStatusCode();
             entity = response.getEntity();
 
-            InputStream inputStream = getStreamFrom(entity , request.isIgnoreResponseBody());
+            InputStream inputStream = getStreamFrom(entity , httpRequest.isIgnoreResponseBody());
 
-            R convert = resultCallback.convert(statusCode , inputStream, getResultCharsetWithDefault(request.getResultCharset()), parseHeaders(response , request.isIncludeHeaders()));
+            R convert = resultCallback.convert(statusCode , inputStream, getResultCharsetWithDefault(httpRequest.getResultCharset()), parseHeaders(response , httpRequest.isIncludeHeaders()));
 
             IoUtil.close(inputStream);
 
             return convert;
+
         } catch (IOException e) {
             throw e;
         } catch (Exception e){
@@ -96,19 +102,18 @@ public class ApacheSmartHttpClient extends ApacheHttpClient implements SmartHttp
     }
 
     @Override
-    public Response get(Request req) throws IOException {
-        Request request = beforeTemplate(req);
+    public Response get(HttpRequest req) throws IOException {
+        HttpRequest request = beforeTemplate(req);
         Response response = template(request , Method.GET , null , Response::with);
         return afterTemplate(request , response);
     }
 
     @Override
-    public Response post(Request req) throws IOException {
-        Request request = beforeTemplate(req);
-        String body = request.getBodyIfNullWithParams();
+    public Response post(StringBodyRequest req) throws IOException {
+        StringBodyRequest request = beforeTemplate(req);
+        String body = request.getBody();
         Response response = template(request, Method.POST ,
-                r -> setRequestBody(r, body, getBodyCharsetWithDefault(request.getBodyCharset())),
-                Response::with);
+                r -> setRequestBody(r, body, getBodyCharsetWithDefault(request.getBodyCharset())), Response::with);
         return afterTemplate(request , response);
     }
 
@@ -117,7 +122,7 @@ public class ApacheSmartHttpClient extends ApacheHttpClient implements SmartHttp
         Request request = beforeTemplate(req);
         ContentCallback<HttpEntityEnclosingRequest> contentCallback = null;
         if(method.hasContent()){
-            String body = request.getBodyIfNullWithParams();
+            String body = request.getBody();
             contentCallback = r -> setRequestBody(r, body, getBodyCharsetWithDefault(request.getBodyCharset()));
         }
         Response response = template(request, method , contentCallback, Response::with);
@@ -125,37 +130,30 @@ public class ApacheSmartHttpClient extends ApacheHttpClient implements SmartHttp
     }
 
     @Override
-    public byte[] getAsBytes(Request req) throws IOException {
-        Request request = beforeTemplate(req);
+    public byte[] getAsBytes(HttpRequest req) throws IOException {
+        HttpRequest request = beforeTemplate(req);
         return template(request , Method.GET , null , (s, b, r, h)-> IoUtil.stream2Bytes(b));
     }
 
     @Override
-    public File getAsFile(Request req) throws IOException {
-        Request request = beforeTemplate(req);
+    public File getAsFile(DownLoadRequest req) throws IOException {
+        DownLoadRequest request = beforeTemplate(req);
         return template(request , Method.GET, null , (s, b, r, h)-> IoUtil.copy2File(b, request.getFile()));
     }
 
     @Override
-    public Response upload(Request req) throws IOException {
-        Request request = beforeTemplate(req);
+    public Response upload(UploadRequest req) throws IOException {
+        UploadRequest request = beforeTemplate(req);
         Response response = template(request , Method.POST ,
                 r -> addFormFiles(r, request.getFormParams(), request.getFormFiles()) , Response::with);
         return afterTemplate(request , response);
     }
 
     @Override
-    public Response afterTemplate(Request request, Response response) throws IOException{
+    public Response afterTemplate(HttpRequest request, Response response) throws IOException{
         if(request.isRedirectable() && response.needRedirect()){
-            return get(Request.of(response.getRedirectUrl()));
+            return get(GetRequest.of(response.getRedirectUrl()));
         }
         return response;
     }
-
-
-    @Override
-    public String toString() {
-        return "impl httpclient interface SmartHttpClient with Apache httpclient";
-    }
 }
-

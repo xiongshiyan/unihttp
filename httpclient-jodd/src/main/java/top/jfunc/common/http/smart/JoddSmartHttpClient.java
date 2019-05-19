@@ -8,6 +8,10 @@ import top.jfunc.common.http.base.Config;
 import top.jfunc.common.http.base.ContentCallback;
 import top.jfunc.common.http.base.ResultCallback;
 import top.jfunc.common.http.basic.JoddHttpClient;
+import top.jfunc.common.http.request.DownLoadRequest;
+import top.jfunc.common.http.request.StringBodyRequest;
+import top.jfunc.common.http.request.UploadRequest;
+import top.jfunc.common.http.request.impl.GetRequest;
 import top.jfunc.common.utils.IoUtil;
 
 import java.io.File;
@@ -26,62 +30,63 @@ public class JoddSmartHttpClient extends JoddHttpClient implements SmartHttpClie
     }
 
     @Override
-    public <R> R template(Request request, Method method , ContentCallback<HttpRequest> contentCallback , ResultCallback<R> resultCallback) throws IOException {
+    public <R> R template(top.jfunc.common.http.request.HttpRequest httpRequest, Method method , ContentCallback<HttpRequest> contentCallback , ResultCallback<R> resultCallback) throws IOException {
         //1.获取完成的URL，创建请求
-        String completedUrl = handleUrlIfNecessary(request.getUrl() , request.getRouteParams() ,request.getQueryParams() , request.getBodyCharset());
+        String completedUrl = handleUrlIfNecessary(httpRequest.getUrl() , httpRequest.getRouteParams() ,httpRequest.getQueryParams() , httpRequest.getBodyCharset());
 
-        HttpRequest httpRequest = new HttpRequest();
-        httpRequest.method(method.name());
-        httpRequest.set(completedUrl);
+        HttpRequest request = new HttpRequest();
+        request.method(method.name());
+        request.set(completedUrl);
 
         //2.设置header
-        setRequestHeaders(httpRequest , request.getContentType() , mergeDefaultHeaders(request.getHeaders()));
+        setRequestHeaders(request , httpRequest.getContentType() , mergeDefaultHeaders(httpRequest.getHeaders()));
 
         //3.超时设置
-        httpRequest.connectionTimeout(getConnectionTimeoutWithDefault(request.getConnectionTimeout()));
-        httpRequest.timeout(getReadTimeoutWithDefault(request.getReadTimeout()));
+        request.connectionTimeout(getConnectionTimeoutWithDefault(httpRequest.getConnectionTimeout()));
+        request.timeout(getReadTimeoutWithDefault(httpRequest.getReadTimeout()));
 
         //4.SSL设置
-        initSSL(httpRequest , RequestSSLUtil.getHostnameVerifier(request , getHostnameVerifier()) ,
-                RequestSSLUtil.getSSLSocketFactory(request , getSSLSocketFactory()) ,
-                RequestSSLUtil.getX509TrustManager(request , getX509TrustManager()), request.getProxyInfo());
+        initSSL(request , getHostnameVerifierWithDefault(httpRequest.getHostnameVerifier()) ,
+                getSSLSocketFactoryWithDefault(httpRequest.getSslSocketFactory()) ,
+                getX509TrustManagerWithDefault(httpRequest.getX509TrustManager()),
+                httpRequest.getProxyInfo());
+
 
         //5.处理body
         if(contentCallback != null && method.hasContent()){
-            contentCallback.doWriteWith(httpRequest);
+            contentCallback.doWriteWith(request);
         }
 
         //6.子类可以复写
-        doWithHttpRequest(httpRequest);
+        doWithHttpRequest(request);
 
         //7.真正请求
-        HttpResponse response = httpRequest.send();
+        HttpResponse response = request.send();
 
         //8.返回处理
         return resultCallback.convert(response.statusCode() ,
-                getStreamFrom(response , request.isIgnoreResponseBody()),
-                getResultCharsetWithDefault(request.getResultCharset()) ,
-                parseHeaders(response , request.isIncludeHeaders()));
+                getStreamFrom(response , httpRequest.isIgnoreResponseBody()),
+                getResultCharsetWithDefault(httpRequest.getResultCharset()) ,
+                parseHeaders(response , httpRequest.isIncludeHeaders()));
     }
 
     @Override
-    public Response get(Request req) throws IOException {
-        Request request = beforeTemplate(req);
+    public Response get(top.jfunc.common.http.request.HttpRequest req) throws IOException {
+        top.jfunc.common.http.request.HttpRequest request = beforeTemplate(req);
         Response response = template(request , Method.GET , null , Response::with);
         return afterTemplate(request , response);
     }
 
     @Override
-    public Response post(Request req) throws IOException {
-        Request request = beforeTemplate(req);
-        String body = request.getBodyIfNullWithParams();
+    public Response post(StringBodyRequest req) throws IOException {
+        StringBodyRequest request = beforeTemplate(req);
+        String body = request.getBody();
         Response response = template(request, Method.POST,
                 httpRequest -> {
                     String bodyCharsetWithDefault = getBodyCharsetWithDefault(request.getBodyCharset());
                     String contentType = null == request.getContentType() ? HttpConstants.JSON + ";charset="+bodyCharsetWithDefault : request.getContentType();
                     httpRequest.body(body.getBytes(bodyCharsetWithDefault), contentType);
-                },
-                Response::with);
+                }, Response::with);
 
         return afterTemplate(request , response);
     }
@@ -91,7 +96,7 @@ public class JoddSmartHttpClient extends JoddHttpClient implements SmartHttpClie
         Request request = beforeTemplate(req);
         ContentCallback<HttpRequest> contentCallback = null;
         if(method.hasContent()){
-            String body = request.getBodyIfNullWithParams();
+            String body = request.getBody();
             contentCallback = httpRequest -> httpRequest.body(body.getBytes(getBodyCharsetWithDefault(request.getBodyCharset())), request.getContentType());
         }
         Response response = template(request, method , contentCallback, Response::with);
@@ -99,36 +104,30 @@ public class JoddSmartHttpClient extends JoddHttpClient implements SmartHttpClie
     }
 
     @Override
-    public byte[] getAsBytes(Request req) throws IOException {
-        Request request = beforeTemplate(req);
+    public byte[] getAsBytes(top.jfunc.common.http.request.HttpRequest req) throws IOException {
+        top.jfunc.common.http.request.HttpRequest request = beforeTemplate(req);
         return template(request , Method.GET , null , (s, b, r, h)-> IoUtil.stream2Bytes(b));
     }
 
     @Override
-    public File getAsFile(Request req) throws IOException {
-        Request request = beforeTemplate(req);
+    public File getAsFile(DownLoadRequest req) throws IOException {
+        DownLoadRequest request = beforeTemplate(req);
         return template(request , Method.GET, null , (s, b, r, h)-> IoUtil.copy2File(b, request.getFile()));
     }
 
     @Override
-    public Response upload(Request req) throws IOException {
-        Request request = beforeTemplate(req);
+    public Response upload(UploadRequest req) throws IOException {
+        UploadRequest request = beforeTemplate(req);
         Response response = template(request , Method.POST ,
                 r -> upload0(r, request.getFormParams(), request.getFormFiles()) , Response::with);
         return afterTemplate(request , response);
     }
 
     @Override
-    public Response afterTemplate(Request request, Response response) throws IOException{
+    public Response afterTemplate(top.jfunc.common.http.request.HttpRequest request, Response response) throws IOException{
         if(request.isRedirectable() && response.needRedirect()){
-            return get(Request.of(response.getRedirectUrl()));
+            return get(GetRequest.of(response.getRedirectUrl()));
         }
         return response;
-    }
-
-
-    @Override
-    public String toString() {
-        return "impl httpclient interface SmartHttpClient with jodd-http";
     }
 }

@@ -5,6 +5,7 @@ import top.jfunc.common.http.base.Config;
 import top.jfunc.common.http.base.ContentCallback;
 import top.jfunc.common.http.base.ResultCallback;
 import top.jfunc.common.http.base.FormFile;
+import top.jfunc.common.http.request.HttpRequest;
 import top.jfunc.common.utils.ArrayListMultimap;
 
 import java.io.IOException;
@@ -39,7 +40,7 @@ public class DemoImpl extends AbstractSmartHttpClient<Socket>{
     }
 
     @Override
-    public <R> R template(Request request, Method method, ContentCallback<Socket> contentCallback, ResultCallback<R> resultCallback) throws IOException {
+    public <R> R template(HttpRequest request, Method method, ContentCallback<Socket> contentCallback, ResultCallback<R> resultCallback) throws IOException {
         //实现具体Http请求
         return null;
     }

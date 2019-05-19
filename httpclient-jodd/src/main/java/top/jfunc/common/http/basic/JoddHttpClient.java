@@ -40,31 +40,31 @@ public class JoddHttpClient extends AbstractConfigurableHttp implements HttpTemp
     public <R> R template(String url, Method method, String contentType, ContentCallback<HttpRequest> contentCallback, ArrayListMultimap<String, String> headers, Integer connectTimeout, Integer readTimeout, String resultCharset, boolean includeHeaders, ResultCallback<R> resultCallback) throws IOException {
         //1.获取完成的URL，创建请求
         String completedUrl = addBaseUrlIfNecessary(url);
-        HttpRequest httpRequest = new HttpRequest();
-        httpRequest.method(method.name());
-        httpRequest.set(completedUrl);
+        HttpRequest request = new HttpRequest();
+        request.method(method.name());
+        request.set(completedUrl);
 
         //2.设置header
-        setRequestHeaders(httpRequest , contentType , mergeDefaultHeaders(headers));
+        setRequestHeaders(request , contentType , mergeDefaultHeaders(headers));
 
         //3.超时设置
-        httpRequest.connectionTimeout(getConnectionTimeoutWithDefault(connectTimeout));
-        httpRequest.timeout(getReadTimeoutWithDefault(readTimeout));
+        request.connectionTimeout(getConnectionTimeoutWithDefault(connectTimeout));
+        request.timeout(getReadTimeoutWithDefault(readTimeout));
 
 
         //4.SSL处理
-        initSSL(httpRequest , getHostnameVerifier() , getSSLSocketFactory() , getX509TrustManager() , null);
+        initSSL(request , getHostnameVerifier() , getSSLSocketFactory() , getX509TrustManager() , null);
 
         //5.处理body
         if(contentCallback != null && method.hasContent()){
-            contentCallback.doWriteWith(httpRequest);
+            contentCallback.doWriteWith(request);
         }
 
         //6.子类可以复写
-        doWithHttpRequest(httpRequest);
+        doWithHttpRequest(request);
 
         //7.真正请求
-        HttpResponse response = httpRequest.send();
+        HttpResponse response = request.send();
 
         //8.返回处理
         return resultCallback.convert(response.statusCode() ,
@@ -81,7 +81,8 @@ public class JoddHttpClient extends AbstractConfigurableHttp implements HttpTemp
 
     @Override
     public String post(String url, String body, String contentType, Map<String, String> headers, Integer connectTimeout, Integer readTimeout, String bodyCharset, String resultCharset) throws IOException {
-        return template(url, Method.POST, contentType, httpRequest -> {
+        return template(url, Method.POST, contentType,
+                httpRequest -> {
                     String type = null == contentType ? HttpConstants.JSON + ";charset="+bodyCharset : contentType;
                     httpRequest.body(body.getBytes(getBodyCharsetWithDefault(bodyCharset)), type);
                 },
@@ -231,11 +232,5 @@ public class JoddHttpClient extends AbstractConfigurableHttp implements HttpTemp
         public InputStream openInputStream() throws IOException {
             return this.formFile.getInStream();
         }
-    }
-
-
-    @Override
-    public String toString() {
-        return "impl httpclient interface HttpClient with jodd-http";
     }
 }
