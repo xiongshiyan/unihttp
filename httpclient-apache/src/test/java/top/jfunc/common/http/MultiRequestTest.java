@@ -12,8 +12,10 @@ import top.jfunc.common.http.request.StringBodyRequest;
 import top.jfunc.common.http.request.impl.FormBodyRequest;
 import top.jfunc.common.http.request.impl.GetRequest;
 import top.jfunc.common.http.request.impl.PostBodyRequest;
+import top.jfunc.common.http.smart.ApacheSmartHttpClient;
 import top.jfunc.common.http.smart.Request;
 import top.jfunc.common.http.smart.Response;
+import top.jfunc.common.http.smart.SmartHttpClient;
 
 import static org.mockserver.model.HttpRequest.request;
 import static org.mockserver.model.HttpResponse.response;
@@ -24,6 +26,8 @@ import static org.mockserver.model.HttpResponse.response;
 public class MultiRequestTest {
     @Rule
     public MockServerRule server = new MockServerRule(this, 50000);
+
+    private SmartHttpClient smartHttpClient = new ApacheSmartHttpClient();
 
     @Test
     public void testGet() throws Exception{
@@ -40,7 +44,7 @@ public class MultiRequestTest {
         );
 
         HttpRequest request = GetRequest.of("http://localhost:50000/hello/{name}").addRouteParam("name" , "John");
-        Response response = HttpUtil.get(request);
+        Response response = smartHttpClient.get(request);
         Assert.assertEquals(expected , response.asString());
     }
     @Test
@@ -61,7 +65,7 @@ public class MultiRequestTest {
 
         HttpRequest request = GetRequest.of("http://localhost:50000/hello/{name}")
                 .addRouteParam("name" , "John").addQueryParam("key1" , "value1").addQueryParam("key2" , "value2");
-        Response response = HttpUtil.get(request);
+        Response response = smartHttpClient.get(request);
         Assert.assertEquals(expected , response.asString());
     }
     @Test
@@ -79,7 +83,7 @@ public class MultiRequestTest {
         );
 
         StringBodyRequest request = PostBodyRequest.of("http://localhost:50000/hello/{name}").addRouteParam("name" , "John").setBody(expected);
-        Response response = HttpUtil.post(request);
+        Response response = smartHttpClient.post(request);
         Assert.assertEquals(expected , response.asString());
     }
     @Test
@@ -100,7 +104,7 @@ public class MultiRequestTest {
 
         StringBodyRequest request = FormBodyRequest.of("http://localhost:50000/hello/{name}").addRouteParam("name" , "John")
                 .addFormParam("key1" , "value1").addFormParam("key2" , "value2");
-        Response response = HttpUtil.post(request);
+        Response response = smartHttpClient.post(request);
         Assert.assertEquals(expected , response.asString());
     }
     @Test
@@ -118,7 +122,7 @@ public class MultiRequestTest {
 
         HttpRequest request = GetRequest.of("http://localhost:50000/hello/{name}").addRouteParam("name" , "John")
                 .addHeader("sale" , "2").addHeader("ca-xx" , "ca-xx").setIncludeHeaders(true);
-        Response response = HttpUtil.get(request);
+        Response response = smartHttpClient.get(request);
         Assert.assertEquals("xx" , response.getOneHeader("xx"));
     }
 }
