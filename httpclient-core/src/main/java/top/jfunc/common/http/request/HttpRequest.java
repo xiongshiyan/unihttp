@@ -11,20 +11,20 @@ import java.util.Map;
 
 /**
  * Http请求的基本定义
- * @since 1.0.5
+ * @since 1.1
  * @author xiongshiyan at 2019/5/18 , contact me with email yanshixiong@126.com or phone 15208384257
  */
 public interface HttpRequest {
     /**
-     * 默认结果包含headers
+     * 结果包含headers
      */
     boolean INCLUDE_HEADERS = true;
     /**
-     * 默认结果忽略body
+     * 结果忽略body
      */
     boolean IGNORE_RESPONSE_BODY = true;
     /**
-     * 默认支持重定向
+     * 支持重定向
      */
     boolean REDIRECTABLE = true;
 
