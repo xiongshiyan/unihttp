@@ -10,8 +10,8 @@ import top.jfunc.common.http.request.HttpRequest;
 import top.jfunc.common.http.request.StringBodyRequest;
 import top.jfunc.common.http.request.UploadRequest;
 import top.jfunc.common.http.request.impl.GetRequest;
-import top.jfunc.common.utils.ArrayListMultimap;
 import top.jfunc.common.utils.IoUtil;
+import top.jfunc.common.utils.MultiValueMap;
 
 import java.io.File;
 import java.io.IOException;
@@ -20,7 +20,7 @@ import java.io.IOException;
  * 实现者只需要实现HttpTemplate接口、处理POST Body、文件上传Body即可
  * @see SmartHttpClient
  * @see this#bodyContentCallback(String, String, String)
- * @see this#uploadContentCallback(ArrayListMultimap, FormFile[])
+ * @see this#uploadContentCallback(MultiValueMap, FormFile[])
  * @author xiongshiyan at 2019/5/8 , contact me with email yanshixiong@126.com or phone 15208384257
  */
 public abstract class AbstractSmartHttpClient<CC> extends AbstractHttpClient<CC> implements SmartHttpClient , SmartHttpTemplate<CC> {
