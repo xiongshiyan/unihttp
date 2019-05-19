@@ -24,7 +24,6 @@ import java.io.InputStream;
 import java.net.InetSocketAddress;
 import java.net.Proxy;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -135,9 +134,9 @@ public class JoddHttpClient extends AbstractConfigurableHttp implements HttpTemp
 
     protected void doWithHttpRequest(HttpRequest httpRequest){}
 
-    protected Map<String , List<String>> parseHeaders(HttpResponse response , boolean isIncludeHeaders) {
+    protected MultiValueMap<String , String> parseHeaders(HttpResponse response , boolean isIncludeHeaders) {
         if(!isIncludeHeaders){
-            return new HashMap<>(0);
+            return new ArrayListMultiValueMap<>(0);
         }
 
         Collection<String> headerNames = response.headerNames();
@@ -148,7 +147,7 @@ public class JoddHttpClient extends AbstractConfigurableHttp implements HttpTemp
                 arrayListMultimap.add(headerName , headerValue);
             }
         }
-        return arrayListMultimap.getMap();
+        return arrayListMultimap;
     }
 
     /**

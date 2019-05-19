@@ -12,8 +12,6 @@ import javax.net.ssl.SSLSocketFactory;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.ProtocolException;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -100,8 +98,11 @@ public class NativeHttpClient extends AbstractConfigurableHttp implements HttpTe
         }
     }
 
-    protected Map<String, List<String>> parseHeaders(HttpURLConnection connect, boolean includeHeaders) {
-        return includeHeaders ? connect.getHeaderFields() : new HashMap<>(0);
+    protected MultiValueMap<String , String> parseHeaders(HttpURLConnection connect, boolean includeHeaders) {
+        if(!includeHeaders){
+            return new ArrayListMultiValueMap<>(0);
+        }
+        return new ArrayListMultiValueMap<>(connect.getHeaderFields());
     }
 
     @Override
