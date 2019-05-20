@@ -13,12 +13,13 @@ import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.X509TrustManager;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
 /**
- * 基本请求参数实现:可用于无请求体如Get等的请求
+ * 基本请求参数实现
  * T泛型为了变种的setter返回this便于链式调用
  * @author xiongshiyan at 2019/5/18 , contact me with email yanshixiong@126.com or phone 15208384257
  */
@@ -109,7 +110,7 @@ public abstract class BaseRequest<T extends BaseRequest> implements HttpRequest 
     private X509TrustManager x509TrustManager = null;
 
     public BaseRequest(String url){this.url = url;}
-
+    public BaseRequest(URL url){this.url = url.toString();}
     public BaseRequest(){}
 
     /**
@@ -123,6 +124,10 @@ public abstract class BaseRequest<T extends BaseRequest> implements HttpRequest 
     /**************************变种的Setter*******************************/
     public T setUrl(String url) {
         this.url = url;
+        return myself();
+    }
+    public T setUrl(URL url) {
+        this.url = url.toString();
         return myself();
     }
 
