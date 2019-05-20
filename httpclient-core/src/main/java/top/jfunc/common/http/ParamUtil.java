@@ -8,7 +8,10 @@ import top.jfunc.common.utils.StrUtil;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
-import java.util.*;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Set;
 
 /**
  * @author xiongshiyan at 2017/12/11
@@ -68,7 +71,7 @@ public class ParamUtil {
 
         Set<Map.Entry<String, List<String>>> entries = multimap.getMap().entrySet();
 
-        return buildFrom(entries, valueCharset);
+        return contactIterable(entries, valueCharset);
     }
 
     /**
@@ -80,10 +83,18 @@ public class ParamUtil {
 
         Set<Map.Entry<String, List<String>>> entries = multiValueMap.entrySet();
 
-        return buildFrom(entries, valueCharset);
+        return contactIterable(entries, valueCharset);
     }
 
-    public static String buildFrom(Set<Map.Entry<String, List<String>>> entries, String valueCharset) {
+    /**
+     * key1=value1&key2=value2&key2=value3,如果value=null 或者 size=0 返回 ""
+     * @param entries Map.Entrys
+     */
+    public static String contactIterable(Iterable<Map.Entry<String, List<String>>> entries, String valueCharset) {
+        if(null == entries || !entries.iterator().hasNext()){
+            return "";
+        }
+
         StringBuilder params = new StringBuilder();
         for (Map.Entry<String, List<String>> entry : entries) {
             String key = entry.getKey();
