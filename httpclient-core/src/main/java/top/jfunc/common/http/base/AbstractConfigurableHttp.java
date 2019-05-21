@@ -1,6 +1,9 @@
 package top.jfunc.common.http.base;
 
+import top.jfunc.common.http.HeaderRegular;
 import top.jfunc.common.http.ParamUtil;
+import top.jfunc.common.utils.ArrayListMultiValueMap;
+import top.jfunc.common.utils.Joiner;
 import top.jfunc.common.utils.MultiValueMap;
 
 import javax.net.ssl.HostnameVerifier;
@@ -8,7 +11,12 @@ import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.X509TrustManager;
 import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.io.InputStream;
+import java.net.CookieHandler;
+import java.net.URI;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -27,6 +35,36 @@ public abstract class AbstractConfigurableHttp {
         this.config = Objects.requireNonNull(config);
         return this;
     }
+
+    protected List<String> getCookies(String completedUrl) throws IOException {
+        //
+        if(null != getCookieHandler()){
+            CookieHandler cookieHandler = getCookieHandler();
+            Map<String, List<String>> cookies = cookieHandler.get(URI.create(completedUrl), new HashMap<>(0));
+            if(null != cookies && !cookies.isEmpty()){
+                return cookies.get(HeaderRegular.COOKIE.toString());
+            }
+        }
+        return null;
+    }
+
+    protected boolean supportCookie(){
+        return null != getCookieHandler();
+    }
+
+    protected MultiValueMap<String, String> handleCookieIfNecessary(String completedUrl, MultiValueMap<String, String> headers) throws IOException {
+        if(supportCookie()){
+            List<String> cookies = getCookies(completedUrl);
+            if(null != cookies && !cookies.isEmpty()){
+                if(null == headers){
+                    headers = new ArrayListMultiValueMap<>();
+                }
+                headers.add(HeaderRegular.COOKIE.toString() , Joiner.on(";").join(cookies));
+            }
+        }
+        return headers;
+    }
+
     /**
      * 获取一个空的，防止空指针
      */
@@ -138,5 +176,9 @@ public abstract class AbstractConfigurableHttp {
         defaultHeaders.forEachKeyValue(headers::add);
 
         return headers;
+    }
+
+    public CookieHandler getCookieHandler(){
+        return getConfig().getCookieHandler();
     }
 }
