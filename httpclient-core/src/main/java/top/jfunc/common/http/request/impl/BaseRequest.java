@@ -19,11 +19,11 @@ import java.util.Map;
 import java.util.Objects;
 
 /**
- * 基本请求参数实现
+ * 基本请求参数实现:可用于无请求体如Get等的请求
  * T泛型为了变种的setter返回this便于链式调用
  * @author xiongshiyan at 2019/5/18 , contact me with email yanshixiong@126.com or phone 15208384257
  */
-public abstract class BaseRequest<T extends BaseRequest> implements HttpRequest {
+public class BaseRequest<T extends BaseRequest> implements HttpRequest {
     /**
      * 请求的URL
      */
