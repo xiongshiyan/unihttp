@@ -1,12 +1,14 @@
 package top.jfunc.common.http.base;
 
+import top.jfunc.common.http.MediaType;
+
 import java.io.*;
 
 /**
  * 上传文件表单数据
  * @author xiongshiyan
  */
-public class FormFile{
+public class FormFile {
     /**上传文件的数据 */
     private InputStream inStream;
     /**文件长度*/
@@ -16,7 +18,7 @@ public class FormFile{
     /**请求参数名称 */
     private String      parameterName;
     /**内容类型 */
-    private String      contentType = "application/octet-stream";
+    private String      contentType = MediaType.APPLICATIPON_OCTET_STREAM.toString();
 
     public FormFile(String filName, byte[] data, String parameterName, String contentType){
         this.inStream = new ByteArrayInputStream(data);
