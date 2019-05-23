@@ -251,4 +251,9 @@ public class JoddHttpClient extends AbstractConfigurableHttp implements HttpTemp
             return this.formFile.getInStream();
         }
     }
+
+    @Override
+    public String toString() {
+        return "HttpClient implemented by Jodd-http";
+    }
 }

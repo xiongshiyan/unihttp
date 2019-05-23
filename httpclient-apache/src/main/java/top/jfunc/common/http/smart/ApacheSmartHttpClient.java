@@ -180,4 +180,9 @@ public class ApacheSmartHttpClient extends ApacheHttpClient implements SmartHttp
         }
         return response;
     }
+
+    @Override
+    public String toString() {
+        return "SmartHttpClient implemented by Apache's httpcomponents";
+    }
 }

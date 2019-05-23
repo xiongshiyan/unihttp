@@ -374,4 +374,8 @@ public class NativeHttpClient extends AbstractConfigurableHttp implements HttpTe
 
 */
 
+    @Override
+    public String toString() {
+        return "HttpClient implemented by JDK's HttpURLConnection";
+    }
 }

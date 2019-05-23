@@ -369,4 +369,9 @@ public class ApacheHttpClient extends AbstractConfigurableHttp implements HttpTe
         }
         return arrayListMultimap;
     }
+
+    @Override
+    public String toString() {
+        return "HttpClient implemented by Apache's httpcomponents";
+    }
 }

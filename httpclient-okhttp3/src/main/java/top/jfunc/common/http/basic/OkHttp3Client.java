@@ -272,4 +272,9 @@ public class OkHttp3Client extends AbstractConfigurableHttp implements HttpTempl
             IoUtil.close(source);
         }
     }
+
+    @Override
+    public String toString() {
+        return "HttpClient implemented by square's OkHttp3";
+    }
 }

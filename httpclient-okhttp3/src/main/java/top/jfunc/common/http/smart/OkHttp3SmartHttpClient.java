@@ -182,4 +182,9 @@ public class OkHttp3SmartHttpClient extends OkHttp3Client implements SmartHttpCl
         }
         return response;
     }
+
+    @Override
+    public String toString() {
+        return "SmartHttpClient implemented by square's OkHttp3";
+    }
 }

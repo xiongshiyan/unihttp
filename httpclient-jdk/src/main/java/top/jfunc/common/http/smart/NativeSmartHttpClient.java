@@ -187,4 +187,9 @@ public class NativeSmartHttpClient extends NativeHttpClient implements SmartHttp
         }
         return response;
     }
+
+    @Override
+    public String toString() {
+        return "SmartHttpClient implemented by JDK's HttpURLConnection";
+    }
 }

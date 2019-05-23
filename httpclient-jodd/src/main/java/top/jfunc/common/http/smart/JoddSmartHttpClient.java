@@ -164,4 +164,10 @@ public class JoddSmartHttpClient extends JoddHttpClient implements SmartHttpClie
         }
         return response;
     }
+
+
+    @Override
+    public String toString() {
+        return "SmartHttpClient implemented by Jodd-http";
+    }
 }
