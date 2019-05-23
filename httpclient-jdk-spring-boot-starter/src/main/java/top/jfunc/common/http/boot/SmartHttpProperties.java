@@ -35,6 +35,14 @@ public class SmartHttpProperties {
      * 默认headers
      */
     private Map<String , String> defaultHeaders             = null;
+    /**
+     * 默认查询参数
+     */
+    private Map<String , String> defaultQueryParams         = null;
+    /**
+     * 代理设置
+     */
+    private Proxy proxy                                     = null;
 
     public String getBaseUrl() {
         return baseUrl;
@@ -82,5 +90,69 @@ public class SmartHttpProperties {
 
     public void setDefaultHeaders(Map<String, String> defaultHeaders) {
         this.defaultHeaders = defaultHeaders;
+    }
+
+    public Map<String, String> getDefaultQueryParams() {
+        return defaultQueryParams;
+    }
+
+    public void setDefaultQueryParams(Map<String, String> defaultQueryParams) {
+        this.defaultQueryParams = defaultQueryParams;
+    }
+
+    public Proxy getProxy() {
+        return proxy;
+    }
+
+    public void setProxy(Proxy proxy) {
+        this.proxy = proxy;
+    }
+
+    public static final class Proxy{
+        private String type = java.net.Proxy.Type.HTTP.name();
+        private String hostName;
+        private int port;
+        private String username;
+        private String password;
+
+        public String getType() {
+            return type;
+        }
+
+        public void setType(String type) {
+            this.type = type;
+        }
+
+        public String getHostName() {
+            return hostName;
+        }
+
+        public void setHostName(String hostName) {
+            this.hostName = hostName;
+        }
+
+        public int getPort() {
+            return port;
+        }
+
+        public void setPort(int port) {
+            this.port = port;
+        }
+
+        public String getUsername() {
+            return username;
+        }
+
+        public void setUsername(String username) {
+            this.username = username;
+        }
+
+        public String getPassword() {
+            return password;
+        }
+
+        public void setPassword(String password) {
+            this.password = password;
+        }
     }
 }
