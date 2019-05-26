@@ -9,6 +9,9 @@ dependencies{
     compile project(path: ":httpclient-apache")
     compile group: 'org.springframework.boot', name: 'spring-boot-configuration-processor', version: '1.5.7.RELEASE'
     compile group: 'org.springframework.boot', name: 'spring-boot-autoconfigure', version: '1.5.7.RELEASE'
+
+    // https://mvnrepository.com/artifact/org.mybatis.spring.boot/mybatis-spring-boot-starter
+    //compile group: 'org.mybatis.spring.boot', name: 'mybatis-spring-boot-starter', version: '2.0.1'
 }
 
 install {

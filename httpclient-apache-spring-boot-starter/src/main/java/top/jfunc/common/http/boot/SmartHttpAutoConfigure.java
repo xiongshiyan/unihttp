@@ -1,12 +1,26 @@
 package top.jfunc.common.http.boot;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.BeanFactory;
+import org.springframework.beans.factory.BeanFactoryAware;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.ResourceLoaderAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
+import org.springframework.context.annotation.ImportBeanDefinitionRegistrar;
+import org.springframework.core.io.ResourceLoader;
+import org.springframework.core.type.AnnotationMetadata;
+import top.jfunc.common.http.annotation.HttpService;
 import top.jfunc.common.http.base.Config;
 import top.jfunc.common.http.base.ProxyInfo;
+import top.jfunc.common.http.interfacing.JFuncHttp;
 import top.jfunc.common.http.smart.ApacheSmartHttpClient;
 import top.jfunc.common.http.smart.SmartHttpClient;
 
@@ -19,9 +33,10 @@ import java.net.Proxy;
 @Configuration
 @EnableConfigurationProperties(SmartHttpProperties.class)
 public class SmartHttpAutoConfigure {
+    private static final Logger logger = LoggerFactory.getLogger(SmartHttpAutoConfigure.class);
 
     @Autowired
-    SmartHttpProperties smartHttpProperties;
+    private SmartHttpProperties smartHttpProperties;
 
     @Bean(name = "smartHttpClient")
     @ConditionalOnMissingBean
@@ -57,5 +72,68 @@ public class SmartHttpAutoConfigure {
         smartHttpClient.setConfig(config);
 
         return smartHttpClient;
+    }
+
+
+
+    @org.springframework.context.annotation.Configuration
+    @Import({ AutoConfiguredHttpServiceScannerRegistrar.class })
+    @ConditionalOnMissingBean(HttpServiceFactoryBean.class)
+    public static class HttpServiceScannerRegistrarNotFoundConfiguration implements InitializingBean {
+        @Override
+        public void afterPropertiesSet() {
+            logger.debug("No {} found.", HttpServiceFactoryBean.class.getName());
+        }
+    }
+
+
+    public static class AutoConfiguredHttpServiceScannerRegistrar
+            implements BeanFactoryAware, ImportBeanDefinitionRegistrar, ResourceLoaderAware {
+
+        private BeanFactory beanFactory;
+
+        private ResourceLoader resourceLoader;
+
+        @Override
+        public void registerBeanDefinitions(AnnotationMetadata importingClassMetadata, BeanDefinitionRegistry registry) {
+
+            ///
+            /*if (!AutoConfigurationPackages.has(this.beanFactory)) {
+                logger.debug("Could not determine auto-configuration package, automatic mapper scanning disabled.");
+                return;
+            }
+
+            logger.debug("Searching for mappers annotated with @Mapper");
+
+            List<String> packages = AutoConfigurationPackages.get(this.beanFactory);
+            if (logger.isDebugEnabled()) {
+                packages.forEach(pkg -> logger.debug("Using auto-configuration base package '{}'", pkg));
+            }*/
+
+
+            JFuncHttp jfuncHttp = new JFuncHttp();
+            jfuncHttp.setSmartHttpClient(beanFactory.getBean(SmartHttpClient.class));
+
+            ClassPathHttpServiceScanner scanner = new ClassPathHttpServiceScanner(registry , jfuncHttp);
+            if (this.resourceLoader != null) {
+                scanner.setResourceLoader(this.resourceLoader);
+            }
+            //只扫描HttpService的
+            scanner.setAnnotationClass(HttpService.class);
+            scanner.registerFilters();
+            //从根目录下开始扫描
+            scanner.doScan("");
+
+        }
+
+        @Override
+        public void setBeanFactory(BeanFactory beanFactory) throws BeansException {
+            this.beanFactory = beanFactory;
+        }
+
+        @Override
+        public void setResourceLoader(ResourceLoader resourceLoader) {
+            this.resourceLoader = resourceLoader;
+        }
     }
 }
