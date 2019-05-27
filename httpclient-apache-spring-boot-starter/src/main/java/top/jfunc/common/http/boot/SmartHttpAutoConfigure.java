@@ -1,6 +1,8 @@
 package top.jfunc.common.http.boot;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,9 +20,18 @@ import java.net.Proxy;
 @Configuration
 @EnableConfigurationProperties(SmartHttpProperties.class)
 public class SmartHttpAutoConfigure {
+
+   /* @Bean
+    @ConfigurationProperties("spring.http.smart")
+    public SmartHttpProperties smartHttpProperties(){
+        return new SmartHttpProperties();
+    }*/
+   @Autowired
+   SmartHttpProperties smartHttpProperties;
+
     @Bean(name = "smartHttpClient")
     @ConditionalOnMissingBean
-    public SmartHttpClient smartHttpClient(SmartHttpProperties smartHttpProperties){
+    public SmartHttpClient smartHttpClient(){
         SmartHttpClient smartHttpClient = new ApacheSmartHttpClient();
 
         Config config = Config.defaultConfig();
