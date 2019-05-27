@@ -9,7 +9,7 @@ import java.util.Map;
  * @see top.jfunc.common.http.base.Config
  * @author xiongshiyan at 2019/5/10 , contact me with email yanshixiong@126.com or phone 15208384257
  */
-@ConfigurationProperties("spring.http.smart")
+@ConfigurationProperties("spring.smart.http")
 public class SmartHttpProperties {
     /**
      * BaseUrl,如果设置了就在正常传送的URL之前添加上
@@ -43,6 +43,10 @@ public class SmartHttpProperties {
      * 代理设置
      */
     private Proxy proxy                                     = null;
+    /**
+     * HttpService标注的Http接口的包名
+     */
+    private String[] httpServiceScanPackages;
 
     public String getBaseUrl() {
         return baseUrl;
@@ -106,6 +110,14 @@ public class SmartHttpProperties {
 
     public void setProxy(Proxy proxy) {
         this.proxy = proxy;
+    }
+
+    public String[] getHttpServiceScanPackages() {
+        return httpServiceScanPackages;
+    }
+
+    public void setHttpServiceScanPackages(String[] httpServiceScanPackages) {
+        this.httpServiceScanPackages = httpServiceScanPackages;
     }
 
     public static final class Proxy{

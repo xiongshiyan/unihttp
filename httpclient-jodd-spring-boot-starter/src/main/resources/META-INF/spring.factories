@@ -1,1 +1,1 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=top.jfunc.common.http.boot.SmartHttpAutoConfigure
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=top.jfunc.common.http.boot.SmartHttpAutoConfigure,top.jfunc.common.http.boot.HttpServiceScannerRegistrarNotFoundConfiguration
