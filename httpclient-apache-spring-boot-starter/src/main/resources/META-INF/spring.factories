@@ -1,1 +1,0 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=top.jfunc.common.http.boot.SmartHttpAutoConfigure
