@@ -9,7 +9,7 @@ import java.util.Map;
  * @see top.jfunc.common.http.base.Config
  * @author xiongshiyan at 2019/5/10 , contact me with email yanshixiong@126.com or phone 15208384257
  */
-@ConfigurationProperties(prefix = "spring.http.smart")
+@ConfigurationProperties("spring.http.smart")
 public class SmartHttpProperties {
     /**
      * BaseUrl,如果设置了就在正常传送的URL之前添加上
