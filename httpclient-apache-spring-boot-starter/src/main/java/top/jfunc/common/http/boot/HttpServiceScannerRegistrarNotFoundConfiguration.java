@@ -53,11 +53,6 @@ public class HttpServiceScannerRegistrarNotFoundConfiguration implements Initial
 
             //默认从根目录下开始扫描
             String[] packages = {""};
-            SmartHttpProperties smartHttpProperties = beanFactory.getBean(SmartHttpProperties.class);
-            if(null != smartHttpProperties.getHttpServiceScanPackages() && smartHttpProperties.getHttpServiceScanPackages().length>0){
-                //从配置的包名扫描
-                packages = smartHttpProperties.getHttpServiceScanPackages();
-            }
             scanner.doScan(packages);
 
         }
