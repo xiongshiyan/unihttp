@@ -66,7 +66,7 @@ public class JFuncHttp {
         synchronized (serviceMethodCache) {
             result = serviceMethodCache.get(method);
             if (result == null) {
-                result = ServiceMethodUtil.parseAnnotations(this , method);
+                result = new HttpServiceMethod(getSmartHttpClient() , method);
                 serviceMethodCache.put(method, result);
             }
         }

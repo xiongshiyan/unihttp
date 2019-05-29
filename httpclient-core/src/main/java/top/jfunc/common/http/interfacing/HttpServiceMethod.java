@@ -13,17 +13,18 @@ import java.io.IOException;
  */
 class HttpServiceMethod implements ServiceMethod<Object> {
     private final SmartHttpClient smartHttpClient;
-    private final RequestFactory httpRequestFactory;
+    private final java.lang.reflect.Method method;
 
-    public HttpServiceMethod(SmartHttpClient smartHttpClient, RequestFactory httpRequestFactory) {
+    public HttpServiceMethod(SmartHttpClient smartHttpClient, java.lang.reflect.Method method) {
         this.smartHttpClient = smartHttpClient;
-        this.httpRequestFactory = httpRequestFactory;
+        this.method = method;
     }
 
     @Override
     public Object invoke(Object[] args) throws IOException {
-        HttpRequest httpRequest = this.httpRequestFactory.httpRequest(args);
-        Method httpMethod = this.httpRequestFactory.getHttpMethod();
+        RequestFactory requestFactory = new HttpRequestFactory(method);
+        HttpRequest httpRequest = requestFactory.httpRequest(args);
+        Method httpMethod = requestFactory.getHttpMethod();
 
         if(Method.POST == httpMethod){
             if(httpRequest instanceof UploadRequest){
