@@ -27,8 +27,7 @@ public class ClassPathHttpServiceScanner extends ClassPathBeanDefinitionScanner 
   private static final Logger LOGGER = LoggerFactory.getLogger(ClassPathHttpServiceScanner.class);
 
   private JFuncHttp jFuncHttp;
-
-    private Class<? extends Annotation> annotationClass;
+  private Class<? extends Annotation> annotationClass;
 
   public ClassPathHttpServiceScanner(BeanDefinitionRegistry registry , JFuncHttp jFuncHttp) {
     super(registry, false);

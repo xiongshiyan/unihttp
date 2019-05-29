@@ -6,13 +6,8 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import top.jfunc.common.http.base.Config;
-import top.jfunc.common.http.base.ProxyInfo;
 import top.jfunc.common.http.smart.JoddSmartHttpClient;
 import top.jfunc.common.http.smart.SmartHttpClient;
-
-import java.net.InetSocketAddress;
-import java.net.Proxy;
 
 /**
  * @author xiongshiyan at 2019/5/10 , contact me with email yanshixiong@126.com or phone 15208384257
@@ -26,33 +21,7 @@ public class SmartHttpAutoConfigure {
     public SmartHttpClient smartHttpClient(@Autowired SmartHttpProperties smartHttpProperties){
         SmartHttpClient smartHttpClient = new JoddSmartHttpClient();
 
-        Config config = Config.defaultConfig();
-        if(null != smartHttpProperties.getBaseUrl()){
-            config.setBaseUrl(smartHttpProperties.getBaseUrl());
-        }
-        config.setDefaultConnectionTimeout(smartHttpProperties.getDefaultConnectionTimeout());
-        config.setDefaultReadTimeout(smartHttpProperties.getDefaultReadTimeout());
-        config.setDefaultBodyCharset(smartHttpProperties.getDefaultBodyCharset());
-        config.setDefaultResultCharset(smartHttpProperties.getDefaultResultCharset());
-
-        if(null != smartHttpProperties.getDefaultHeaders()){
-            config.setDefaultHeaders(smartHttpProperties.getDefaultHeaders());
-        }
-        if(null != smartHttpProperties.getDefaultQueryParams()){
-            config.setDefaultQueryParams(smartHttpProperties.getDefaultQueryParams());
-        }
-        SmartHttpProperties.Proxy propertiesProxy = smartHttpProperties.getProxy();
-        if(null != propertiesProxy){
-
-            InetSocketAddress inetSocketAddress = new InetSocketAddress(
-                    propertiesProxy.getHostName(), propertiesProxy.getPort());
-            Proxy.Type type = Proxy.Type.valueOf(propertiesProxy.getType());
-
-            config.setProxyInfo(ProxyInfo.of(new Proxy(type,inetSocketAddress),
-                    propertiesProxy.getUsername() , propertiesProxy.getPassword()));
-        }
-
-        smartHttpClient.setConfig(config);
+        SmartHttpAutoConfigureUtil.configSmartHttpClient(smartHttpClient , smartHttpProperties);
 
         return smartHttpClient;
     }

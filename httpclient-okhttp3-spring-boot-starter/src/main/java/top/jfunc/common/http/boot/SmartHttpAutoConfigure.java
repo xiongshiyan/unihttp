@@ -26,33 +26,7 @@ public class SmartHttpAutoConfigure {
     public SmartHttpClient smartHttpClient(@Autowired SmartHttpProperties smartHttpProperties){
         SmartHttpClient smartHttpClient = new OkHttp3SmartHttpClient();
 
-        Config config = Config.defaultConfig();
-        if(null != smartHttpProperties.getBaseUrl()){
-            config.setBaseUrl(smartHttpProperties.getBaseUrl());
-        }
-        config.setDefaultConnectionTimeout(smartHttpProperties.getDefaultConnectionTimeout());
-        config.setDefaultReadTimeout(smartHttpProperties.getDefaultReadTimeout());
-        config.setDefaultBodyCharset(smartHttpProperties.getDefaultBodyCharset());
-        config.setDefaultResultCharset(smartHttpProperties.getDefaultResultCharset());
-
-        if(null != smartHttpProperties.getDefaultHeaders()){
-            config.setDefaultHeaders(smartHttpProperties.getDefaultHeaders());
-        }
-        if(null != smartHttpProperties.getDefaultQueryParams()){
-            config.setDefaultQueryParams(smartHttpProperties.getDefaultQueryParams());
-        }
-        SmartHttpProperties.Proxy propertiesProxy = smartHttpProperties.getProxy();
-        if(null != propertiesProxy){
-
-            InetSocketAddress inetSocketAddress = new InetSocketAddress(
-                    propertiesProxy.getHostName(), propertiesProxy.getPort());
-            Proxy.Type type = Proxy.Type.valueOf(propertiesProxy.getType());
-            
-            config.setProxyInfo(ProxyInfo.of(new Proxy(type,inetSocketAddress),
-                    propertiesProxy.getUsername() , propertiesProxy.getPassword()));
-        }
-
-        smartHttpClient.setConfig(config);
+        SmartHttpAutoConfigureUtil.configSmartHttpClient(smartHttpClient , smartHttpProperties);
 
         return smartHttpClient;
     }

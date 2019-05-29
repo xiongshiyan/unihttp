@@ -43,10 +43,6 @@ public class SmartHttpProperties {
      * 代理设置
      */
     private Proxy proxy                                     = null;
-    /**
-     * HttpService标注的Http接口的包名
-     */
-    private String[] httpServiceScanPackages;
 
     public String getBaseUrl() {
         return baseUrl;
@@ -110,14 +106,6 @@ public class SmartHttpProperties {
 
     public void setProxy(Proxy proxy) {
         this.proxy = proxy;
-    }
-
-    public String[] getHttpServiceScanPackages() {
-        return httpServiceScanPackages;
-    }
-
-    public void setHttpServiceScanPackages(String[] httpServiceScanPackages) {
-        this.httpServiceScanPackages = httpServiceScanPackages;
     }
 
     public static final class Proxy{
