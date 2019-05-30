@@ -4,8 +4,9 @@ import org.springframework.beans.factory.FactoryBean;
 import top.jfunc.common.http.interfacing.HttpServiceCreator;
 
 /**
- * 用于通过jFuncHttp生成HttpService接口的代理类
- * @param <T>
+ * 用于通过HttpServiceCreator生成HttpService接口的代理类
+ * @see HttpServiceCreator
+ * @param <T> HttpService标注的接口
  * @author xiongshiyan
  */
 public class HttpServiceFactoryBean<T> implements FactoryBean<T>{

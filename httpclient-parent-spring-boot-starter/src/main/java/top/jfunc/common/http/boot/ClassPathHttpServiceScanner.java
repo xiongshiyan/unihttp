@@ -62,7 +62,7 @@ public class ClassPathHttpServiceScanner extends ClassPathBeanDefinitionScanner 
   /**
    * Calls the parent search that will search and register all the candidates.
    * Then the registered objects are post processed to set them as
-   * MapperFactoryBeans
+   * HttpServiceFactoryBeans
    */
   @Override
   public Set<BeanDefinitionHolder> doScan(String... basePackages) {
@@ -82,8 +82,8 @@ public class ClassPathHttpServiceScanner extends ClassPathBeanDefinitionScanner 
     for (BeanDefinitionHolder holder : beanDefinitions) {
         definition = (GenericBeanDefinition) holder.getBeanDefinition();
         String beanClassName = definition.getBeanClassName();
-        LOGGER.debug("Creating MapperFactoryBean with name '" + holder.getBeanName()
-                + "' and '" + beanClassName + "' mapperInterface");
+        LOGGER.debug("Creating HttpServiceFactoryBean with name '" + holder.getBeanName()
+                + "' and '" + beanClassName + "' HttpServiceInterface");
 
         // the mapper interface is the original class of the bean
         // but, the actual class of the bean is MapperFactoryBean

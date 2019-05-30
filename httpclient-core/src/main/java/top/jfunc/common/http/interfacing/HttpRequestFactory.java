@@ -37,6 +37,10 @@ class HttpRequestFactory implements RequestFactory {
      */
     private static final Pattern PARAM_URL_REGEX = Pattern.compile("\\{(" + PARAM + ")\\}");
     private static final Pattern PARAM_NAME_REGEX = Pattern.compile(PARAM);
+    /**
+     * 传入的方法
+     */
+    private java.lang.reflect.Method method;
 
     /**
      * 通过method计算获取请求方法
@@ -44,35 +48,41 @@ class HttpRequestFactory implements RequestFactory {
     private Method httpMethod;
 
     /**
-     * 传入的方法
-     */
-    private java.lang.reflect.Method method;
-
-
-    /**
-     * 方法上的注解
-     */
-    private final Annotation[] methodAnnotations;
-    /**
-     * 参数类型
-     */
-    private final Type[] parameterTypes;
-    /**
-     * 参数上的注解
-     */
-    private final Annotation[][] parameterAnnotationsArray;
-
-    /**
-     * 参数处理器
+     * 参数对应的处理器
      */
     private final AbstractParameterHandler<?>[] parameterHandlers;
 
-    private boolean multiPart = false;
+    /**
+     * 是否有Body
+     * @see POST
+     * @see GET
+     */
     private boolean hasBody = false;
+    /**
+     * 是否是文件上传
+     * @see Multipart
+     */
+    private boolean multiPart = false;
+    /**
+     * 是否是FormUrlEncoded
+     * @see FormUrlEncoded
+     */
     private boolean formEncoded = false;
+    /**
+     * Content-Type
+     */
     private MediaType contentType;
+    /**
+     * <code>@Headers</code> 注解添加的header
+     */
     private MultiValueMap<String , String> headers;
+    /**
+     * 请求的相对URL
+     */
     private String relativeUrl;
+    /**
+     * 路径参数名称集合
+     */
     private Set<String> relativeUrlParamNames;
 
     private boolean gotField;
@@ -86,12 +96,8 @@ class HttpRequestFactory implements RequestFactory {
     public HttpRequestFactory(java.lang.reflect.Method method) {
         this.method = method;
 
-        this.methodAnnotations = method.getAnnotations();
-        this.parameterTypes = method.getGenericParameterTypes();
-        this.parameterAnnotationsArray = method.getParameterAnnotations();
-
-
-        for (Annotation annotation : methodAnnotations) {
+        //处理方法上的注解
+        for (Annotation annotation : method.getAnnotations()) {
             parseMethodAnnotation(annotation);
         }
 
@@ -110,6 +116,10 @@ class HttpRequestFactory implements RequestFactory {
             }
         }
 
+        //方法参数类型
+        Type[] parameterTypes = method.getGenericParameterTypes();
+        //方法参数的注解
+        Annotation[][] parameterAnnotationsArray = method.getParameterAnnotations();
 
         int parameterCount = parameterAnnotationsArray.length;
         parameterHandlers = new AbstractParameterHandler<?>[parameterCount];
@@ -185,15 +195,9 @@ class HttpRequestFactory implements RequestFactory {
             httpRequest = CommonRequest.of(relativeUrl);
         }
 
-        /**
-         * 文件上传
-         */
         if(multiPart){
             httpRequest = FileParamUploadRequest.of(relativeUrl);
         }
-        /**
-         * form表单上传
-         */
         if (formEncoded){
             httpRequest = FormBodyRequest.of(relativeUrl);
         }
@@ -240,7 +244,7 @@ class HttpRequestFactory implements RequestFactory {
 
                 if (result != null) {
                     throw parameterError(method, pos,
-                            "Multiple jfunc annotations found, only one allowed.");
+                            "Multiple HttpService annotations found, only one allowed.");
                 }
 
                 result = annotationAction;
@@ -248,7 +252,7 @@ class HttpRequestFactory implements RequestFactory {
         }
 
         if (result == null) {
-            throw parameterError(method, pos, "No jfunc annotation found.");
+            throw parameterError(method, pos, "No HttpService annotation found.");
         }
 
         return result;
@@ -432,7 +436,8 @@ class HttpRequestFactory implements RequestFactory {
             return new AbstractParameterHandler.Body();
         }
 
-        return null; // Not a Retrofit annotation.
+        // Not a HttpService annotation.
+        return null;
     }
 
     private void validateResolvableType(int p, Type type) {

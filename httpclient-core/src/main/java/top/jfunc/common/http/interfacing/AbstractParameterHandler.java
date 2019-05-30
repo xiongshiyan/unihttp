@@ -13,6 +13,18 @@ import java.util.Objects;
 
 /**
  * 参数处理器定义及对应注解的实现
+ * @see Header
+ * @see HeaderMap
+ * @see Query
+ * @see QueryMap
+ * @see Route
+ * @see RouteMap
+ * @see Part
+ * @see Field
+ * @see FieldMap
+ * @see Body
+ * @see Url
+ *
  * @author xiongshiyan at 2019/5/24 , contact me with email yanshixiong@126.com or phone 15208384257
  */
 abstract class AbstractParameterHandler<P>{
