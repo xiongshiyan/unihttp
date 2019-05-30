@@ -1,7 +1,7 @@
 package top.jfunc.common.http.interfacing;
 
 import top.jfunc.common.http.base.FormFile;
-import top.jfunc.common.http.request.ChangeableStringBodyRequest;
+import top.jfunc.common.http.request.MutableStringBodyRequest;
 import top.jfunc.common.http.request.FormRequest;
 import top.jfunc.common.http.request.HttpRequest;
 import top.jfunc.common.http.request.UploadRequest;
@@ -215,7 +215,7 @@ abstract class AbstractParameterHandler<P>{
             if (value == null) {
                 return; // Skip null values.
             }
-            ((ChangeableStringBodyRequest)httpRequest).setBody(value);
+            ((MutableStringBodyRequest)httpRequest).setBody(value);
         }
     }
     /**
