@@ -42,6 +42,8 @@ public class CommonBodyRequest extends BaseRequest<CommonBodyRequest> implements
         this.body = body;
         return this;
     }
+
+    @Override
     public CommonBodyRequest setBody(String body , String contentType) {
         this.body = body;
         setContentType(contentType);

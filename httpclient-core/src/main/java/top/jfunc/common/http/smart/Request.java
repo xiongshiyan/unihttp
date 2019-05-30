@@ -193,6 +193,7 @@ public class Request extends BaseRequest<Request> implements MutableStringBodyRe
      * 设置body的同时设置Content-Type
      * @see MediaType
      */
+    @Override
     public Request setBody(String body , String contentType) {
         this.body = body;
         setContentType(contentType);

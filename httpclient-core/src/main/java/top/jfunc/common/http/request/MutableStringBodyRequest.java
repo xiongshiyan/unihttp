@@ -10,4 +10,12 @@ public interface MutableStringBodyRequest extends StringBodyRequest {
      * @return this
      */
     MutableStringBodyRequest setBody(String body);
+
+    /**
+     * 设置请求体
+     * @param body body
+     * @param contentType Content-Type
+     * @return this
+     */
+    MutableStringBodyRequest setBody(String body , String contentType);
 }
