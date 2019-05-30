@@ -5,6 +5,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import top.jfunc.common.http.interfacing.HttpServiceCreator;
 import top.jfunc.common.http.smart.ApacheSmartHttpClient;
 import top.jfunc.common.http.smart.SmartHttpClient;
 
@@ -24,4 +25,12 @@ public class SmartHttpAutoConfigure {
 
         return smartHttpClient;
     }
+
+    @Bean(name = "httpServiceCreator")
+    @ConditionalOnMissingBean
+    public HttpServiceCreator httpServiceCreator(@Autowired SmartHttpClient smartHttpClient){
+        return new HttpServiceCreator().setSmartHttpClient(smartHttpClient);
+    }
+
+
 }

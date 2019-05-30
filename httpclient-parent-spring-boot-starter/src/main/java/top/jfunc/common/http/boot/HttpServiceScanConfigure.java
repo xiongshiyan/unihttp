@@ -33,6 +33,17 @@ public class HttpServiceScanConfigure implements BeanDefinitionRegistryPostProce
         this.httpServiceCreator = httpServiceCreator;
     }
 
+    public HttpServiceScanConfigure() {
+    }
+
+    public HttpServiceCreator getHttpServiceCreator() {
+        return httpServiceCreator;
+    }
+
+    public void setHttpServiceCreator(HttpServiceCreator httpServiceCreator) {
+        this.httpServiceCreator = httpServiceCreator;
+    }
+
     public String[] getScanPackages() {
         return scanPackages;
     }
