@@ -71,6 +71,7 @@ HttpRequest接口体系，使用这些请求类意义更明确：
 - [x] `HttpUtil`提供的静态方法完全代理`SmartHttpClient`接口，实现一句话完成Http请求
 - [x] 从1.1.1版本开始Request分裂为表达每种请求的不同Request
 - [x] 从1.1.1版本开始支持基于CookieHandler的Cookie支持,在全局设置中设置CookieHandler即可
+- [x] 从1.1.2版本开始类似Retrofit、MyBatis-Mapper的接口使用方式
 - [ ] 文件上传支持断点续传
 
 ### how to import it?
@@ -129,10 +130,12 @@ SpringBoot环境下更简单，引入相应的starter即可，就可以直接使
 1. 可以使用HttpUtil获取一个实现(基于ServiceLoader加载)，或者自己实例化一个；
 2. 在SpringBoot项目中，用Bean注入；
 3. HttpUtil实现了对接口SmartHttpClient的完全静态化代理，一句话实现Http请求。
+4. 定义接口并标注HttpService注解，配置后直接注入接口即可（类似Retrofit、Mapper）
 
 ```
 @Configuration
 public class HttpConfig {
+
     @Bean("smartHttpClient")
     public SmartHttpClient smartHttpClient(){
         //如果要更换http的实现或者做更多的事情，可以对此bean进行配置
@@ -143,6 +146,20 @@ public class HttpConfig {
         };
         smartHttpClient.setConfig(Config.defaultConfig()...);//设置baseUrl...
         retrun smartHttpClient;
+    }
+    
+    
+    //以下配置可以扫描 top.jfunc.network.controller.client 包下的标注 @HttpService 注解的接口
+    @Bean
+    public HttpServiceCreator httpServiceCreator(SmartHttpClient smartHttpClient){
+        return new HttpServiceCreator().setSmartHttpClient(smartHttpClient);
+    }
+    @Bean
+    public HttpServiceScanConfigure httpServiceScanConfigure(){
+        HttpServiceScanConfigure httpServiceScanConfigure = new HttpServiceScanConfigure(jFuncHttp(smartHttpClient()));
+        httpServiceScanConfigure.setAnnotationClassScan(HttpService.class);
+        httpServiceScanConfigure.setScanPackages("top.jfunc.network.controller.client");
+        return httpServiceScanConfigure;
     }
 }
 ```
@@ -237,6 +254,60 @@ http.setConfig(Config.defaultConfig()
     //.....
    );
 ```
+
+在配置HttpService接口扫描之后，定义如下一样的接口
+```java
+
+@HttpService
+public interface InterfaceForTestHttpService {
+
+    @GET
+    Response request(HttpRequest httpRequest);
+
+    @GET("/get/{q}")
+    Response list(@Path("q") String q, @Query("xx") int xx);
+    @GET("/get/query")
+    Response queryMap(@QueryMap Map<String, String> map);
+    @GET
+    Response url(@Url String url);
+
+    @GET("get/query")
+    Response header(@Header("naked") String naked);
+
+    @Headers({"xx:xiongshiyan","yy:xsy"})
+    @GET("get/query")
+    Response headers(@Header("naked") String naked);
+
+    @GET("get/query")
+    Response headerMap(@HeaderMap Map<String, String> map);
+
+
+
+    @GET("/get/query")
+    Response download();
+
+    @POST("/post/{id}")
+    Response post(@Path("id") String id, @Body String xx);
+
+    @Multipart
+    @POST("/upload/only")
+    Response upload(@Part FormFile... formFiles);
+    @Multipart
+    @POST("/upload/withParam")
+    Response uploadWithParam(@Part("name") String name, @Part("age") int age, @Part FormFile... formFiles);
+
+    @FormUrlEncoded
+    @POST("/post/form")
+    Response form(@Field("name") String name, @Field("age") int age);
+    @FormUrlEncoded
+    @POST("/post/form")
+    Response formMap(@FieldMap Map<String, String> params);
+}
+
+
+```
+
+
 
 更多用法等待你探索，本人才疏学浅，难免有考虑不周到的地方，请不吝赐教。
 

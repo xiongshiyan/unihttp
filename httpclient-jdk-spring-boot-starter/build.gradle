@@ -7,8 +7,7 @@ def REPO_NAME = 'network'
 
 dependencies{
     compile project(path: ":httpclient-jdk")
-    compile group: 'org.springframework.boot', name: 'spring-boot-configuration-processor', version: '1.5.7.RELEASE'
-    compile group: 'org.springframework.boot', name: 'spring-boot-autoconfigure', version: '1.5.7.RELEASE'
+    compile project(path: ":httpclient-parent-spring-boot-starter")
 }
 
 install {
