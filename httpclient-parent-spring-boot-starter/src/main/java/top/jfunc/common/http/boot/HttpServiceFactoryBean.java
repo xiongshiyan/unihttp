@@ -1,7 +1,7 @@
 package top.jfunc.common.http.boot;
 
 import org.springframework.beans.factory.FactoryBean;
-import top.jfunc.common.http.interfacing.JFuncHttp;
+import top.jfunc.common.http.interfacing.HttpServiceCreator;
 
 /**
  * 用于通过jFuncHttp生成HttpService接口的代理类
@@ -9,25 +9,25 @@ import top.jfunc.common.http.interfacing.JFuncHttp;
  * @author xiongshiyan
  */
 public class HttpServiceFactoryBean<T> implements FactoryBean<T>{
-    private Class<T> c;
-    private JFuncHttp jFuncHttp;
+    private Class<T> interfaceClass;
+    private HttpServiceCreator httpServiceCreator;
 
     public HttpServiceFactoryBean() {
     }
 
-    public HttpServiceFactoryBean(JFuncHttp jFuncHttp , Class<T> c) {
-        this.jFuncHttp = jFuncHttp;
-        this.c = c;
+    public HttpServiceFactoryBean(HttpServiceCreator httpServiceCreator, Class<T> interfaceClass) {
+        this.httpServiceCreator = httpServiceCreator;
+        this.interfaceClass = interfaceClass;
     }
 
     @Override
     public T getObject() throws Exception {
-        return jFuncHttp.create(c);
+        return httpServiceCreator.create(interfaceClass);
     }
 
     @Override
     public Class<?> getObjectType() {
-        return c;
+        return interfaceClass;
     }
 
     @Override
@@ -35,19 +35,19 @@ public class HttpServiceFactoryBean<T> implements FactoryBean<T>{
         return true;
     }
 
-    public Class<T> getC() {
-        return c;
+    public Class<T> getInterfaceClass() {
+        return interfaceClass;
     }
 
-    public void setC(Class<T> c) {
-        this.c = c;
+    public void setInterfaceClass(Class<T> interfaceClass) {
+        this.interfaceClass = interfaceClass;
     }
 
-    public JFuncHttp getjFuncHttp() {
-        return jFuncHttp;
+    public HttpServiceCreator getHttpServiceCreator() {
+        return httpServiceCreator;
     }
 
-    public void setjFuncHttp(JFuncHttp jFuncHttp) {
-        this.jFuncHttp = jFuncHttp;
+    public void setHttpServiceCreator(HttpServiceCreator httpServiceCreator) {
+        this.httpServiceCreator = httpServiceCreator;
     }
 }

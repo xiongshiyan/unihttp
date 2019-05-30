@@ -10,7 +10,7 @@ import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.beans.factory.support.GenericBeanDefinition;
 import org.springframework.context.annotation.ClassPathBeanDefinitionScanner;
 import org.springframework.core.type.filter.AnnotationTypeFilter;
-import top.jfunc.common.http.interfacing.JFuncHttp;
+import top.jfunc.common.http.interfacing.HttpServiceCreator;
 
 import java.lang.annotation.Annotation;
 import java.util.Arrays;
@@ -26,12 +26,12 @@ public class ClassPathHttpServiceScanner extends ClassPathBeanDefinitionScanner 
 
   private static final Logger LOGGER = LoggerFactory.getLogger(ClassPathHttpServiceScanner.class);
 
-  private JFuncHttp jFuncHttp;
+  private HttpServiceCreator httpServiceCreator;
   private Class<? extends Annotation> annotationClass;
 
-  public ClassPathHttpServiceScanner(BeanDefinitionRegistry registry , JFuncHttp jFuncHttp) {
+  public ClassPathHttpServiceScanner(BeanDefinitionRegistry registry , HttpServiceCreator httpServiceCreator) {
     super(registry, false);
-    this.jFuncHttp = jFuncHttp;
+    this.httpServiceCreator = httpServiceCreator;
   }
 
     public Class<? extends Annotation> getAnnotationClass() {
@@ -88,7 +88,7 @@ public class ClassPathHttpServiceScanner extends ClassPathBeanDefinitionScanner 
         // the mapper interface is the original class of the bean
         // but, the actual class of the bean is MapperFactoryBean
         ConstructorArgumentValues constructorArgumentValues = definition.getConstructorArgumentValues();
-        constructorArgumentValues.addIndexedArgumentValue(0, jFuncHttp);
+        constructorArgumentValues.addIndexedArgumentValue(0, httpServiceCreator);
         constructorArgumentValues.addIndexedArgumentValue(1, beanClassName);
         definition.setBeanClass(HttpServiceFactoryBean.class);
 

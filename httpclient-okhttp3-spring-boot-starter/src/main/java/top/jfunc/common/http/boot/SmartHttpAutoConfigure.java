@@ -6,13 +6,8 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import top.jfunc.common.http.base.Config;
-import top.jfunc.common.http.base.ProxyInfo;
 import top.jfunc.common.http.smart.OkHttp3SmartHttpClient;
 import top.jfunc.common.http.smart.SmartHttpClient;
-
-import java.net.InetSocketAddress;
-import java.net.Proxy;
 
 /**
  * @author xiongshiyan at 2019/5/10 , contact me with email yanshixiong@126.com or phone 15208384257

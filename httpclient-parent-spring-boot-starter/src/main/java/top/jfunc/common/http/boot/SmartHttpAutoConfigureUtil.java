@@ -13,23 +13,23 @@ import java.net.Proxy;
 public class SmartHttpAutoConfigureUtil {
     private SmartHttpAutoConfigureUtil(){}
 
-    public static void configSmartHttpClient(SmartHttpClient smartHttpClient , SmartHttpProperties smartHttpProperties){
+    public static void configSmartHttpClient(SmartHttpClient smartHttpClient , SmartHttpConfig smartHttpConfig){
         Config config = Config.defaultConfig();
-        if(null != smartHttpProperties.getBaseUrl()){
-            config.setBaseUrl(smartHttpProperties.getBaseUrl());
+        if(null != smartHttpConfig.getBaseUrl()){
+            config.setBaseUrl(smartHttpConfig.getBaseUrl());
         }
-        config.setDefaultConnectionTimeout(smartHttpProperties.getDefaultConnectionTimeout());
-        config.setDefaultReadTimeout(smartHttpProperties.getDefaultReadTimeout());
-        config.setDefaultBodyCharset(smartHttpProperties.getDefaultBodyCharset());
-        config.setDefaultResultCharset(smartHttpProperties.getDefaultResultCharset());
+        config.setDefaultConnectionTimeout(smartHttpConfig.getDefaultConnectionTimeout());
+        config.setDefaultReadTimeout(smartHttpConfig.getDefaultReadTimeout());
+        config.setDefaultBodyCharset(smartHttpConfig.getDefaultBodyCharset());
+        config.setDefaultResultCharset(smartHttpConfig.getDefaultResultCharset());
 
-        if(null != smartHttpProperties.getDefaultHeaders()){
-            config.setDefaultHeaders(smartHttpProperties.getDefaultHeaders());
+        if(null != smartHttpConfig.getDefaultHeaders()){
+            config.setDefaultHeaders(smartHttpConfig.getDefaultHeaders());
         }
-        if(null != smartHttpProperties.getDefaultQueryParams()){
-            config.setDefaultQueryParams(smartHttpProperties.getDefaultQueryParams());
+        if(null != smartHttpConfig.getDefaultQueryParams()){
+            config.setDefaultQueryParams(smartHttpConfig.getDefaultQueryParams());
         }
-        SmartHttpProperties.Proxy propertiesProxy = smartHttpProperties.getProxy();
+        SmartHttpConfig.Proxy propertiesProxy = smartHttpConfig.getProxy();
         if(null != propertiesProxy){
 
             InetSocketAddress inetSocketAddress = new InetSocketAddress(

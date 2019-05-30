@@ -7,7 +7,7 @@ import org.springframework.beans.factory.support.BeanDefinitionRegistryPostProce
 import org.springframework.context.ResourceLoaderAware;
 import org.springframework.core.io.ResourceLoader;
 import top.jfunc.common.http.annotation.HttpService;
-import top.jfunc.common.http.interfacing.JFuncHttp;
+import top.jfunc.common.http.interfacing.HttpServiceCreator;
 
 import java.lang.annotation.Annotation;
 
@@ -19,7 +19,7 @@ public class HttpServiceScanConfigure implements BeanDefinitionRegistryPostProce
     /**
      * JFuncHttp用于创建接口的代理对象
      */
-    private JFuncHttp jfuncHttp;
+    private HttpServiceCreator httpServiceCreator;
     /**
      * 扫描的包
      */
@@ -29,8 +29,8 @@ public class HttpServiceScanConfigure implements BeanDefinitionRegistryPostProce
      */
     private Class<? extends Annotation> annotationClassScan = HttpService.class;
 
-    public HttpServiceScanConfigure(JFuncHttp jfuncHttp) {
-        this.jfuncHttp = jfuncHttp;
+    public HttpServiceScanConfigure(HttpServiceCreator httpServiceCreator) {
+        this.httpServiceCreator = httpServiceCreator;
     }
 
     public String[] getScanPackages() {
@@ -54,7 +54,7 @@ public class HttpServiceScanConfigure implements BeanDefinitionRegistryPostProce
     @Override
     public void postProcessBeanDefinitionRegistry(BeanDefinitionRegistry registry) throws BeansException {
 
-        ClassPathHttpServiceScanner scanner = new ClassPathHttpServiceScanner(registry , jfuncHttp);
+        ClassPathHttpServiceScanner scanner = new ClassPathHttpServiceScanner(registry , httpServiceCreator);
         if (this.resourceLoader != null) {
             scanner.setResourceLoader(this.resourceLoader);
         }
