@@ -43,12 +43,29 @@ class HttpRequestFactory implements RequestFactory {
      */
     private Method httpMethod;
 
+    /**
+     * 传入的方法
+     */
     private java.lang.reflect.Method method;
 
 
+    /**
+     * 方法上的注解
+     */
     private final Annotation[] methodAnnotations;
+    /**
+     * 参数类型
+     */
     private final Type[] parameterTypes;
+    /**
+     * 参数上的注解
+     */
     private final Annotation[][] parameterAnnotationsArray;
+
+    /**
+     * 参数处理器
+     */
+    private final AbstractParameterHandler<?>[] parameterHandlers;
 
     private boolean multiPart = false;
     private boolean hasBody = false;
@@ -72,15 +89,8 @@ class HttpRequestFactory implements RequestFactory {
         this.methodAnnotations = method.getAnnotations();
         this.parameterTypes = method.getGenericParameterTypes();
         this.parameterAnnotationsArray = method.getParameterAnnotations();
-    }
 
-    @Override
-    public Method getHttpMethod() {
-        return httpMethod;
-    }
 
-    @Override
-    public HttpRequest httpRequest(Object[] args){
         for (Annotation annotation : methodAnnotations) {
             parseMethodAnnotation(annotation);
         }
@@ -100,15 +110,9 @@ class HttpRequestFactory implements RequestFactory {
             }
         }
 
-        HttpRequest httpRequest = initHttpRequest();
-
-        //如果直接传递的是HttpRequest，就忽略其他的注解，因为他已经包含了请求所需的所有信息
-        if(args.length==1 && args[0] instanceof HttpRequest){
-            return (HttpRequest) (args[0]);
-        }
 
         int parameterCount = parameterAnnotationsArray.length;
-        AbstractParameterHandler<?>[] parameterHandlers = new AbstractParameterHandler<?>[parameterCount];
+        parameterHandlers = new AbstractParameterHandler<?>[parameterCount];
         for (int p = 0; p < parameterCount; p++) {
             parameterHandlers[p] = parseParameter(p, parameterTypes[p], parameterAnnotationsArray[p]);
         }
@@ -125,13 +129,31 @@ class HttpRequestFactory implements RequestFactory {
         if (multiPart && !gotPart) {
             throw methodError(method, "Multipart method must contain at least one @Part.");
         }
+    }
 
+    @Override
+    public Method getHttpMethod() {
+        return httpMethod;
+    }
+
+    @Override
+    public HttpRequest httpRequest(Object[] args){
 
         int argumentCount = args.length;
         if (argumentCount != parameterHandlers.length) {
             throw new IllegalArgumentException("Argument count (" + argumentCount
                     + ") doesn't match expected count (" + parameterHandlers.length + ")");
         }
+
+
+        HttpRequest httpRequest = initHttpRequest();
+
+        //如果直接传递的是HttpRequest，就忽略其他的注解，因为他已经包含了请求所需的所有信息
+        if(args.length==1 && args[0] instanceof HttpRequest){
+            return (HttpRequest) (args[0]);
+        }
+
+
 
         AbstractParameterHandler<Object>[] handlers = (AbstractParameterHandler<Object>[]) parameterHandlers;
         for (int p = 0; p < argumentCount; p++) {
