@@ -7,7 +7,7 @@ def REPO_NAME = 'network'
 
 dependencies{
     compile project(path: ":httpclient-core")
-    compile "org.springframework.boot:spring-boot-configuration-processor:${SpringBootVersion}"
+    compileOnly ("org.springframework.boot:spring-boot-configuration-processor:${SpringBootVersion}")
     compile ("org.springframework.boot:spring-boot-autoconfigure:${SpringBootVersion}")
 
     // https://mvnrepository.com/artifact/org.mybatis.spring.boot/mybatis-spring-boot-starter
