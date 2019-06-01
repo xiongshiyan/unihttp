@@ -1,6 +1,6 @@
 def ARTIFACT_ID = 'httpclient-core'
 def TYPE = 'jar'
-def DESCRIPTION = '定义Http请求相关接口'
+def DESCRIPTION = '定义Http请求相关接口及一些基础公共的实现'
 def gitUrl = 'https://gitee.com/xxssyyyyssxx/httpclient-interfacing.git'
 def siteUrl = 'https://gitee.com/xxssyyyyssxx/httpclient-interfacing'
 def REPO_NAME = 'network'
