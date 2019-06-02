@@ -18,7 +18,7 @@ import static org.mockserver.model.HttpResponse.response;
 /**
  * @author xiongshiyan at 2019/5/16 , contact me with email yanshixiong@126.com or phone 15208384257
  */
-public class MockServerTest {
+public class MockServerTest{
     @Rule
     public MockServerRule server = new MockServerRule(this, 50000);
 
@@ -59,7 +59,8 @@ public class MockServerTest {
         );
 
         Request request = Request.of("http://localhost:50000/hello/{name}")
-                .addRouteParam("name" , "John").addQueryParam("key1" , "value1").addQueryParam("key2" , "value2");
+                .addRouteParam("name" , "John");
+        request.queryParamHolder().addParam("key1" , "value1").addParam("key2" , "value2");
         Response response = smartHttpClient.get(request);
         Assert.assertEquals(expected , response.asString());
     }
@@ -97,8 +98,8 @@ public class MockServerTest {
                         .withBody(expected)
         );
 
-        Request request = Request.of("http://localhost:50000/hello/{name}").addRouteParam("name" , "John")
-                .addFormParam("key1" , "value1").addFormParam("key2" , "value2");
+        Request request = Request.of("http://localhost:50000/hello/{name}").addRouteParam("name" , "John");
+        request.formParamHolder().addParam("key1" , "value1").addParam("key2" , "value2");
         Response response = smartHttpClient.post(request);
         Assert.assertEquals(expected , response.asString());
     }
@@ -115,8 +116,8 @@ public class MockServerTest {
                         .withHeader(Header.header("xx" , "xx"))
         );
 
-        Request request = Request.of("http://localhost:50000/hello/{name}").addRouteParam("name" , "John")
-                .addHeader("sale" , "2").addHeader("ca-xx" , "ca-xx").setIncludeHeaders(true);
+        Request request = Request.of("http://localhost:50000/hello/{name}").addRouteParam("name" , "John").setIncludeHeaders(true);
+        request.headerHolder().addHeader("sale" , "2").addHeader("ca-xx" , "ca-xx");
         Response response = smartHttpClient.get(request);
         Assert.assertEquals("xx" , response.getOneHeader("xx"));
     }

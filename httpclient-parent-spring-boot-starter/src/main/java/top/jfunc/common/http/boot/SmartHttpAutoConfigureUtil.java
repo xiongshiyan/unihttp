@@ -24,10 +24,10 @@ public class SmartHttpAutoConfigureUtil {
         config.setDefaultResultCharset(smartHttpConfig.getDefaultResultCharset());
 
         if(null != smartHttpConfig.getDefaultHeaders()){
-            config.setDefaultHeaders(smartHttpConfig.getDefaultHeaders());
+            config.headerHolder().setHeaders(smartHttpConfig.getDefaultHeaders());
         }
         if(null != smartHttpConfig.getDefaultQueryParams()){
-            config.setDefaultQueryParams(smartHttpConfig.getDefaultQueryParams());
+            config.queryParamHolder().setParams(smartHttpConfig.getDefaultQueryParams());
         }
         SmartHttpConfig.Proxy propertiesProxy = smartHttpConfig.getProxy();
         if(null != propertiesProxy){
