@@ -1,5 +1,6 @@
-package top.jfunc.common.http.kv;
+package top.jfunc.common.http.holder;
 
+import top.jfunc.common.http.kv.Header;
 import top.jfunc.common.utils.ArrayListMultiValueMap;
 import top.jfunc.common.utils.ArrayListMultimap;
 import top.jfunc.common.utils.MultiValueMap;
@@ -9,10 +10,11 @@ import java.util.Objects;
 
 /**
  * wrap of {@link MultiValueMap} and impl HeaderHolder
- * @see top.jfunc.common.http.kv.HeaderHolder
+ * @see HeaderHolder
  * @see MultiValueMap
+ * @author xiongshiyan
  */
-public class DefaultHeaderHolder implements HeaderHolder{
+public class DefaultHeaderHolder implements HeaderHolder {
     /**
      * 请求头，懒加载
      */

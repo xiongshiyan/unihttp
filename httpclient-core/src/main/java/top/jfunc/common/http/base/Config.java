@@ -5,12 +5,12 @@ import top.jfunc.common.http.ParamUtil;
 import top.jfunc.common.http.base.ssl.DefaultTrustManager2;
 import top.jfunc.common.http.base.ssl.SSLSocketFactoryBuilder;
 import top.jfunc.common.http.base.ssl.TrustAnyHostnameVerifier;
+import top.jfunc.common.http.holder.DefaultHeaderHolder;
+import top.jfunc.common.http.holder.DefaultParamHolder;
+import top.jfunc.common.http.holder.HeaderHolder;
+import top.jfunc.common.http.holder.ParamHolder;
 import top.jfunc.common.http.interceptor.CompositeInterceptor;
 import top.jfunc.common.http.interceptor.Interceptor;
-import top.jfunc.common.http.kv.DefaultHeaderHolder;
-import top.jfunc.common.http.kv.DefaultParamHolder;
-import top.jfunc.common.http.kv.HeaderHolder;
-import top.jfunc.common.http.kv.ParamHolder;
 import top.jfunc.common.utils.MultiValueMap;
 import top.jfunc.common.utils.StrUtil;
 
@@ -67,14 +67,12 @@ public class Config {
      */
     private X509TrustManager x509TrustManager               = new DefaultTrustManager2();
     /**
-     * 默认的请求头,每个请求都会加上
+     * 默认的请求头,每个请求都会加上//private MultiValueMap<String,String> defaultHeaders = null;
      */
-    //private MultiValueMap<String,String> defaultHeaders = null;
     private HeaderHolder headerHolder = new DefaultHeaderHolder();
     /**
-     * 默认的请求Query参数,每个请求都会加上
+     * 默认的请求Query参数,每个请求都会加上//private MultiValueMap<String,String> defaultQueryParams = null;
      */
-    //private MultiValueMap<String,String> defaultQueryParams = null;
     private ParamHolder queryParamHolder = new DefaultParamHolder();
     /**
      * CookieHandler，只要设置了就表示支持Cookie
