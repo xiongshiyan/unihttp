@@ -64,12 +64,10 @@ public class SmartHttpAutoConfigureUtil {
     }
 
     private static Class<Interceptor> getInterceptorClass(String className) {
-        Class<Interceptor> clazz = null;
         try {
-            clazz = (Class<Interceptor>) ClassUtil.loadClass(className);
+            return  (Class<Interceptor>) ClassUtil.loadClass(className);
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
-        return clazz;
     }
 }
