@@ -38,7 +38,8 @@ public class MockServerTest{
                         .withBody(expected)
         );
 
-        Request request = Request.of("http://localhost:50000/hello/{name}").addRouteParam("name" , "John");
+        Request request = Request.of("http://localhost:50000/hello/{name}");
+        request.routeParamHolder().addRouteParam("name" , "John");
         Response response = smartHttpClient.get(request);
         Assert.assertEquals(expected , response.asString());
     }
@@ -58,8 +59,8 @@ public class MockServerTest{
                         .withBody(expected)
         );
 
-        Request request = Request.of("http://localhost:50000/hello/{name}")
-                .addRouteParam("name" , "John");
+        Request request = Request.of("http://localhost:50000/hello/{name}");
+        request.routeParamHolder().addRouteParam("name" , "John");
         request.queryParamHolder().addParam("key1" , "value1").addParam("key2" , "value2");
         Response response = smartHttpClient.get(request);
         Assert.assertEquals(expected , response.asString());
@@ -78,7 +79,8 @@ public class MockServerTest{
                         .withBody(expected)
         );
 
-        Request request = Request.of("http://localhost:50000/hello/{name}").addRouteParam("name" , "John").setBody(expected);
+        Request request = Request.of("http://localhost:50000/hello/{name}").setBody(expected);
+        request.routeParamHolder().addRouteParam("name" , "John");
         Response response = smartHttpClient.post(request);
         Assert.assertEquals(expected , response.asString());
     }
@@ -98,7 +100,8 @@ public class MockServerTest{
                         .withBody(expected)
         );
 
-        Request request = Request.of("http://localhost:50000/hello/{name}").addRouteParam("name" , "John");
+        Request request = Request.of("http://localhost:50000/hello/{name}");
+        request.routeParamHolder().addRouteParam("name" , "John");
         request.formParamHolder().addParam("key1" , "value1").addParam("key2" , "value2");
         Response response = smartHttpClient.post(request);
         Assert.assertEquals(expected , response.asString());
@@ -116,7 +119,8 @@ public class MockServerTest{
                         .withHeader(Header.header("xx" , "xx"))
         );
 
-        Request request = Request.of("http://localhost:50000/hello/{name}").addRouteParam("name" , "John").setIncludeHeaders(true);
+        Request request = Request.of("http://localhost:50000/hello/{name}").setIncludeHeaders(true);
+        request.routeParamHolder().addRouteParam("name" , "John");
         request.headerHolder().addHeader("sale" , "2").addHeader("ca-xx" , "ca-xx");
         Response response = smartHttpClient.get(request);
         Assert.assertEquals("xx" , response.getOneHeader("xx"));
