@@ -3,7 +3,9 @@ package top.jfunc.common.http.boot;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 import top.jfunc.common.http.HttpConstants;
+import top.jfunc.common.http.interceptor.Interceptor;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -45,6 +47,10 @@ public class SmartHttpProperties{
      * 代理设置
      */
     private Proxy proxy                                     = null;
+    /**
+     * 拦截器配置:拦截器实现的全类名
+     */
+    private List<String> interceptors;
 
     public String getBaseUrl() {
         return baseUrl;
@@ -110,6 +116,13 @@ public class SmartHttpProperties{
         this.proxy = proxy;
     }
 
+    public List<String> getInterceptors() {
+        return interceptors;
+    }
+
+    public void setInterceptors(List<String> interceptors) {
+        this.interceptors = interceptors;
+    }
 
     final class Proxy{
         private String type = java.net.Proxy.Type.HTTP.name();
