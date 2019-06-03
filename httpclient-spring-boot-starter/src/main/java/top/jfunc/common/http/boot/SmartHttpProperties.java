@@ -1,9 +1,7 @@
 package top.jfunc.common.http.boot;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.stereotype.Component;
 import top.jfunc.common.http.HttpConstants;
-import top.jfunc.common.http.interceptor.Interceptor;
 
 import java.util.List;
 import java.util.Map;
@@ -12,8 +10,7 @@ import java.util.Map;
  * @see top.jfunc.common.http.base.Config
  * @author xiongshiyan at 2019/5/10 , contact me with email yanshixiong@126.com or phone 15208384257
  */
-//@Component
-@ConfigurationProperties("http.smart")
+//@ConfigurationProperties("http.smart")
 public class SmartHttpProperties{
     /**
      * BaseUrl,如果设置了就在正常传送的URL之前添加上
