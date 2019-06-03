@@ -1,6 +1,7 @@
 package top.jfunc.common.http.boot;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.stereotype.Component;
 import top.jfunc.common.http.HttpConstants;
 
 import java.util.Map;
@@ -9,8 +10,9 @@ import java.util.Map;
  * @see top.jfunc.common.http.base.Config
  * @author xiongshiyan at 2019/5/10 , contact me with email yanshixiong@126.com or phone 15208384257
  */
-@ConfigurationProperties("spring.http.smart")
-public class SmartHttpProperties implements SmartHttpConfig{
+//@Component
+@ConfigurationProperties("http.smart")
+public class SmartHttpProperties{
     /**
      * BaseUrl,如果设置了就在正常传送的URL之前添加上
      */
@@ -42,9 +44,8 @@ public class SmartHttpProperties implements SmartHttpConfig{
     /**
      * 代理设置
      */
-    private SmartHttpConfig.Proxy proxy                                     = null;
+    private Proxy proxy                                     = null;
 
-    @Override
     public String getBaseUrl() {
         return baseUrl;
     }
@@ -53,7 +54,6 @@ public class SmartHttpProperties implements SmartHttpConfig{
         this.baseUrl = baseUrl;
     }
 
-    @Override
     public Integer getDefaultConnectionTimeout() {
         return defaultConnectionTimeout;
     }
@@ -62,7 +62,6 @@ public class SmartHttpProperties implements SmartHttpConfig{
         this.defaultConnectionTimeout = defaultConnectionTimeout;
     }
 
-    @Override
     public Integer getDefaultReadTimeout() {
         return defaultReadTimeout;
     }
@@ -71,7 +70,6 @@ public class SmartHttpProperties implements SmartHttpConfig{
         this.defaultReadTimeout = defaultReadTimeout;
     }
 
-    @Override
     public String getDefaultBodyCharset() {
         return defaultBodyCharset;
     }
@@ -80,7 +78,6 @@ public class SmartHttpProperties implements SmartHttpConfig{
         this.defaultBodyCharset = defaultBodyCharset;
     }
 
-    @Override
     public String getDefaultResultCharset() {
         return defaultResultCharset;
     }
@@ -89,7 +86,6 @@ public class SmartHttpProperties implements SmartHttpConfig{
         this.defaultResultCharset = defaultResultCharset;
     }
 
-    @Override
     public Map<String, String> getDefaultHeaders() {
         return defaultHeaders;
     }
@@ -98,7 +94,6 @@ public class SmartHttpProperties implements SmartHttpConfig{
         this.defaultHeaders = defaultHeaders;
     }
 
-    @Override
     public Map<String, String> getDefaultQueryParams() {
         return defaultQueryParams;
     }
@@ -107,12 +102,60 @@ public class SmartHttpProperties implements SmartHttpConfig{
         this.defaultQueryParams = defaultQueryParams;
     }
 
-    @Override
-    public SmartHttpConfig.Proxy getProxy() {
+    public Proxy getProxy() {
         return proxy;
     }
 
-    public void setProxy(SmartHttpConfig.Proxy proxy) {
+    public void setProxy(Proxy proxy) {
         this.proxy = proxy;
+    }
+
+
+    final class Proxy{
+        private String type = java.net.Proxy.Type.HTTP.name();
+        private String hostName;
+        private int port;
+        private String username;
+        private String password;
+
+        public String getType() {
+            return type;
+        }
+
+        public void setType(String type) {
+            this.type = type;
+        }
+
+        public String getHostName() {
+            return hostName;
+        }
+
+        public void setHostName(String hostName) {
+            this.hostName = hostName;
+        }
+
+        public int getPort() {
+            return port;
+        }
+
+        public void setPort(int port) {
+            this.port = port;
+        }
+
+        public String getUsername() {
+            return username;
+        }
+
+        public void setUsername(String username) {
+            this.username = username;
+        }
+
+        public String getPassword() {
+            return password;
+        }
+
+        public void setPassword(String password) {
+            this.password = password;
+        }
     }
 }

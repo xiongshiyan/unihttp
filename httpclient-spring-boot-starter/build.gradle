@@ -1,13 +1,23 @@
-def ARTIFACT_ID = 'httpclient-jodd-spring-boot-starter'
+def ARTIFACT_ID = 'httpclient-spring-boot-starter'
 def TYPE = 'jar'
-def DESCRIPTION = 'httpclient-jodd在spring-boot环境下的starter'
+def DESCRIPTION = 'httpclient-xxx在spring-boot环境下的自动配置，要配合httpclient-xxx之一使用'
 def gitUrl = 'https://gitee.com/xxssyyyyssxx/httpclient-interfacing.git'
 def siteUrl = 'https://gitee.com/xxssyyyyssxx/httpclient-interfacing'
 def REPO_NAME = 'network'
 
 dependencies{
-    compile project(path: ":httpclient-jodd")
-    compile project(path: ":httpclient-parent-spring-boot-starter")
+    compile project(path: ":httpclient-core")
+
+    compileOnly project(path: ":httpclient-apache")
+    compileOnly project(path: ":httpclient-jdk")
+    compileOnly project(path: ":httpclient-jodd")
+    compileOnly project(path: ":httpclient-okhttp3")
+
+    compileOnly ("org.springframework.boot:spring-boot-configuration-processor:${SpringBootVersion}")
+    compile ("org.springframework.boot:spring-boot-autoconfigure:${SpringBootVersion}")
+
+    // https://mvnrepository.com/artifact/org.mybatis.spring.boot/mybatis-spring-boot-starter
+    //compile group: 'org.mybatis.spring.boot', name: 'mybatis-spring-boot-starter', version: '2.0.1'
 }
 
 install {
