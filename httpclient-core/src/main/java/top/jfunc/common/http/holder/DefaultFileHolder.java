@@ -4,8 +4,9 @@ import java.io.File;
 
 /**
  * 默认的 FileHolder 实现
+ * @author xiongshiyan
  */
-public class DefaultFileHolder implements FileHolder{
+public class DefaultFileHolder implements FileHolder {
     /**
      * 为文件下载确定信息
      */

@@ -8,25 +8,21 @@ import javax.net.ssl.X509TrustManager;
 /**
  * @author xiongshiyan at 2019/6/3 , contact me with email yanshixiong@126.com or phone 15208384257
  */
-public class DefaultSSLHolder implements SSLHolder{
+public class DefaultSSLHolder implements SSLHolder {
     /**
      * HostnameVerifier
-     * @see top.jfunc.common.http.base.Config#hostnameVerifier
      */
     private HostnameVerifier hostnameVerifier = null;
     /**
      * SSLContext
-     * @see top.jfunc.common.http.base.Config#sslContext
      */
     private SSLContext sslContext = null;
     /**
      * SSLSocketFactory
-     * @see top.jfunc.common.http.base.Config#sslSocketFactory
      */
     private SSLSocketFactory sslSocketFactory = null;
     /**
      * X509TrustManager
-     * @see top.jfunc.common.http.base.Config#x509TrustManager
      */
     private X509TrustManager x509TrustManager = null;
 
