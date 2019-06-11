@@ -49,7 +49,11 @@ JoddHttp实现主线：
 
 HttpRequest接口体系，使用这些请求类意义更明确：
 
-![HttpRequest接口体系，使用这些请求类意义更明确](https://images.gitee.com/uploads/images/2019/0520/112919_c07cf56e_1507575.png "HttpRequest体系.png")
+![HttpRequest接口体系，使用这些请求类意义更明确](https://images.gitee.com/uploads/images/2019/0611/152249_cb6beefa_1507575.png "HttpRequest体系.png")
+
+提供众多的holder简化参数处理
+
+![提供众多的holder简化参数处理](https://images.gitee.com/uploads/images/2019/0611/152341_7aff634a_1507575.png "holder.png")
 
 
 ### features
@@ -166,9 +170,7 @@ public class HttpConfig {
 ```
 
 当拿到实例之后，就可以使用接口定义的所有的方法用于http请求。
- **HttpClient接口定义了基本的http请求方法，SmartHttpClient继承于HttpClient，新增了基于Request的方法** ：
-
-![用户接口设计](https://gitee.com/uploads/images/2019/0428/143300_9d754644_1507575.png "facade-(HttpClient-SmartHttpClient).png")
+ **HttpClient接口定义了基本的http请求方法，SmartHttpClient继承于HttpClient，新增了基于Request的方法** 见架构图。
 
 setConfig可以设置SmartHttpClient实例的全局默认设置。目前定义了一下一些参数。
 
