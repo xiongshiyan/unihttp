@@ -7,6 +7,7 @@ import org.mockserver.client.MockServerClient;
 import org.mockserver.junit.MockServerRule;
 import org.mockserver.model.Header;
 import org.mockserver.model.Parameter;
+import top.jfunc.common.http.request.StringBodyRequest;
 import top.jfunc.common.http.smart.JoddSmartHttpClient;
 import top.jfunc.common.http.smart.Request;
 import top.jfunc.common.http.smart.Response;
@@ -79,7 +80,7 @@ public class MockServerTest{
                         .withBody(expected)
         );
 
-        Request request = Request.of("http://localhost:50000/hello/{name}").setBody(expected);
+        StringBodyRequest request = Request.of("http://localhost:50000/hello/{name}").setBody(expected);
         request.routeParamHolder().addRouteParam("name" , "John");
         Response response = smartHttpClient.post(request);
         Assert.assertEquals(expected , response.asString());

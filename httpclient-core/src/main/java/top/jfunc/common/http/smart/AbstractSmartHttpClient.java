@@ -5,10 +5,7 @@ import top.jfunc.common.http.base.Config;
 import top.jfunc.common.http.base.ContentCallback;
 import top.jfunc.common.http.basic.AbstractHttpClient;
 import top.jfunc.common.http.base.FormFile;
-import top.jfunc.common.http.request.DownLoadRequest;
-import top.jfunc.common.http.request.HttpRequest;
-import top.jfunc.common.http.request.StringBodyRequest;
-import top.jfunc.common.http.request.UploadRequest;
+import top.jfunc.common.http.request.*;
 import top.jfunc.common.http.request.impl.GetRequest;
 import top.jfunc.common.utils.IoUtil;
 import top.jfunc.common.utils.MultiValueMap;
@@ -55,7 +52,8 @@ public abstract class AbstractSmartHttpClient<CC> extends AbstractHttpClient<CC>
         ContentCallback<CC> contentCallback = null;
         if(method.hasContent() && request instanceof StringBodyRequest){
             String body = ((StringBodyRequest)request).getBody();
-            contentCallback = bodyContentCallback(body, getBodyCharsetWithDefault(request.getBodyCharset()) , request.getContentType());
+            final String bodyCharset = CharsetUtil.bodyCharsetFromRequest(request);
+            contentCallback = bodyContentCallback(body, getBodyCharsetWithDefault(bodyCharset) , request.getContentType());
         }
         Response response = template(request, method , contentCallback, Response::with);
         return afterTemplate(request , response);
