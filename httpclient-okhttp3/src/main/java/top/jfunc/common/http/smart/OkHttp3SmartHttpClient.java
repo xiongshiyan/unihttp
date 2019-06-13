@@ -5,7 +5,6 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import top.jfunc.common.http.Method;
 import top.jfunc.common.http.ParamUtil;
-import top.jfunc.common.http.base.Config;
 import top.jfunc.common.http.base.ContentCallback;
 import top.jfunc.common.http.base.ProxyInfo;
 import top.jfunc.common.http.base.ResultCallback;
@@ -33,12 +32,6 @@ import java.util.concurrent.TimeUnit;
  * @author xiongshiyan at 2018/1/11
  */
 public class OkHttp3SmartHttpClient extends OkHttp3Client implements SmartHttpClient, SmartHttpTemplate<Request.Builder> {
-
-    @Override
-    public OkHttp3SmartHttpClient setConfig(Config config) {
-        super.setConfig(config);
-        return this;
-    }
 
     @Override
     public <R> R template(HttpRequest httpRequest, Method method , ContentCallback<Request.Builder> contentCallback , ResultCallback<R> resultCallback) throws IOException {

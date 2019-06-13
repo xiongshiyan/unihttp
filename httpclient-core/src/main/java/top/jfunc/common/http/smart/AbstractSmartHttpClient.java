@@ -23,13 +23,6 @@ import java.io.IOException;
 public abstract class AbstractSmartHttpClient<CC> extends AbstractHttpClient<CC> implements SmartHttpClient , SmartHttpTemplate<CC> {
 
     @Override
-    public AbstractSmartHttpClient<CC> setConfig(Config config) {
-        super.setConfig(config);
-        return this;
-    }
-
-
-    @Override
     public Response get(HttpRequest req) throws IOException {
         HttpRequest request = beforeTemplate(req);
         Response response = template(request, Method.GET , null , Response::with);

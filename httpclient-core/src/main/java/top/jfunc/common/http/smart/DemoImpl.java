@@ -17,12 +17,6 @@ import java.net.Socket;
 public class DemoImpl extends AbstractSmartHttpClient<Socket>{
 
     @Override
-    public DemoImpl setConfig(Config config) {
-        super.setConfig(config);
-        return this;
-    }
-
-    @Override
     protected ContentCallback<Socket> bodyContentCallback(String body, String bodyCharset, String contentType) throws IOException {
         //(cc)->cc.getOutputStream().write(body.getBytes(bodyCharset));
         return null;

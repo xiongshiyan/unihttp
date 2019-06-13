@@ -13,7 +13,7 @@ import java.net.URL;
  * T泛型为了变种的setter返回this便于链式调用
  * @author xiongshiyan at 2019/5/18 , contact me with email yanshixiong@126.com or phone 15208384257
  */
-public abstract class BaseRequest<T extends BaseRequest> implements HttpRequest {
+public abstract class BaseRequest<T extends BaseRequest> implements HttpRequest<T> {
     /**
      * 请求的URL
      */
@@ -46,28 +46,26 @@ public abstract class BaseRequest<T extends BaseRequest> implements HttpRequest 
      * @see top.jfunc.common.http.base.Config#defaultReadTimeout
      */
     private Integer readTimeout = null;
-
     /**
      * 返回体编码，不设置就使用系统默认的
      * @see top.jfunc.common.http.base.Config#defaultResultCharset
      */
     private String resultCharset = HttpConstants.DEFAULT_CHARSET;
-
     /**
      * 返回结果中是否包含headers,默认不包含
      */
     private boolean includeHeaders = !INCLUDE_HEADERS;
-
     /**
      * 返回结果中是否忽略body,  true那么就不去读取body，提高效率, 默认不忽略
      */
     private boolean ignoreResponseBody = !IGNORE_RESPONSE_BODY;
-
     /**
      * 是否支持重定向
      */
     private boolean redirectable = !REDIRECTABLE;
-
+    /**
+     * SSL相关设置
+     */
     private SSLHolder sslHolder = new DefaultSSLHolder();
 
     /**
@@ -79,15 +77,6 @@ public abstract class BaseRequest<T extends BaseRequest> implements HttpRequest 
     public BaseRequest(String url){this.url = url;}
     public BaseRequest(URL url){this.url = url.toString();}
     public BaseRequest(){}
-
-    /**
-     * 返回自己，便于链式调用
-     * @return this
-     */
-    @SuppressWarnings("unchecked")
-    protected T myself(){
-        return (T)this;
-    }
 
     /**************************变种的Setter*******************************/
     @Override

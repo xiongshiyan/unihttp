@@ -28,7 +28,10 @@ import top.jfunc.common.utils.StrUtil;
  *
  * @since 从1.1开始建议不要用此类了,而是使用以上的一些意义更明确的
  */
-public class Request extends BaseRequest<Request> implements MutableStringBodyRequest, UploadRequest, DownLoadRequest {
+public class Request extends BaseRequest<Request> implements
+        MutableStringBodyRequest<Request>,
+        UploadRequest<Request>,
+        DownLoadRequest<Request> {
     /**
      * form参数
      * POST请求，会作为body存在 并且设置Content-Type为 application/xxx-form-url-encoded
@@ -37,7 +40,7 @@ public class Request extends BaseRequest<Request> implements MutableStringBodyRe
     private ParamHolder formParamHolder = new DefaultParamHolder();
 
     /**
-     * 针对POST存在，params这种加进来的参数最终拼接之后保存到这里 //private String body
+     * 针对POST存在，params这种加进来的参数最终拼接之后保存到这里 private String body
      * @see Method#hasContent()
      */
     private BodyHolder bodyHolder = new DefaultBodyHolder();
@@ -89,9 +92,6 @@ public class Request extends BaseRequest<Request> implements MutableStringBodyRe
         return formFileHolder;
     }
 
-    /**************************变种的Setter*******************************/
-
-
     @Override
     public ParamHolder formParamHolder() {
         return formParamHolder;
@@ -101,7 +101,6 @@ public class Request extends BaseRequest<Request> implements MutableStringBodyRe
     public FileHolder fileHolder() {
         return this.fileHolder;
     }
-
 
     @Override
     public BodyHolder bodyHolder() {

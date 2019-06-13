@@ -1,5 +1,6 @@
 package top.jfunc.common.http.request;
 
+import top.jfunc.common.http.ChainCall;
 import top.jfunc.common.http.base.ProxyInfo;
 import top.jfunc.common.http.holder.HeaderHolder;
 import top.jfunc.common.http.holder.ParamHolder;
@@ -13,7 +14,7 @@ import java.net.URL;
  * @since 1.1
  * @author xiongshiyan at 2019/5/18 , contact me with email yanshixiong@126.com or phone 15208384257
  */
-public interface HttpRequest {
+public interface HttpRequest<T extends HttpRequest> extends ChainCall<T>{
     /**
      * 结果包含headers
      */
@@ -35,15 +36,17 @@ public interface HttpRequest {
 
     /**
      * 设置URL
+     * @param url url
      * @return this
      */
-    HttpRequest setUrl(String url);
+    T setUrl(String url);
 
     /**
      * 设置URL
+     * @param url URL
      * @return this
      */
-    default HttpRequest setUrl(URL url){
+    default T setUrl(URL url){
         return setUrl(url.toString());
     }
 
@@ -59,9 +62,9 @@ public interface HttpRequest {
      * @param value value
      * @return this
      */
-    default HttpRequest addRouteParam(String key, String value){
+    default T addRouteParam(String key, String value){
         routeParamHolder().addRouteParam(key, value);
-        return this;
+        return myself();
     }
 
     /**
@@ -77,9 +80,9 @@ public interface HttpRequest {
      * @param values values
      * @return this
      */
-    default HttpRequest addQueryParam(String key, String value, String... values){
+    default T addQueryParam(String key, String value, String... values){
         queryParamHolder().addParam(key, value, values);
-        return this;
+        return myself();
     }
 
     /**
@@ -95,9 +98,9 @@ public interface HttpRequest {
      * @param values values
      * @return this
      */
-    default HttpRequest addHeader(String key, String value, String... values){
+    default T addHeader(String key, String value, String... values){
         headerHolder().addHeader(key, value, values);
-        return this;
+        return myself();
     }
 
     /**

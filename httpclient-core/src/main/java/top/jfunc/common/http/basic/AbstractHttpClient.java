@@ -21,12 +21,6 @@ import java.util.Map;
 public abstract class AbstractHttpClient<CC> extends AbstractConfigurableHttp implements HttpClient , HttpTemplate<CC>{
 
     @Override
-    public AbstractHttpClient setConfig(Config config) {
-        super.setConfig(config);
-        return this;
-    }
-
-    @Override
     public String get(String url, Map<String, String> params, Map<String, String> headers, Integer connectTimeout, Integer readTimeout, String resultCharset) throws IOException{
         return template(ParamUtil.contactUrlParams(url , params , getDefaultBodyCharset()), Method.GET,null,null,
                 ArrayListMultiValueMap.fromMap(headers),
