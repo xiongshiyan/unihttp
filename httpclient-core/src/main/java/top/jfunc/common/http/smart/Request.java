@@ -3,12 +3,18 @@ package top.jfunc.common.http.smart;
 import top.jfunc.common.http.MediaType;
 import top.jfunc.common.http.Method;
 import top.jfunc.common.http.ParamUtil;
+import top.jfunc.common.http.base.FormFile;
+import top.jfunc.common.http.base.ProxyInfo;
 import top.jfunc.common.http.holder.*;
 import top.jfunc.common.http.request.DownLoadRequest;
 import top.jfunc.common.http.request.MutableStringBodyRequest;
 import top.jfunc.common.http.request.UploadRequest;
 import top.jfunc.common.http.request.impl.BaseRequest;
 import top.jfunc.common.utils.StrUtil;
+
+import java.io.File;
+import java.util.Arrays;
+import java.util.Map;
 
 /**
  * 代表一个Http请求的所有参数,基于Request-Response的可以更好地扩展功能
@@ -89,12 +95,12 @@ public class Request extends BaseRequest<Request> implements
 
     @Override
     public FormFileHolder formFileHolder() {
-        return formFileHolder;
+        return this.formFileHolder;
     }
 
     @Override
     public ParamHolder formParamHolder() {
-        return formParamHolder;
+        return this.formParamHolder;
     }
 
     @Override
@@ -104,7 +110,7 @@ public class Request extends BaseRequest<Request> implements
 
     @Override
     public BodyHolder bodyHolder() {
-        return bodyHolder;
+        return this.bodyHolder;
     }
 
     /**
@@ -117,4 +123,91 @@ public class Request extends BaseRequest<Request> implements
         setContentType(contentType);
         return this;
     }
+
+
+    ///////////// 以下方法是为了兼容以前的Request的用法[返回Request方便方法连缀] /////////////////////
+
+    public Request addHeader(String key, String value){
+        this.headerHolder().addHeader(key, value);
+        return this;
+    }
+
+    public Request addQueryParam(String key, String value){
+        queryParamHolder().addParam(key, value);
+        return this;
+    }
+
+    @Override
+    public Request setBody(String body) {
+        this.bodyHolder.setBody(body);
+        return this;
+    }
+
+    @Override
+    public Request setContentType(String contentType) {
+        super.setContentType(contentType);
+        return this;
+    }
+
+    @Override
+    public Request setConnectionTimeout(int connectionTimeout) {
+        super.setConnectionTimeout(connectionTimeout);
+        return this;
+    }
+
+    @Override
+    public Request setReadTimeout(int readTimeout) {
+        super.setReadTimeout(readTimeout);
+        return this;
+    }
+
+    @Override
+    public Request setBodyCharset(String bodyCharset) {
+        bodyHolder.setBodyCharset(bodyCharset);
+        return this;
+    }
+
+    @Override
+    public Request setResultCharset(String resultCharset) {
+        super.setResultCharset(resultCharset);
+        return this;
+    }
+
+    @Override
+    public Request setIncludeHeaders(boolean includeHeaders) {
+        super.setIncludeHeaders(includeHeaders);
+        return this;
+    }
+
+    @Override
+    public Request setIgnoreResponseBody(boolean ignoreResponseBody) {
+        super.setIgnoreResponseBody(ignoreResponseBody);
+        return this;
+    }
+
+    @Override
+    public Request setRedirectable(boolean redirectable) {
+        super.setRedirectable(redirectable);
+        return this;
+    }
+
+    @Override
+    public Request addFormFile(FormFile... formFiles) {
+        formFileHolder.addFormFile(formFiles);
+        return this;
+    }
+
+    @Override
+    public Request setFile(File file) {
+        fileHolder.setFile(file);
+        return this;
+    }
+
+    @Override
+    public Request setProxy(ProxyInfo proxyInfo) {
+        super.setProxy(proxyInfo);
+        return this;
+    }
+
+    /////////////////////////////////// END /////////////////////////////////////
 }
