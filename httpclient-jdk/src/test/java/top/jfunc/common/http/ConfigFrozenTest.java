@@ -19,7 +19,7 @@ public class ConfigFrozenTest {
 
         config.setBaseUrl("https://....");
     }
-    @Test//(expected = IllegalStateException.class)
+    @Test(expected = IllegalStateException.class)
     public void testFrozen2(){
         Config config = Config.defaultConfig();
         config.setBaseUrl("http://....");
