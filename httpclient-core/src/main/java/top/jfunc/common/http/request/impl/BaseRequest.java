@@ -13,7 +13,7 @@ import java.net.URL;
  * T泛型为了变种的setter返回this便于链式调用
  * @author xiongshiyan at 2019/5/18 , contact me with email yanshixiong@126.com or phone 15208384257
  */
-public abstract class BaseRequest<THIS extends BaseRequest> implements HttpRequest<THIS> {
+public abstract class BaseRequest<THIS extends BaseRequest> implements HttpRequest {
     /**
      * 请求的URL
      */
@@ -78,7 +78,6 @@ public abstract class BaseRequest<THIS extends BaseRequest> implements HttpReque
     public BaseRequest(URL url){this.url = url.toString();}
     public BaseRequest(){}
 
-    /**************************变种的Setter*******************************/
     @Override
     public THIS setUrl(String url) {
         this.url = url;
@@ -155,6 +154,11 @@ public abstract class BaseRequest<THIS extends BaseRequest> implements HttpReque
     public THIS setProxy(ProxyInfo proxyInfo) {
         this.proxyInfo = proxyInfo;
         return myself();
+    }
+
+    @SuppressWarnings("unchecked")
+    protected THIS myself(){
+        return (THIS)this;
     }
 
     /****************************Getter**************************/

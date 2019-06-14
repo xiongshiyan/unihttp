@@ -9,7 +9,7 @@ import top.jfunc.common.http.request.MutableStringBodyRequest;
  * 通用的StringBody请求
  * @author xiongshiyan at 2019/5/21 , contact me with email yanshixiong@126.com or phone 15208384257
  */
-public class CommonBodyRequest<THIS extends CommonBodyRequest> extends BaseRequest<THIS> implements MutableStringBodyRequest<THIS> {
+public class CommonBodyRequest extends BaseRequest<CommonBodyRequest> implements MutableStringBodyRequest {
     public CommonBodyRequest(String url){
         super(url);
     }
@@ -28,10 +28,10 @@ public class CommonBodyRequest<THIS extends CommonBodyRequest> extends BaseReque
     private BodyHolder bodyHolder = new DefaultBodyHolder();
 
     @Override
-    public THIS setBody(String body , String contentType) {
+    public CommonBodyRequest setBody(String body , String contentType) {
         this.bodyHolder.setBody(body);
         setContentType(contentType);
-        return myself();
+        return this;
     }
 
     @Override

@@ -1,6 +1,5 @@
 package top.jfunc.common.http.request;
 
-import top.jfunc.common.http.ChainCall;
 import top.jfunc.common.http.base.ProxyInfo;
 import top.jfunc.common.http.holder.HeaderHolder;
 import top.jfunc.common.http.holder.ParamHolder;
@@ -14,7 +13,7 @@ import java.net.URL;
  * @since 1.1
  * @author xiongshiyan at 2019/5/18 , contact me with email yanshixiong@126.com or phone 15208384257
  */
-public interface HttpRequest<THIS extends HttpRequest> extends ChainCall<THIS> {
+public interface HttpRequest{
     /**
      * 结果包含headers
      */
@@ -39,14 +38,14 @@ public interface HttpRequest<THIS extends HttpRequest> extends ChainCall<THIS> {
      * @param url url
      * @return this
      */
-    THIS setUrl(String url);
+    HttpRequest setUrl(String url);
 
     /**
      * 设置URL
      * @param url URL
      * @return this
      */
-    default THIS setUrl(URL url){
+    default HttpRequest setUrl(URL url){
         return setUrl(url.toString());
     }
 
@@ -62,9 +61,9 @@ public interface HttpRequest<THIS extends HttpRequest> extends ChainCall<THIS> {
      * @param value value
      * @return this
      */
-    default THIS addRouteParam(String key, String value){
+    default HttpRequest addRouteParam(String key, String value){
         routeParamHolder().addRouteParam(key, value);
-        return myself();
+        return this;
     }
 
     /**
@@ -80,9 +79,9 @@ public interface HttpRequest<THIS extends HttpRequest> extends ChainCall<THIS> {
      * @param values values
      * @return this
      */
-    default THIS addQueryParam(String key, String value, String... values){
+    default HttpRequest addQueryParam(String key, String value, String... values){
         queryParamHolder().addParam(key, value, values);
-        return myself();
+        return this;
     }
 
     /**
@@ -98,9 +97,9 @@ public interface HttpRequest<THIS extends HttpRequest> extends ChainCall<THIS> {
      * @param values values
      * @return this
      */
-    default THIS addHeader(String key, String value, String... values){
+    default HttpRequest addHeader(String key, String value, String... values){
         headerHolder().addHeader(key, value, values);
-        return myself();
+        return this;
     }
 
     /**
