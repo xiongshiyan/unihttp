@@ -7,6 +7,7 @@ import top.jfunc.common.http.request.DownLoadRequest;
 import top.jfunc.common.http.request.HttpRequest;
 import top.jfunc.common.http.request.StringBodyRequest;
 import top.jfunc.common.http.request.UploadRequest;
+import top.jfunc.common.http.request.impl.GetRequest;
 
 import java.io.File;
 import java.io.IOException;
@@ -106,6 +107,9 @@ public interface SmartHttpClient extends HttpClient {
      * @throws IOException IOException
      */
     default Response afterTemplate(HttpRequest request, Response response) throws IOException{
+        if(request.isRedirectable() && response.needRedirect()){
+            return get(GetRequest.of(response.getRedirectUrl()));
+        }
         return response;
     }
 }

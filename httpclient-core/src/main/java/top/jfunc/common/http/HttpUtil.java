@@ -36,21 +36,6 @@ public class HttpUtil {
             ServiceLoader<SmartHttpClient> smartHttpClients = ServiceLoader.load(SmartHttpClient.class);
             SMART_HTTP_CLIENT = smartHttpClients.iterator().next();
             logger.info("HttpUtil loads SmartHttpClient's implement successfully..." + SMART_HTTP_CLIENT);
-            logger.info("you can use it like this:");
-            logger.info("    HttpUtil.get(HttpRequest)...for get");
-            logger.info("    HttpUtil.post(FormBodyRequest)...for post form");
-            logger.info("    HttpUtil.post(PostBodyRequest)...for post body");
-            logger.info("    HttpUtil.getAsBytes(HttpRequest)...for get response as byte[]");
-            logger.info("    HttpUtil.download(DownLoadRequest)...for download file");
-            logger.info("    HttpUtil.upload(UploadRequest)...for upload file and params");
-            logger.info("Or You can instantiate an Implementation Class of SmartHttpClient Interface and Do more setting like this:");
-            logger.info("    smartHttpClient.setConfig(Config.defaultConfig()\n" +
-                    "        .setBaseUrl(\"https://fanyi.baidu.com/\")\n" +
-                    "        .addDefaultHeader(\"xx\" , \"xx\")\n" +
-                    "        .setDefaultBodyCharset(\"UTF-8\")\n" +
-                    "        .setDefaultResultCharset(\"UTF-8\")\n" +
-                    "        .setDefaultConnectionTimeout(15000)\n" +
-                    "        .setDefaultReadTimeout(15000)");
         } catch (Exception e) {
             logger.warn("通过jar包自动加载实现类失败...请手动设置SmartHttpClient实现类,否则无法使用HttpUtil功能" , e);
         }
