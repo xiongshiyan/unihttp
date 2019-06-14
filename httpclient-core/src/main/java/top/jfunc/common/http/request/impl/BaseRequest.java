@@ -109,39 +109,49 @@ public abstract class BaseRequest<THIS extends BaseRequest> implements HttpReque
         return setContentType(MediaType.TXT_XML.withCharset(HttpConstants.DEFAULT_CHARSET));
     }
 
+    @Override
     public THIS setContentType(String contentType) {
         this.contentType = contentType;
         return myself();
     }
+
+    @Override
     public THIS setContentType(MediaType mediaType) {
         this.contentType = mediaType.toString();
         return myself();
     }
 
+    @Override
     public THIS setConnectionTimeout(int connectionTimeout) {
         this.connectionTimeout = connectionTimeout;
         return myself();
     }
 
+    @Override
     public THIS setReadTimeout(int readTimeout) {
         this.readTimeout = readTimeout;
         return myself();
     }
 
+    @Override
     public THIS setResultCharset(String resultCharset) {
         this.resultCharset = resultCharset;
         return myself();
     }
+
+    @Override
     public THIS setIncludeHeaders(boolean includeHeaders) {
         this.includeHeaders = includeHeaders;
         return myself();
     }
 
+    @Override
     public THIS setIgnoreResponseBody(boolean ignoreResponseBody) {
         this.ignoreResponseBody = ignoreResponseBody;
         return myself();
     }
 
+    @Override
     public THIS setRedirectable(boolean redirectable) {
         this.redirectable = redirectable;
         //要支持重定向必须header
@@ -151,6 +161,7 @@ public abstract class BaseRequest<THIS extends BaseRequest> implements HttpReque
         return myself();
     }
 
+    @Override
     public THIS setProxy(ProxyInfo proxyInfo) {
         this.proxyInfo = proxyInfo;
         return myself();

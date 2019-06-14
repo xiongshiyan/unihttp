@@ -1,5 +1,6 @@
 package top.jfunc.common.http.request;
 
+import top.jfunc.common.http.MediaType;
 import top.jfunc.common.http.base.ProxyInfo;
 import top.jfunc.common.http.holder.HeaderHolder;
 import top.jfunc.common.http.holder.ParamHolder;
@@ -109,10 +110,33 @@ public interface HttpRequest{
     String getContentType();
 
     /**
+     * 设置Content-Type
+     * @param contentType Content-Type
+     * @return this
+     */
+    HttpRequest setContentType(String contentType);
+
+    /**
+     * 设置Content-Type
+     * @param mediaType Content-Type
+     * @return this
+     */
+    default HttpRequest setContentType(MediaType mediaType){
+        return setContentType(mediaType.toString());
+    }
+
+    /**
      * 连接超时时间 ms
      * @return 连接超时时间 ms
      */
     Integer getConnectionTimeout();
+
+    /**
+     * 设置connectionTimeout
+     * @param connectionTimeout connectionTimeout
+     * @return this
+     */
+    HttpRequest setConnectionTimeout(int connectionTimeout);
 
     /**
      * 读超时时间 ms
@@ -121,10 +145,24 @@ public interface HttpRequest{
     Integer getReadTimeout();
 
     /**
+     * 设置readTimeout
+     * @param readTimeout readTimeout
+     * @return this
+     */
+    HttpRequest setReadTimeout(int readTimeout) ;
+
+    /**
      * 结果字符编码
      * @return 结果字符编码
      */
     String getResultCharset();
+
+    /**
+     * 设置resultCharset
+     * @param resultCharset resultCharset
+     * @return this
+     */
+    HttpRequest setResultCharset(String resultCharset);
 
     /**
      * 响应中是否包含header
@@ -133,10 +171,24 @@ public interface HttpRequest{
     boolean isIncludeHeaders();
 
     /**
+     * 设置includeHeaders
+     * @param includeHeaders includeHeaders
+     * @return this
+     */
+    HttpRequest setIncludeHeaders(boolean includeHeaders);
+
+    /**
      * 是否忽略响应体，在不需要响应体的场景下提高效率
      * @return 是否忽略响应体
      */
     boolean isIgnoreResponseBody();
+
+    /**
+     * 设置ignoreResponseBody
+     * @param ignoreResponseBody ignoreResponseBody
+     * @return this
+     */
+    HttpRequest setIgnoreResponseBody(boolean ignoreResponseBody);
 
     /**
      * 是否重定向
@@ -145,11 +197,25 @@ public interface HttpRequest{
     boolean isRedirectable();
 
     /**
+     * 设置是否支持重定向
+     * @param redirectable 是否支持重定向
+     * @return this
+     */
+    HttpRequest setRedirectable(boolean redirectable);
+
+    /**
      * 代理信息
      * @see java.net.Proxy
      * @return 代理信息
      */
     ProxyInfo getProxyInfo();
+
+    /**
+     * 设置proxyInfo
+     * @param proxyInfo proxyInfo
+     * @return this
+     */
+    HttpRequest setProxy(ProxyInfo proxyInfo);
 
     /**
      * SSL相关设置的处理器
