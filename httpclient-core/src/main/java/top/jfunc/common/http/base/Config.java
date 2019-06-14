@@ -11,7 +11,7 @@ import java.net.CookieHandler;
  * 全局公共配置
  * @author xiongshiyan at 2018/8/7 , contact me with email yanshixiong@126.com or phone 15208384257
  */
-public class Config {
+public class Config extends ConfigFrozen {
     /**
      * BaseUrl,如果设置了就在正常传送的URL之前添加上
      */
@@ -68,6 +68,7 @@ public class Config {
     }
 
     public Config setBaseUrl(String baseUrl) {
+        ensureConfigNotFreeze();
         this.baseUrl = baseUrl;
         return this;
     }
@@ -77,6 +78,7 @@ public class Config {
     }
 
     public Config setDefaultConnectionTimeout(Integer defaultConnectionTimeout) {
+        ensureConfigNotFreeze();
         this.defaultConnectionTimeout = defaultConnectionTimeout;
         return this;
     }
@@ -86,6 +88,7 @@ public class Config {
     }
 
     public Config setDefaultReadTimeout(Integer defaultReadTimeout) {
+        ensureConfigNotFreeze();
         this.defaultReadTimeout = defaultReadTimeout;
         return this;
     }
@@ -95,6 +98,7 @@ public class Config {
     }
 
     public Config setDefaultQueryCharset(String defaultQueryCharset) {
+        ensureConfigNotFreeze();
         this.queryParamHolder.setParamCharset(defaultQueryCharset);
         return this;
     }
@@ -104,6 +108,7 @@ public class Config {
     }
 
     public Config setDefaultBodyCharset(String defaultBodyCharset) {
+        ensureConfigNotFreeze();
         this.defaultBodyCharset = defaultBodyCharset;
         return this;
     }
@@ -113,6 +118,7 @@ public class Config {
     }
 
     public Config setDefaultResultCharset(String defaultResultCharset) {
+        ensureConfigNotFreeze();
         this.defaultResultCharset = defaultResultCharset;
         return this;
     }
@@ -122,6 +128,7 @@ public class Config {
     }
 
     public Config setProxyInfo(ProxyInfo proxyInfo) {
+        ensureConfigNotFreeze();
         this.proxyInfo = proxyInfo;
         return this;
     }
@@ -143,6 +150,7 @@ public class Config {
     }
 
     public Config setCookieHandler(CookieHandler cookieHandler) {
+        ensureConfigNotFreeze();
         this.cookieHandler = cookieHandler;
         if(null == CookieHandler.getDefault()){
             CookieHandler.setDefault(cookieHandler);
@@ -155,10 +163,12 @@ public class Config {
     }
 
     public Config setCompositeInterceptor(CompositeInterceptor compositeInterceptor) {
+        ensureConfigNotFreeze();
         this.compositeInterceptor = compositeInterceptor;
         return this;
     }
     public Config addInterceptor(Interceptor interceptor , Interceptor... interceptors){
+        ensureConfigNotFreeze();
         if(null == this.compositeInterceptor){
             this.compositeInterceptor = new CompositeInterceptor();
         }

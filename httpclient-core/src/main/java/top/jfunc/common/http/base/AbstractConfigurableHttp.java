@@ -26,7 +26,7 @@ import java.util.Objects;
  * 一些http的公共方法处理
  * @author xiongshiyan at 2018/8/7 , contact me with email yanshixiong@126.com or phone 15208384257
  */
-public abstract class AbstractConfigurableHttp {
+public abstract class AbstractConfigurableHttp extends ConfigFrozen {
     private Config config = Config.defaultConfig();
 
     public Config getConfig() {
@@ -34,7 +34,16 @@ public abstract class AbstractConfigurableHttp {
     }
 
     public void setConfig(Config config) {
+        ensureConfigNotFreeze();
         this.config = Objects.requireNonNull(config);
+    }
+
+    @Override
+    public void freezeConfig() {
+        //本身冻结
+        super.freezeConfig();
+        //Config冻结
+        getConfig().freezeConfig();
     }
 
     public void onBeforeIfNecessary(HttpRequest httpRequest , Method method){

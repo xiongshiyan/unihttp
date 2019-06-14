@@ -21,6 +21,12 @@ import static top.jfunc.common.http.HttpConstants.*;
  * 使用时，可以直接new实现类，也可以通过{@link top.jfunc.common.http.HttpUtil }获取，这样就不会与实现类绑定
  */
 public interface HttpClient {
+
+    /**
+     * 冻结配置
+     */
+    void freezeConfig();
+
     /**
      * 设置全局默认配置,不调用就用系统设置的
      * @param config config
