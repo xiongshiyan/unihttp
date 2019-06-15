@@ -63,28 +63,16 @@ public abstract class AbstractConfigurableHttp extends ConfigFrozen {
     }
 
     public void onBeforeIfNecessary(HttpRequest httpRequest , Method method){
-        Config config = getConfig();
-        if(config.hasInterceptors()){
-            config.getCompositeInterceptor().onBefore(httpRequest, method);
-        }
+        getConfig().onBeforeIfNecessary(httpRequest, method);
     }
     public void onAfterReturnIfNecessary(HttpRequest httpRequest , Object returnValue){
-        Config config = getConfig();
-        if(config.hasInterceptors()){
-            config.getCompositeInterceptor().onAfterReturn(httpRequest, returnValue);
-        }
+        getConfig().onAfterReturnIfNecessary(httpRequest, returnValue);
     }
     public void onErrorIfNecessary(HttpRequest httpRequest , Exception exception){
-        Config config = getConfig();
-        if(config.hasInterceptors()){
-            config.getCompositeInterceptor().onError(httpRequest, exception);
-        }
+        getConfig().onErrorIfNecessary(httpRequest, exception);
     }
     public void onAfterIfNecessary(HttpRequest httpRequest){
-        Config config = getConfig();
-        if(config.hasInterceptors()){
-            config.getCompositeInterceptor().onAfter(httpRequest);
-        }
+        getConfig().onAfterIfNecessary(httpRequest);
     }
 
 

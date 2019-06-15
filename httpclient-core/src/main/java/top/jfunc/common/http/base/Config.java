@@ -1,9 +1,11 @@
 package top.jfunc.common.http.base;
 
 import top.jfunc.common.http.HttpConstants;
+import top.jfunc.common.http.Method;
 import top.jfunc.common.http.holder.*;
 import top.jfunc.common.http.interceptor.CompositeInterceptor;
 import top.jfunc.common.http.interceptor.Interceptor;
+import top.jfunc.common.http.request.HttpRequest;
 
 import java.net.CookieHandler;
 
@@ -176,7 +178,28 @@ public class Config extends ConfigFrozen {
         return this;
     }
 
-    public boolean hasInterceptors(){
+    void onBeforeIfNecessary(HttpRequest httpRequest , Method method){
+        if(hasInterceptors()){
+            compositeInterceptor.onBefore(httpRequest, method);
+        }
+    }
+
+    void onAfterReturnIfNecessary(HttpRequest httpRequest , Object returnValue){
+        if(hasInterceptors()){
+            compositeInterceptor.onAfterReturn(httpRequest, returnValue);
+        }
+    }
+    void onErrorIfNecessary(HttpRequest httpRequest , Exception exception){
+        if(hasInterceptors()){
+            compositeInterceptor.onError(httpRequest, exception);
+        }
+    }
+    void onAfterIfNecessary(HttpRequest httpRequest){
+        if(hasInterceptors()){
+            compositeInterceptor.onAfter(httpRequest);
+        }
+    }
+    private boolean hasInterceptors(){
         return null != this.compositeInterceptor
                 && this.compositeInterceptor.hasInterceptors();
     }
