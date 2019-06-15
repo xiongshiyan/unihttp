@@ -183,7 +183,10 @@ public class NativeSmartHttpClient extends NativeHttpClient implements SmartHttp
         MultiValueMap<String, String> headers = mergeHeaders(request.headerHolder().getHeaders());
         request.headerHolder().setHeaders(headers);
         Response response = template(request, Method.POST ,
-                connect -> this.upload0(connect, request.getFormParams(), request.getFormFiles()) , Response::with);
+                connect -> {
+                    ParamHolder paramHolder = request.formParamHolder();
+                    this.upload0(connect, paramHolder.getParams(), getBodyCharsetWithDefault(paramHolder.getParamCharset()), request.getFormFiles());
+                }, Response::with);
         return afterTemplate(request , response);
     }
 
