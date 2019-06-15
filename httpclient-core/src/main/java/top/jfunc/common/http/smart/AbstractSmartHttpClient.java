@@ -1,12 +1,10 @@
 package top.jfunc.common.http.smart;
 
 import top.jfunc.common.http.Method;
-import top.jfunc.common.http.base.Config;
 import top.jfunc.common.http.base.ContentCallback;
 import top.jfunc.common.http.basic.AbstractHttpClient;
 import top.jfunc.common.http.base.FormFile;
 import top.jfunc.common.http.request.*;
-import top.jfunc.common.http.request.impl.GetRequest;
 import top.jfunc.common.utils.IoUtil;
 import top.jfunc.common.utils.MultiValueMap;
 
@@ -70,14 +68,6 @@ public abstract class AbstractSmartHttpClient<CC> extends AbstractHttpClient<CC>
         Response response = template(request , Method.POST ,
                 uploadContentCallback(request.getFormParams(), request.getFormFiles()) , Response::with);
         return afterTemplate(request , response);
-    }
-
-    @Override
-    public Response afterTemplate(HttpRequest request, Response response) throws IOException{
-        if(request.isRedirectable() && response.needRedirect()){
-            return get(GetRequest.of(response.getRedirectUrl()));
-        }
-        return response;
     }
 }
 
