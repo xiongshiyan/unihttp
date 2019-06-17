@@ -92,4 +92,16 @@ public class ParamUtilTest {
         String contactMap = ParamUtil.contactIterable(entries , "UTF-8");
         Assert.assertThat(contactMap , is("xx=xx&yy=yy"));
     }
+
+    @Test
+    public void testReplaceRoute(){
+        String url = "http://httpbin.org/book/{id}/{do}/{gg}";
+        Map<String , String> routes = new HashMap<>();
+        routes.put("id" , "121313");
+        routes.put("id2" , "12222221313");
+        routes.put("do" , "edit");
+        routes.put("gg" , "gg");
+        String necessary = ParamUtil.replaceRouteParamsIfNecessary(url, routes);
+        Assert.assertEquals("http://httpbin.org/book/121313/edit/gg" , necessary);
+    }
 }
