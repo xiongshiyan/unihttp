@@ -54,6 +54,8 @@ public enum HeaderRegular {
 	SET_COOKIE2("Set-Cookie2"),
 	/**Content-Encoding*/
 	CONTENT_ENCODING("Content-Encoding"),
+	/**Charset*/
+	CHARSET("Charset"),
 	/**ETag*/
 	ETAG("ETag"),
 	/** 重定向指示到的URL */
