@@ -9,7 +9,6 @@
 *.iml
 *.db
 *.log
-*.jar
 *.war
 .DS_Store
 /local.properties
