@@ -23,6 +23,8 @@ subprojects{
     apply plugin: 'com.jfrog.bintray'
 
     sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+
     //统一版本管理
     ext {
         CommonUtilVersion       = '1.8.2.3'
