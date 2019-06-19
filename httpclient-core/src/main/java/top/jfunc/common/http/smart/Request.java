@@ -13,8 +13,6 @@ import top.jfunc.common.http.request.impl.BaseRequest;
 import top.jfunc.common.utils.StrUtil;
 
 import java.io.File;
-import java.util.Arrays;
-import java.util.Map;
 
 /**
  * 代表一个Http请求的所有参数,基于Request-Response的可以更好地扩展功能
@@ -72,7 +70,6 @@ public class Request extends BaseRequest<Request> implements
         return new Request(url);
     }
 
-    /****************************Getter**************************/
     /**
      * 如果没有显式设置body而是通过params添加的，此时一般认为是想发起form请求，最好设置Content-Type
      * @see Request#setContentType(String)

@@ -2,6 +2,8 @@ package top.jfunc.common.http;
 
 import org.junit.Assert;
 import org.junit.Test;
+import top.jfunc.common.http.holder.DefaultRouteParamHolder;
+import top.jfunc.common.http.holder.RouteParamHolder;
 import top.jfunc.common.utils.ArrayListMultiValueMap;
 import top.jfunc.common.utils.ArrayListMultimap;
 import top.jfunc.common.utils.LinkedMultiValueMap;
@@ -103,5 +105,45 @@ public class ParamUtilTest {
         routes.put("gg" , "gg");
         String necessary = ParamUtil.replaceRouteParamsIfNecessary(url, routes);
         Assert.assertEquals("http://httpbin.org/book/121313/edit/gg" , necessary);
+    }
+
+    @Test
+    public void testReplaceRoute2(){
+        String url = "http://httpbin.org/book/{id}/{do}/{gg}/{1}/{2}";
+        RouteParamHolder routeParamHolder = new DefaultRouteParamHolder();
+        routeParamHolder.addRouteParam("id" , "121313");
+        routeParamHolder.addRouteParam("id2" , "12222221313");
+        routeParamHolder.addRouteParam("do" , "edit");
+
+        //key-value用分号隔开的
+        routeParamHolder.addRouteParams("gg:gg");
+
+        //从1开始的顺序参数
+        routeParamHolder.addOrderedRouteParams("xxxxx" , "yyyyy");
+
+        String necessary = ParamUtil.replaceRouteParamsIfNecessary(url, routeParamHolder.getRouteParams());
+        Assert.assertEquals("http://httpbin.org/book/121313/edit/gg/xxxxx/yyyyy" , necessary);
+    }
+    @Test
+    public void testReplaceRoute3(){
+        String url = "http://httpbin.org/book/{id}/{do}/{gg}/{0}/{1}";
+        RouteParamHolder routeParamHolder = new DefaultRouteParamHolder(){
+            @Override
+            public int orderedParamsFrom() {
+                return 0;
+            }
+        };
+        routeParamHolder.addRouteParam("id" , "121313");
+        routeParamHolder.addRouteParam("id2" , "12222221313");
+        routeParamHolder.addRouteParam("do" , "edit");
+
+        //key-value用分号隔开的
+        routeParamHolder.addRouteParams("gg:gg");
+
+        //从1开始的顺序参数
+        routeParamHolder.addOrderedRouteParams("xxxxx" , "yyyyy");
+
+        String necessary = ParamUtil.replaceRouteParamsIfNecessary(url, routeParamHolder.getRouteParams());
+        Assert.assertEquals("http://httpbin.org/book/121313/edit/gg/xxxxx/yyyyy" , necessary);
     }
 }
