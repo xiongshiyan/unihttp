@@ -119,8 +119,9 @@ public class Request extends BaseRequest<Request> implements
     }
 
     @Override
-    public MultiValueMap<String, String> getFormParams() {
-        return formParamHolder.getParams();
+    public Request setParamCharset(String paramCharset) {
+        formParamHolder.setParamCharset(paramCharset);
+        return this;
     }
 
     /**
