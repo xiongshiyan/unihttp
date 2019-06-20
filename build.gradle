@@ -29,6 +29,8 @@ subprojects{
     ext {
         CommonUtilVersion       = '1.8.2.3'
         SpringBootVersion       = '1.5.7.RELEASE'
+        SpringVersion           = '4.3.11.RELEASE'
+
         OkHttp3Version          = '3.11.0'
         JoddVersion             = '5.0.12'
         ApacheHttpCleintVersion = '4.5.3'

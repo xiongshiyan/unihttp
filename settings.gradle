@@ -6,4 +6,4 @@ include 'httpclient-okhttp3'
 include 'httpclient-apache'
 include 'httpclient-jodd'
 
-include 'httpclient-spring-boot-starter'
+include 'httpclient-spring-configure'
