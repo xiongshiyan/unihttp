@@ -68,6 +68,10 @@ public abstract class BaseRequest<THIS extends BaseRequest> implements HttpReque
      * SSL相关设置
      */
     private SSLHolder sslHolder = new DefaultSSLHolder();
+    /**
+     * 属性设置器
+     */
+    private AttributeHolder attributeHolder = new DefaultAttributeHolder();
 
     /**
      * 代理设置,如果有就设置
@@ -234,5 +238,16 @@ public abstract class BaseRequest<THIS extends BaseRequest> implements HttpReque
     @Override
     public SSLHolder sslHolder() {
         return sslHolder;
+    }
+
+    @Override
+    public AttributeHolder attributeHolder() {
+        return attributeHolder;
+    }
+
+    @Override
+    public THIS addAttribute(String key, String value) {
+        this.attributeHolder.addAttribute(key, value);
+        return myself();
     }
 }
