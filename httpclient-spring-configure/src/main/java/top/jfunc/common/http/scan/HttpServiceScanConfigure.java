@@ -1,4 +1,4 @@
-package top.jfunc.common.http;
+package top.jfunc.common.http.scan;
 
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;

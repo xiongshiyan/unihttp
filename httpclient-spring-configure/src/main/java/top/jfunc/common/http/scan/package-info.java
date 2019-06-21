@@ -1,4 +1,4 @@
-package top.jfunc.common.http;
+package top.jfunc.common.http.scan;
 /**
 
  参照以下配置方式配置SmartHttpClient和HttpService对接口的扫描

@@ -1,4 +1,4 @@
-package top.jfunc.common.http;
+package top.jfunc.common.http.scan;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -1,4 +1,4 @@
-package top.jfunc.common.http;
+package top.jfunc.common.http.scan;
 
 import org.springframework.beans.factory.FactoryBean;
 import top.jfunc.common.http.interfacing.HttpServiceCreator;
