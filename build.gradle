@@ -57,4 +57,8 @@ subprojects{
         // https://mvnrepository.com/artifact/org.mock-server/mockserver-netty
         testCompile ("org.mock-server:mockserver-netty:${MockServerVersion}")
     }
+
+    tasks.withType(JavaCompile) {
+        options.encoding = "UTF-8"
+    }
 }
