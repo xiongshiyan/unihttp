@@ -4,6 +4,7 @@ import top.jfunc.common.http.kv.Parameter;
 import top.jfunc.common.utils.ArrayListMultimap;
 import top.jfunc.common.utils.MultiValueMap;
 
+import java.nio.charset.Charset;
 import java.util.Map;
 
 /**
@@ -29,6 +30,15 @@ public interface ParamHolder {
      * @return this
      */
     ParamHolder setParamCharset(String charset);
+
+    /**
+     * 设置参数编码
+     * @param charset 编码
+     * @return this
+     */
+    default ParamHolder setParamCharset(Charset charset){
+        return setParamCharset(charset.name());
+    }
 
     /**
      * 设置Param参数
