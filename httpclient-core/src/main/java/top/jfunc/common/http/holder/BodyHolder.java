@@ -7,7 +7,6 @@ import top.jfunc.common.utils.IoUtil;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
-import java.nio.charset.Charset;
 import java.util.Objects;
 
 /**
@@ -55,15 +54,6 @@ public interface BodyHolder {
      * @return this
      */
     BodyHolder setBodyCharset(String bodyCharset);
-
-    /**
-     * 设置字符编码
-     * @param bodyCharset 字符编码
-     * @return this
-     */
-    default BodyHolder setBodyCharset(Charset bodyCharset){
-        return setBodyCharset(bodyCharset.name());
-    }
 
     /**
      * 设置字符编码
