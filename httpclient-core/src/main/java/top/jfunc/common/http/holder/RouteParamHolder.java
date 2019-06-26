@@ -6,7 +6,7 @@ import java.util.Map;
  * 路径参数处理器
  * @author xiongshiyan at 2019/6/3 , contact me with email yanshixiong@126.com or phone 15208384257
  */
-public interface RouteParamHolder extends MapHolder{
+public interface RouteParamHolder extends MapHolder {
     /**
      * 路径参数
      * @return 路径参数
@@ -20,7 +20,7 @@ public interface RouteParamHolder extends MapHolder{
      * @return this
      */
     @Override
-    MapHolder setMap(Map<String, String> map);
+    RouteParamHolder setMap(Map<String, String> map);
 
     /**
      * 添加路径参数
