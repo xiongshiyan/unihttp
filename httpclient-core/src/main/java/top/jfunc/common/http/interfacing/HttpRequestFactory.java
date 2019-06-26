@@ -7,7 +7,10 @@ import top.jfunc.common.http.annotation.method.*;
 import top.jfunc.common.http.annotation.parameter.*;
 import top.jfunc.common.http.holder.HeaderHolder;
 import top.jfunc.common.http.request.HttpRequest;
-import top.jfunc.common.http.request.impl.*;
+import top.jfunc.common.http.request.impl.CommonBodyRequest;
+import top.jfunc.common.http.request.impl.CommonRequest;
+import top.jfunc.common.http.request.impl.FormBodyRequest;
+import top.jfunc.common.http.request.impl.UpLoadRequest;
 import top.jfunc.common.utils.ArrayListMultiValueMap;
 import top.jfunc.common.utils.MultiValueMap;
 
@@ -215,7 +218,7 @@ class HttpRequestFactory implements RequestFactory {
     }
 
     private void validateRouteParams(HttpRequest httpRequest) {
-        Map<String, String> routeParams = httpRequest.routeParamHolder().getRouteParams();
+        Map<String, String> routeParams = httpRequest.routeParamHolder().getMap();
         //校验路径参数是否一致
         if(null != routeParams && !routeParams.isEmpty()){
             int size = routeParams.size();

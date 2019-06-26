@@ -43,7 +43,7 @@ public class MultiRequestTest {
         );
 
         HttpRequest request = GetRequest.of("http://localhost:50000/hello/{name}");
-        request.routeParamHolder().addRouteParam("name" , "John");
+        request.routeParamHolder().put("name" , "John");
         Response response = smartHttpClient.get(request);
         Assert.assertEquals(expected , response.asString());
     }
@@ -64,7 +64,7 @@ public class MultiRequestTest {
         );
 
         HttpRequest request = GetRequest.of("http://localhost:50000/hello/{name}");
-        request.routeParamHolder().addRouteParam("name" , "John");
+        request.routeParamHolder().put("name" , "John");
         request.queryParamHolder().addParam("key1" , "value1").addParam("key2" , "value2");
         Response response = smartHttpClient.get(request);
         Assert.assertEquals(expected , response.asString());
@@ -84,7 +84,7 @@ public class MultiRequestTest {
         );
 
         StringBodyRequest request = PostBodyRequest.of("http://localhost:50000/hello/{name}").setBody(expected);
-        request.routeParamHolder().addRouteParam("name" , "John");
+        request.routeParamHolder().put("name" , "John");
         Response response = smartHttpClient.post(request);
         Assert.assertEquals(expected , response.asString());
     }
@@ -105,7 +105,7 @@ public class MultiRequestTest {
         );
 
         FormBodyRequest request = FormBodyRequest.of("http://localhost:50000/hello/{name}");
-        request.routeParamHolder().addRouteParam("name" , "John");
+        request.routeParamHolder().put("name" , "John");
         request.formParamHolder().addParam("key1" , "value1").addParam("key2" , "value2");
         Response response = smartHttpClient.post(request);
         Assert.assertEquals(expected , response.asString());
@@ -124,7 +124,7 @@ public class MultiRequestTest {
         );
 
         HttpRequest request = GetRequest.of("http://localhost:50000/hello/{name}").setIncludeHeaders(true);
-        request.routeParamHolder().addRouteParam("name" , "John");
+        request.routeParamHolder().put("name" , "John");
         request.headerHolder().addHeader("sale" , "2").addHeader("ca-xx" , "ca-xx");
         Response response = smartHttpClient.get(request);
         Assert.assertEquals("xx" , response.getOneHeader("xx"));

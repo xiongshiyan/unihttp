@@ -121,7 +121,7 @@ public class ParamUtilTest {
         //从1开始的顺序参数
         routeParamHolder.addOrderedRouteParams("xxxxx" , "yyyyy");
 
-        String necessary = ParamUtil.replaceRouteParamsIfNecessary(url, routeParamHolder.getRouteParams());
+        String necessary = ParamUtil.replaceRouteParamsIfNecessary(url, routeParamHolder.getMap());
         Assert.assertEquals("http://httpbin.org/book/121313/edit/gg/xxxxx/yyyyy" , necessary);
     }
     @Test
@@ -143,7 +143,7 @@ public class ParamUtilTest {
         //从1开始的顺序参数
         routeParamHolder.addOrderedRouteParams("xxxxx" , "yyyyy");
 
-        String necessary = ParamUtil.replaceRouteParamsIfNecessary(url, routeParamHolder.getRouteParams());
+        String necessary = ParamUtil.replaceRouteParamsIfNecessary(url, routeParamHolder.getMap());
         Assert.assertEquals("http://httpbin.org/book/121313/edit/gg/xxxxx/yyyyy" , necessary);
     }
 }
