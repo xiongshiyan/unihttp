@@ -248,6 +248,12 @@ public abstract class BaseRequest<THIS extends BaseRequest> implements HttpReque
     }
 
     @Override
+    public THIS urlHolder(UrlHolder urlHolder) {
+        this.urlHolder = urlHolder;
+        return myself();
+    }
+
+    @Override
     public String getContentType() {
         return contentType;
     }

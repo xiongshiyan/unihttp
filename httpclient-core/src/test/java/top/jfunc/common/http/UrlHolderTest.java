@@ -2,8 +2,12 @@ package top.jfunc.common.http;
 
 import org.junit.Assert;
 import org.junit.Test;
+import top.jfunc.common.http.holder.DefaultPhpUrlHolder;
 import top.jfunc.common.http.holder.DefaultUrlHolder;
+import top.jfunc.common.http.holder.PhpUrlHolder;
 import top.jfunc.common.http.holder.UrlHolder;
+import top.jfunc.common.http.request.HttpRequest;
+import top.jfunc.common.http.request.impl.GetRequest;
 
 import static org.hamcrest.Matchers.is;
 
@@ -12,9 +16,29 @@ import static org.hamcrest.Matchers.is;
  */
 public class UrlHolderTest {
     @Test
+    public void testUrl1(){
+        String url = "http://127.0.0.1:8090/dddd/tttt?hill=hell&haven=heavy";
+        UrlHolder holder = new DefaultUrlHolder().setUrl(url).addQueryParam("kkk","kkk");
+        Assert.assertEquals("http://127.0.0.1:8090/dddd/tttt?hill=hell&haven=heavy&kkk=kkk", holder.getUrl() );
+        Assert.assertEquals("http://127.0.0.1:8090/dddd/tttt?hill=hell&haven=heavy&kkk=kkk", holder.getUrl() );
+
+        HttpRequest httpRequest = GetRequest.of("");
+        Assert.assertTrue(httpRequest.urlHolder() instanceof UrlHolder);
+        httpRequest.urlHolder(new DefaultPhpUrlHolder());
+        Assert.assertTrue(httpRequest.urlHolder() instanceof PhpUrlHolder);
+    }
+    @Test
+    public void testUrl2(){
+        String url = "http://127.0.0.1:8090/{ddd}/{ttt}?hill=hell&haven=heavy";
+        UrlHolder holder = new DefaultUrlHolder().setUrl(url).addRouteParam("ddd","111")
+                .addRouteParam("ttt","222").addQueryParam("kkk","kkk");
+        Assert.assertEquals("http://127.0.0.1:8090/111/222?hill=hell&haven=heavy&kkk=kkk", holder.getUrl() );
+    }
+
+    @Test
     public void testSetCompleteUrl1(){
         String url = "http://127.0.0.1:8090/dddd/tttt?hill=hell&haven=heavy";
-        UrlHolder holder = new DefaultUrlHolder().setUrl(url);
+        PhpUrlHolder holder = new DefaultPhpUrlHolder().setUrl(url);
 
         assertMultiValue (holder ,
                 "http://127.0.0.1:8090/dddd/tttt?hill=hell&haven=heavy" ,
@@ -24,7 +48,7 @@ public class UrlHolderTest {
     @Test
     public void testSetCompleteUrl2(){
         String url = "http://127.0.0.1/dddd/tttt?hill=hell&haven=heavy";
-        UrlHolder holder = new DefaultUrlHolder().setUrl(url);
+        PhpUrlHolder holder = new DefaultPhpUrlHolder().setUrl(url);
         assertMultiValue (holder ,
                 "http://127.0.0.1/dddd/tttt?hill=hell&haven=heavy" ,
                 Protocol.HTTP ,
@@ -33,7 +57,7 @@ public class UrlHolderTest {
     @Test
     public void testSetCompleteUrl3(){
         String url = "https://127.0.0.1/dddd/tttt?hill=hell&haven=heavy";
-        UrlHolder holder = new DefaultUrlHolder().setUrl(url);
+        PhpUrlHolder holder = new DefaultPhpUrlHolder().setUrl(url);
         assertMultiValue (holder ,
                 "https://127.0.0.1/dddd/tttt?hill=hell&haven=heavy" ,
                 Protocol.HTTPS ,
@@ -42,7 +66,7 @@ public class UrlHolderTest {
 
     @Test
     public void testPartSet1(){
-        UrlHolder holder = new DefaultUrlHolder()
+        PhpUrlHolder holder = new DefaultPhpUrlHolder()
                 .protocol(Protocol.HTTPS)
                 .host("localhost")
                 .port(1234)
@@ -54,7 +78,7 @@ public class UrlHolderTest {
     }
     @Test
     public void testPartSet2(){
-        UrlHolder holder = new DefaultUrlHolder()
+        PhpUrlHolder holder = new DefaultPhpUrlHolder()
                 .protocol(Protocol.HTTPS)
                 .host("localhost")
                 .port(1234)
@@ -67,7 +91,7 @@ public class UrlHolderTest {
     }
     @Test
     public void testPartSet3(){
-        UrlHolder holder = new DefaultUrlHolder()
+        PhpUrlHolder holder = new DefaultPhpUrlHolder()
 //                .protocol(Protocol.HTTPS)
 //                .host("localhost")
 //                .port(1234)
@@ -82,7 +106,7 @@ public class UrlHolderTest {
 
     @Test
     public void testPartSet4(){
-        UrlHolder holder = new DefaultUrlHolder()
+        PhpUrlHolder holder = new DefaultPhpUrlHolder()
 //                .protocol(Protocol.HTTPS)
 //                .host("localhost")
 //                .port(1234)
@@ -96,7 +120,7 @@ public class UrlHolderTest {
 
     @Test
     public void testRecalculate(){
-        UrlHolder holder = new DefaultUrlHolder()
+        PhpUrlHolder holder = new DefaultPhpUrlHolder()
                 .protocol(Protocol.HTTPS)
                 .host("localhost")
                 .port(1234)
@@ -112,7 +136,7 @@ public class UrlHolderTest {
 
 
 
-    private void print(UrlHolder holder){
+    private void print(PhpUrlHolder holder){
         System.out.println(holder.getUrl());
         System.out.println(holder.protocol());
         System.out.println(holder.host());
@@ -121,7 +145,7 @@ public class UrlHolderTest {
         System.out.println(holder.queryParamHolder().getParams());
     }
 
-    private void assertMultiValue(UrlHolder holder ,
+    private void assertMultiValue(PhpUrlHolder holder ,
                                   String url , Protocol protocol , String host , int port , String path , int querySize){
         Assert.assertThat(holder.getUrl() , is(url));
         Assert.assertThat(holder.protocol() , is(protocol));

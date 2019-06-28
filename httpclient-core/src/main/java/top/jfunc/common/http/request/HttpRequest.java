@@ -34,6 +34,15 @@ public interface HttpRequest {
     UrlHolder urlHolder();
 
     /**
+     * 设置url处理器,其实holder相关的设置还可以通过 httpRequest.urlHolder()=..Holder来设置
+     * @see UrlHolder
+     * @see PhpUrlHolder
+     * @param urlHolder urlHolder
+     * @return this
+     */
+    HttpRequest urlHolder(UrlHolder urlHolder);
+
+    /**
      * 请求的URL
      * @return 请求的URL
      */

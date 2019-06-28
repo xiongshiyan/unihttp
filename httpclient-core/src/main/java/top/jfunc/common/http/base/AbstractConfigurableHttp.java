@@ -155,7 +155,8 @@ public abstract class AbstractConfigurableHttp {
     }
 
     protected String handleUrlIfNecessary(String originUrl , String queryCharset){
-        return ParamUtil.contactUrlParams(originUrl, getDefaultQueryParams(), getQueryCharsetWithDefault(queryCharset));
+        String urlWithBase = addBaseUrlIfNecessary(originUrl);
+        return ParamUtil.contactUrlParams(urlWithBase, getDefaultQueryParams(), getQueryCharsetWithDefault(queryCharset));
     }
 
 
