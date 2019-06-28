@@ -7,6 +7,8 @@ import top.jfunc.common.http.ParamUtil;
 import top.jfunc.common.http.Protocol;
 
 /**
+ * 适合不知道全路径，知道各个部分的情况下，或者需要知道一个URL中的各个部分，可以不需要考虑诸如一下的一些细节：路径参数处理、查询参数处理、要不要加一个/等繁琐的细节
+ * 相反不太适合用此类，因为{@link DefaultUrlHolder#setUrl(String)}会切割计算各个部分，会有性能损耗
  * @author xiongshiyan at 2019/6/28 , contact me with email yanshixiong@126.com or phone 15208384257
  */
 public class DefaultUrlHolder implements UrlHolder{
