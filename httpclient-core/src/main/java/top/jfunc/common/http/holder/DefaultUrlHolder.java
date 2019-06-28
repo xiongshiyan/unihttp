@@ -50,7 +50,8 @@ public class DefaultUrlHolder implements UrlHolder{
 
         if(null == protocol){
             //说明不是完整的路径
-            this.finalUrl = handleUrlIfNecessary(path);
+            this.path = ParamUtil.replaceRouteParamsIfNecessary(path , routeParamHolder.getMap());
+            this.finalUrl = ParamUtil.contactUrlParams(path, queryParamHolder.getParams() , queryParamHolder.getParamCharset());
             return this.finalUrl;
         }
 
@@ -58,21 +59,14 @@ public class DefaultUrlHolder implements UrlHolder{
         if(null == host){
             throw new IllegalArgumentException("host 未指定");
         }
-        //1.拼装url
+        //拼装url
         String url = protocol.name().toLowerCase() + COLON_SPLASH
-                + host + COLON + port +
-                (path.startsWith(SPLASH) ? path : (SPLASH + path));
+                + host + COLON + port;
+        path = (path.startsWith(SPLASH) ? path : (SPLASH + path));
+        this.path = ParamUtil.replaceRouteParamsIfNecessary(path , routeParamHolder.getMap());
+        this.finalUrl = ParamUtil.contactUrlParams(url + path, queryParamHolder.getParams() , queryParamHolder.getParamCharset());
 
-        finalUrl = handleUrlIfNecessary(url);
         return finalUrl;
-    }
-
-    private String handleUrlIfNecessary(String origin){
-        //2.处理路径参数
-        String routeUrl = ParamUtil.replaceRouteParamsIfNecessary(origin , routeParamHolder.getMap());
-
-        //3.处理Query参数
-        return ParamUtil.contactUrlParams(routeUrl, queryParamHolder.getParams() , queryParamHolder.getParamCharset());
     }
 
     @Override

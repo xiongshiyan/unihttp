@@ -91,7 +91,7 @@ public class UrlHolderTest {
         assertMultiValue (holder ,
                 "/1111/222/tt?k1=v1" ,
                 null ,
-                null,-1,"/{sss}/{ddd}/tt" , 1);
+                null,-1,"/1111/222/tt" , 1);
     }
 
     @Test
