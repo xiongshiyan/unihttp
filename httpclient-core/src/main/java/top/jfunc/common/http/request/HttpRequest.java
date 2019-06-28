@@ -28,10 +28,18 @@ public interface HttpRequest {
     boolean REDIRECTABLE = true;
 
     /**
+     * 处理Url参数的
+     * @return urlHolder must not be null
+     */
+    UrlHolder urlHolder();
+
+    /**
      * 请求的URL
      * @return 请求的URL
      */
-    String getUrl();
+    default String getUrl(){
+        return urlHolder().getUrl();
+    }
 
     /**
      * 设置URL
@@ -53,7 +61,9 @@ public interface HttpRequest {
      *获取到 {@link RouteParamHolder} 可以对路径参数完全接管处理
      * @return RouteParamHolder must not be null
      */
-    RouteParamHolder routeParamHolder();
+    default RouteParamHolder routeParamHolder(){
+        return urlHolder().routeParamHolder();
+    }
 
     /**
      * 便捷地设置路径参数
@@ -80,7 +90,9 @@ public interface HttpRequest {
      * 获取到 {@link ParamHolder} 可以对Query参数完全接管处理
      * @return ParamHolder must not be null
      */
-    ParamHolder queryParamHolder();
+    default ParamHolder queryParamHolder(){
+        return urlHolder().queryParamHolder();
+    }
 
     /**
      * 提供便捷的设置Query参数的方法

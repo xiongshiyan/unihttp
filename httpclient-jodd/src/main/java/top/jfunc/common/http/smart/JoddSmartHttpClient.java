@@ -35,9 +35,10 @@ public class JoddSmartHttpClient extends JoddHttpClient implements SmartHttpClie
         HttpResponse response = null;
         try {
             //1.获取完成的URL，创建请求
-            ParamHolder queryParamHolder = httpRequest.queryParamHolder();
-            RouteParamHolder routeParamHolder = httpRequest.routeParamHolder();
-            String completedUrl = handleUrlIfNecessary(httpRequest.getUrl() , routeParamHolder.getMap() , queryParamHolder.getParams() , queryParamHolder.getParamCharset());
+            /// ParamHolder queryParamHolder = httpRequest.queryParamHolder();
+            /// RouteParamHolder routeParamHolder = httpRequest.routeParamHolder();
+            /// String completedUrl = handleUrlIfNecessary(httpRequest.getUrl() , routeParamHolder.getMap() , queryParamHolder.getParams() , queryParamHolder.getParamCharset());
+            String completedUrl = handleUrlIfNecessary(httpRequest.getUrl() , httpRequest.queryParamHolder().getParamCharset());
 
             HttpRequest request = new HttpRequest();
             request.method(method.name());

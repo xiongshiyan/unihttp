@@ -40,9 +40,10 @@ public class ApacheSmartHttpClient extends ApacheHttpClient implements SmartHttp
         onBeforeIfNecessary(httpRequest, method);
 
         //1.获取完整的URL
-        ParamHolder queryParamHolder = httpRequest.queryParamHolder();
-        RouteParamHolder routeParamHolder = httpRequest.routeParamHolder();
-        String completedUrl = handleUrlIfNecessary(httpRequest.getUrl() , routeParamHolder.getMap() , queryParamHolder.getParams() , queryParamHolder.getParamCharset());
+        /// ParamHolder queryParamHolder = httpRequest.queryParamHolder();
+        /// RouteParamHolder routeParamHolder = httpRequest.routeParamHolder();
+        /// String completedUrl = handleUrlIfNecessary(httpRequest.getUrl() , routeParamHolder.getMap() , queryParamHolder.getParams() , queryParamHolder.getParamCharset());
+        String completedUrl = handleUrlIfNecessary(httpRequest.getUrl() , httpRequest.queryParamHolder().getParamCharset());
 
         HttpUriRequest httpUriRequest = createHttpUriRequest(completedUrl, method);
 

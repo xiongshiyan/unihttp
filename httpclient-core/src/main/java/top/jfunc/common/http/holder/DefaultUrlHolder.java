@@ -59,8 +59,9 @@ public class DefaultUrlHolder implements UrlHolder{
             throw new IllegalArgumentException("host 未指定");
         }
         //1.拼装url
-        String url = protocol.name().toLowerCase() + COLON_SPLASH + host + COLON + port ;
-        url = url + (path.startsWith(SPLASH) ? path : (SPLASH + path));
+        String url = protocol.name().toLowerCase() + COLON_SPLASH
+                + host + COLON + port +
+                (path.startsWith(SPLASH) ? path : (SPLASH + path));
 
         finalUrl = handleUrlIfNecessary(url);
         return finalUrl;
