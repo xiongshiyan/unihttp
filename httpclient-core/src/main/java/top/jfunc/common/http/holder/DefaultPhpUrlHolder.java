@@ -25,7 +25,7 @@ public class DefaultPhpUrlHolder extends DefaultUrlHolder implements PhpUrlHolde
     private String path = SPLASH;
 
     /**
-     * 获取之后，最好就不要再更改参数了，或者在之前调用{@link PhpUrlHolder#recalculate()}
+     * 获取之后，最好就不要再更改参数了，或者在之前调用{@link PhpUrlHolder#recalculateUrl()}
      * @return 计算后的url
      */
     @Override
@@ -56,13 +56,6 @@ public class DefaultPhpUrlHolder extends DefaultUrlHolder implements PhpUrlHolde
         this.cacheFinalUrl = ParamUtil.contactUrlParams(url + path, queryParamHolder.getParams() , queryParamHolder.getParamCharset());
 
         return cacheFinalUrl;
-    }
-
-    @Override
-    public String recalculate(){
-        //finalUrl=null的时候就会重新计算
-        cacheFinalUrl = null;
-        return getUrl();
     }
 
     @Override

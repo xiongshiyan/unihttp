@@ -131,7 +131,7 @@ public class UrlHolderTest {
 
         Assert.assertThat(holder.getUrl() , is("https://localhost:1234/1111/222/tt?k1=v1"));
 
-        Assert.assertThat(holder.recalculate() , is("http://localhost:1234/1111/222/tt?hh=hh&k1=v1"));
+        Assert.assertThat(holder.recalculateUrl() , is("http://localhost:1234/1111/222/tt?hh=hh&k1=v1"));
     }
 
 
