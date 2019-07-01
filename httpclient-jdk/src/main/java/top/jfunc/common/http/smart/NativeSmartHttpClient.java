@@ -6,7 +6,6 @@ import top.jfunc.common.http.base.ProxyInfo;
 import top.jfunc.common.http.base.ResultCallback;
 import top.jfunc.common.http.basic.NativeHttpClient;
 import top.jfunc.common.http.holder.ParamHolder;
-import top.jfunc.common.http.holder.RouteParamHolder;
 import top.jfunc.common.http.holder.SSLHolder;
 import top.jfunc.common.http.request.*;
 import top.jfunc.common.utils.IoUtil;
@@ -182,8 +181,8 @@ public class NativeSmartHttpClient extends NativeHttpClient implements SmartHttp
     @Override
     public Response upload(UploadRequest req) throws IOException {
         UploadRequest request = beforeTemplate(req);
-        MultiValueMap<String, String> headers = mergeHeaders(request.headerHolder().getHeaders());
-        request.headerHolder().setHeaders(headers);
+        ///MultiValueMap<String, String> headers = mergeHeaders(request.headerHolder().getHeaders());
+        ///request.headerHolder().setHeaders(headers);
         Response response = template(request, Method.POST ,
                 connect -> {
                     ParamHolder paramHolder = request.formParamHolder();
