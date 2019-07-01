@@ -15,7 +15,6 @@ import top.jfunc.common.http.base.ResultCallback;
 import top.jfunc.common.http.basic.ApacheHttpClient;
 import top.jfunc.common.http.holder.HeaderHolder;
 import top.jfunc.common.http.holder.ParamHolder;
-import top.jfunc.common.http.holder.RouteParamHolder;
 import top.jfunc.common.http.holder.SSLHolder;
 import top.jfunc.common.http.request.*;
 import top.jfunc.common.utils.IoUtil;
@@ -43,7 +42,7 @@ public class ApacheSmartHttpClient extends ApacheHttpClient implements SmartHttp
         /// ParamHolder queryParamHolder = httpRequest.queryParamHolder();
         /// RouteParamHolder routeParamHolder = httpRequest.routeParamHolder();
         /// String completedUrl = handleUrlIfNecessary(httpRequest.getUrl() , routeParamHolder.getMap() , queryParamHolder.getParams() , queryParamHolder.getParamCharset());
-        String completedUrl = handleUrlIfNecessary(httpRequest.getUrl() , httpRequest.queryParamHolder().getParamCharset());
+        String completedUrl = handleUrlIfNecessary(httpRequest.getUrl());
 
         HttpUriRequest httpUriRequest = createHttpUriRequest(completedUrl, method);
 

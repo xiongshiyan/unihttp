@@ -9,7 +9,6 @@ import top.jfunc.common.http.base.ContentCallback;
 import top.jfunc.common.http.base.ProxyInfo;
 import top.jfunc.common.http.base.ResultCallback;
 import top.jfunc.common.http.basic.OkHttp3Client;
-import top.jfunc.common.http.holder.ParamHolder;
 import top.jfunc.common.http.holder.SSLHolder;
 import top.jfunc.common.http.request.DownloadRequest;
 import top.jfunc.common.http.request.HttpRequest;
@@ -41,7 +40,7 @@ public class OkHttp3SmartHttpClient extends OkHttp3Client implements SmartHttpCl
             /// ParamHolder queryParamHolder = httpRequest.queryParamHolder();
             /// RouteParamHolder routeParamHolder = httpRequest.routeParamHolder();
             /// String completedUrl = handleUrlIfNecessary(httpRequest.getUrl() , routeParamHolder.getMap() , queryParamHolder.getParams() , queryParamHolder.getParamCharset());
-            String completedUrl = handleUrlIfNecessary(httpRequest.getUrl() , httpRequest.queryParamHolder().getParamCharset());
+            String completedUrl = handleUrlIfNecessary(httpRequest.getUrl());
 
             //1.构造OkHttpClient
             OkHttpClient.Builder clientBuilder = new OkHttpClient().newBuilder()
