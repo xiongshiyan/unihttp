@@ -1,10 +1,10 @@
 package top.jfunc.common.http.holder;
 
-import static top.jfunc.common.http.HttpConstants.*;
-
 import top.jfunc.common.http.HttpConstants;
 import top.jfunc.common.http.ParamUtil;
 import top.jfunc.common.http.Protocol;
+
+import static top.jfunc.common.http.HttpConstants.*;
 
 /**
  * 适合不知道全路径，知道各个部分的情况下，或者需要知道一个URL中的各个部分，可以不需要考虑诸如一下的一些细节：路径参数处理、查询参数处理、要不要加一个/等繁琐的细节
@@ -150,7 +150,7 @@ public class DefaultPhpUrlHolder extends DefaultUrlHolder implements PhpUrlHolde
         this.path = path;
         if(null != paths && paths.length > 0){
             for (String p : paths) {
-                this.path = ParamUtil.addBaseUrlIfNecessary(this.path , p);
+                this.path = ParamUtil.concatUrlIfNecessary(this.path , p);
             }
         }
         return this;
