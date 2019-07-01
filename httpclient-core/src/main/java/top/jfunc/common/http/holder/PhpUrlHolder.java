@@ -11,11 +11,12 @@ import java.util.Map;
  * 名字得于 protocol-host-port
  * @author xiongshiyan at 2019/6/28 , contact me with email yanshixiong@126.com or phone 15208384257
  */
-public interface PhpUrlHolder extends UrlHolder{
+public interface PhpUrlHolder extends UrlHolder {
     /**
      * 请求的URL
      * @return 请求的URL
      */
+    @Override
     String getUrl();
 
     /**
@@ -23,6 +24,7 @@ public interface PhpUrlHolder extends UrlHolder{
      * @param url url
      * @return this
      */
+    @Override
     PhpUrlHolder setUrl(String url);
 
     /**
@@ -30,6 +32,7 @@ public interface PhpUrlHolder extends UrlHolder{
      * @param url URL
      * @return this
      */
+    @Override
     default PhpUrlHolder setUrl(URL url){
         return setUrl(url.toString());
     }
@@ -80,7 +83,7 @@ public interface PhpUrlHolder extends UrlHolder{
      * @param host host
      * @return this
      */
-    default PhpUrlHolder protocolHost(Protocol protocol , String host){
+    default PhpUrlHolder protocolHost(Protocol protocol, String host){
         protocol(protocol);
         host(host);
         return this;
@@ -92,7 +95,7 @@ public interface PhpUrlHolder extends UrlHolder{
      * @param port 端口
      * @return this
      */
-    default PhpUrlHolder protocolPort(Protocol protocol , int port){
+    default PhpUrlHolder protocolPort(Protocol protocol, int port){
         protocol(protocol);
         port(port);
         return this;
@@ -103,7 +106,7 @@ public interface PhpUrlHolder extends UrlHolder{
      * @param port 端口
      * @return this
      */
-    default PhpUrlHolder hostPort(String host , int port){
+    default PhpUrlHolder hostPort(String host, int port){
         host(host);
         port(port);
         return this;
@@ -116,7 +119,7 @@ public interface PhpUrlHolder extends UrlHolder{
      * @param port 端口
      * @return this
      */
-    default PhpUrlHolder php(Protocol protocol , String host , int port){
+    default PhpUrlHolder php(Protocol protocol, String host, int port){
         protocol(protocol);
         host(host);
         port(port);
@@ -130,7 +133,7 @@ public interface PhpUrlHolder extends UrlHolder{
      * @param paths 多个路径拼接在后面
      * @return this
      */
-    PhpUrlHolder path(String path , String... paths);
+    PhpUrlHolder path(String path, String... paths);
 
     /**
      * 获取路径
@@ -144,6 +147,7 @@ public interface PhpUrlHolder extends UrlHolder{
      * @param value value
      * @return this
      */
+    @Override
     default PhpUrlHolder addRouteParam(String key, String value){
         routeParamHolder().put(key, value);
         return this;
@@ -154,6 +158,7 @@ public interface PhpUrlHolder extends UrlHolder{
      * @param routeParams 多个路径参数
      * @return this
      */
+    @Override
     default PhpUrlHolder setRouteParams(Map<String, String> routeParams){
         routeParamHolder().setMap(routeParams);
         return this;
@@ -166,6 +171,7 @@ public interface PhpUrlHolder extends UrlHolder{
      * @param values values
      * @return this
      */
+    @Override
     default PhpUrlHolder addQueryParam(String key, String value, String... values){
         queryParamHolder().addParam(key, value, values);
         return this;
@@ -176,6 +182,7 @@ public interface PhpUrlHolder extends UrlHolder{
      * @param queryParams 多个查询参数
      * @return this
      */
+    @Override
     default PhpUrlHolder setQueryParams(MultiValueMap<String, String> queryParams){
         queryParamHolder().setParams(queryParams);
         return this;
@@ -186,6 +193,7 @@ public interface PhpUrlHolder extends UrlHolder{
      * @param queryParams 多个查询参数
      * @return this
      */
+    @Override
     default PhpUrlHolder setQueryParams(Map<String, String> queryParams){
         queryParamHolder().setParams(queryParams);
         return this;
