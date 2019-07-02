@@ -2,9 +2,12 @@ package top.jfunc.common.http.smart;
 
 import top.jfunc.common.http.Method;
 import top.jfunc.common.http.base.ContentCallback;
-import top.jfunc.common.http.basic.AbstractHttpClient;
 import top.jfunc.common.http.base.FormFile;
-import top.jfunc.common.http.request.*;
+import top.jfunc.common.http.basic.AbstractHttpClient;
+import top.jfunc.common.http.request.DownloadRequest;
+import top.jfunc.common.http.request.HttpRequest;
+import top.jfunc.common.http.request.StringBodyRequest;
+import top.jfunc.common.http.request.UploadRequest;
 import top.jfunc.common.utils.IoUtil;
 import top.jfunc.common.utils.MultiValueMap;
 
@@ -18,7 +21,7 @@ import java.io.IOException;
  * @see AbstractSmartHttpClient#uploadContentCallback(MultiValueMap, FormFile[])
  * @author xiongshiyan at 2019/5/8 , contact me with email yanshixiong@126.com or phone 15208384257
  */
-public abstract class AbstractSmartHttpClient<CC> extends AbstractHttpClient<CC> implements SmartHttpClient , SmartHttpTemplate<CC> {
+public abstract class AbstractSmartHttpClient<CC> extends AbstractHttpClient<CC> implements SmartHttpClient, SmartHttpTemplate<CC> {
 
     @Override
     public Response get(HttpRequest req) throws IOException {
@@ -42,8 +45,9 @@ public abstract class AbstractSmartHttpClient<CC> extends AbstractHttpClient<CC>
         HttpRequest request = beforeTemplate(req);
         ContentCallback<CC> contentCallback = null;
         if(method.hasContent() && request instanceof StringBodyRequest){
-            String body = ((StringBodyRequest)request).getBody();
-            final String bodyCharset = CharsetUtil.bodyCharsetFromRequest(request);
+            StringBodyRequest bodyRequest = (StringBodyRequest) request;
+            String body = bodyRequest.getBody();
+            String bodyCharset = bodyRequest.getBodyCharset();
             contentCallback = bodyContentCallback(body, getBodyCharsetWithDefault(bodyCharset) , request.getContentType());
         }
         Response response = template(request, method , contentCallback, Response::with);

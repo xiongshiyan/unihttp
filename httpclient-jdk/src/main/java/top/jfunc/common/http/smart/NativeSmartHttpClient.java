@@ -7,7 +7,10 @@ import top.jfunc.common.http.base.ResultCallback;
 import top.jfunc.common.http.basic.NativeHttpClient;
 import top.jfunc.common.http.holder.ParamHolder;
 import top.jfunc.common.http.holder.SSLHolder;
-import top.jfunc.common.http.request.*;
+import top.jfunc.common.http.request.DownloadRequest;
+import top.jfunc.common.http.request.HttpRequest;
+import top.jfunc.common.http.request.StringBodyRequest;
+import top.jfunc.common.http.request.UploadRequest;
 import top.jfunc.common.utils.IoUtil;
 import top.jfunc.common.utils.MultiValueMap;
 
@@ -145,8 +148,8 @@ public class NativeSmartHttpClient extends NativeHttpClient implements SmartHttp
     @Override
     public Response post(StringBodyRequest req) throws IOException {
         StringBodyRequest request = beforeTemplate(req);
-        String body = request.getBody();
-        final String bodyCharset = CharsetUtil.bodyCharsetFromRequest(request);
+        final String body = request.getBody();
+        final String bodyCharset = request.getBodyCharset();
         Response response = template(request, Method.POST ,
                 connection -> writeContent(connection, body, getBodyCharsetWithDefault(bodyCharset)),
                 Response::with);
@@ -158,8 +161,9 @@ public class NativeSmartHttpClient extends NativeHttpClient implements SmartHttp
         HttpRequest httpRequest = beforeTemplate(req);
         ContentCallback<HttpURLConnection> contentCallback = null;
         if(method.hasContent() && httpRequest instanceof StringBodyRequest){
-            String body = ((StringBodyRequest)httpRequest).getBody();
-            final String bodyCharset = CharsetUtil.bodyCharsetFromRequest(httpRequest);
+            StringBodyRequest bodyRequest = (StringBodyRequest) httpRequest;
+            final String body = bodyRequest.getBody();
+            final String bodyCharset = bodyRequest.getBodyCharset();
             contentCallback = connection -> writeContent(connection, body, getBodyCharsetWithDefault(bodyCharset));
         }
         Response response = template(httpRequest, method , contentCallback , Response::with);
