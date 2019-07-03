@@ -151,17 +151,16 @@ public class ApacheSmartHttpClient extends ApacheHttpClient implements SmartHttp
     }
 
     @Override
-    public Response httpMethod(HttpRequest req, Method method) throws IOException {
-        HttpRequest httpRequest = beforeTemplate(req);
+    public <R> R http(HttpRequest httpRequest, Method method, ResultCallback<R> resultCallback) throws IOException {
+        HttpRequest request = beforeTemplate(httpRequest);
         ContentCallback<HttpEntityEnclosingRequest> contentCallback = null;
-        if(method.hasContent() && httpRequest instanceof StringBodyRequest){
-            StringBodyRequest bodyRequest = (StringBodyRequest) httpRequest;
+        if(method.hasContent() && request instanceof StringBodyRequest){
+            StringBodyRequest bodyRequest = (StringBodyRequest) request;
             final String body = bodyRequest.getBody();
             final String bodyCharset = bodyRequest.getBodyCharset();
             contentCallback = r -> setRequestBody(r, body, getBodyCharsetWithDefault(bodyCharset));
         }
-        Response response = template(httpRequest, method , contentCallback, Response::with);
-        return afterTemplate(httpRequest , response);
+        return template(request, method , contentCallback, resultCallback);
     }
 
     @Override
