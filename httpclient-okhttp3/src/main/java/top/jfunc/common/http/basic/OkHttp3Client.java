@@ -7,7 +7,10 @@ import okio.Source;
 import top.jfunc.common.http.HeaderRegular;
 import top.jfunc.common.http.Method;
 import top.jfunc.common.http.ParamUtil;
-import top.jfunc.common.http.base.*;
+import top.jfunc.common.http.base.AbstractConfigurableHttp;
+import top.jfunc.common.http.base.ContentCallback;
+import top.jfunc.common.http.base.FormFile;
+import top.jfunc.common.http.base.ResultCallback;
 import top.jfunc.common.utils.ArrayListMultiValueMap;
 import top.jfunc.common.utils.IoUtil;
 import top.jfunc.common.utils.MultiValueMap;
@@ -18,6 +21,7 @@ import javax.net.ssl.X509TrustManager;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.Charset;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -98,7 +102,8 @@ public class OkHttp3Client extends AbstractConfigurableHttp implements HttpTempl
      */
     @Override
     public String post(String url, String body, String contentType, Map<String, String> headers, Integer connectTimeout, Integer readTimeout, String bodyCharset, String resultCharset) throws IOException {
-        return template(url, Method.POST, contentType, d->setRequestBody(d , Method.POST , stringBody(body , contentType)) ,
+        String charset = calculateBodyCharset(bodyCharset, contentType);
+        return template(url, Method.POST, contentType, d->setRequestBody(d , Method.POST , stringBody(body , charset , contentType)) ,
                 ArrayListMultiValueMap.fromMap(headers),
                 connectTimeout,readTimeout,resultCharset,false,
                 (s,b,r,h)-> IoUtil.read(b ,r));
@@ -174,12 +179,12 @@ public class OkHttp3Client extends AbstractConfigurableHttp implements HttpTempl
         builder.method(method.name() , requestBody);
     }
 
-    protected RequestBody stringBody(String body , String contentType){
+    protected RequestBody stringBody(String body , String bodyCharset , String contentType){
         MediaType mediaType = null;
         if(null != contentType){
             mediaType = MediaType.parse(contentType);
         }
-        return RequestBody.create(mediaType, body);
+        return RequestBody.create(mediaType, body.getBytes(Charset.forName(bodyCharset)));
     }
 
     /**
