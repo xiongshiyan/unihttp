@@ -39,17 +39,17 @@ public class ParamUtilTest {
     @Test
     public void testAddBaseUrlIfNecessary(){
         Assert.assertEquals(completedUrlHttps ,
-                ParamUtil.addBaseUrlIfNecessary(null , completedUrlHttps));
+                ParamUtil.concatUrlIfNecessary(null , completedUrlHttps));
         Assert.assertEquals(completedUrlHttps ,
-                ParamUtil.addBaseUrlIfNecessary("https://localhost:8080" , completedUrlHttps));
+                ParamUtil.concatUrlIfNecessary("https://localhost:8080" , completedUrlHttps));
         Assert.assertEquals(completedUrlHttps ,
-                ParamUtil.addBaseUrlIfNecessary("https://localhost:8080/" , "/ssss"));
+                ParamUtil.concatUrlIfNecessary("https://localhost:8080/" , "/ssss"));
         Assert.assertEquals(completedUrlHttps ,
-                ParamUtil.addBaseUrlIfNecessary("https://localhost:8080" , "ssss"));
+                ParamUtil.concatUrlIfNecessary("https://localhost:8080" , "ssss"));
         Assert.assertEquals(completedUrlHttps ,
-                ParamUtil.addBaseUrlIfNecessary("https://localhost:8080/" , "ssss"));
+                ParamUtil.concatUrlIfNecessary("https://localhost:8080/" , "ssss"));
         Assert.assertEquals(completedUrlHttps ,
-                ParamUtil.addBaseUrlIfNecessary("https://localhost:8080" , "/ssss"));
+                ParamUtil.concatUrlIfNecessary("https://localhost:8080" , "/ssss"));
     }
 
     @Test
