@@ -4,10 +4,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import top.jfunc.common.http.holder.DefaultRouteParamHolder;
 import top.jfunc.common.http.holder.RouteParamHolder;
-import top.jfunc.common.utils.ArrayListMultiValueMap;
-import top.jfunc.common.utils.ArrayListMultimap;
-import top.jfunc.common.utils.LinkedMultiValueMap;
-import top.jfunc.common.utils.MultiValueMap;
+import top.jfunc.common.utils.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -68,6 +65,28 @@ public class ParamUtilTest {
         map.put("yy" , "yy");
         String contactMap = ParamUtil.contactMap(map);
         Assert.assertThat(contactMap , is("xx=xx&yy=yy"));
+    }
+    @Test
+    public void testConcatParamCharsetUTF8(){
+        Map<String , String> map = new HashMap<>();
+        map.put("xx" , "熊诗言");
+        map.put("yy" , "yy");
+        String contactMap = ParamUtil.contactMap(map);
+        Assert.assertThat(contactMap , is("xx=%E7%86%8A%E8%AF%97%E8%A8%80&yy=yy"));
+    }
+    @Test
+    public void testConcatParamCharsetGBK() throws Exception{
+        Map<String , String> map = new HashMap<>();
+        map.put("xx" , "熊诗言");
+        map.put("yy" , "yy");
+        String contactMap = ParamUtil.contactMap(map , "GBK");
+        Assert.assertThat(contactMap , is("xx=%D0%DC%CA%AB%D1%D4&yy=yy"));
+
+        byte[] gbks = "熊诗言".getBytes("GBK");
+        for (byte gbk : gbks) {
+            System.out.println(gbk);
+        }
+        System.out.println(RadixUtil.toHex(gbks));
     }
     @Test
     public void testConcatParam3(){
