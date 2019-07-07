@@ -2,7 +2,6 @@ package top.jfunc.common.http.request;
 
 import top.jfunc.common.http.MediaType;
 import top.jfunc.common.http.ParamUtil;
-import top.jfunc.common.http.holder.ParamHolder;
 import top.jfunc.common.utils.MultiValueMap;
 
 /**
@@ -11,18 +10,10 @@ import top.jfunc.common.utils.MultiValueMap;
  */
 public interface FormRequest extends StringBodyRequest {
     /**
-     * 接管Form param的处理
-     * @return ParamHolder must not null
-     */
-    ParamHolder formParamHolder();
-
-    /**
      * Form参数
      * @return Form参数
      */
-    default MultiValueMap<String, String> getFormParams(){
-        return formParamHolder().getParams();
-    }
+    MultiValueMap<String, String> getFormParams();
 
     /**
      * 新增form参数的便捷方法
@@ -31,20 +22,7 @@ public interface FormRequest extends StringBodyRequest {
      * @param values values
      * @return this
      */
-    default FormRequest addFormParam(String key, String value, String... values){
-        formParamHolder().addParam(key, value, values);
-        return this;
-    }
-
-    /**
-     * 提供便捷设置编码的方法
-     * @param paramCharset 参数编码
-     * @return this
-     */
-    default FormRequest setParamCharset(String paramCharset){
-        formParamHolder().setParamCharset(paramCharset);
-        return this;
-    }
+    FormRequest addFormParam(String key, String value, String... values);
 
     /**
      * form参数生成body
@@ -53,20 +31,12 @@ public interface FormRequest extends StringBodyRequest {
      */
     @Override
     default String getBody() {
-        ParamHolder formParamHolder = formParamHolder();
-        String bodyCharset = formParamHolder.getParamCharset();
+        MultiValueMap<String, String> formParams = getFormParams();
+        String bodyCharset = getBodyCharset();
         //没有显式设置就设置默认的
         if(null == getContentType()){
             setContentType(MediaType.APPLICATIPON_FORM_DATA.withCharset(bodyCharset));
         }
-        return ParamUtil.contactMap(formParamHolder.getParams(), bodyCharset);
-    }
-    /**
-     * 获取请求体编码
-     * @return charset
-     */
-    @Override
-    default String getBodyCharset() {
-        return formParamHolder().getParamCharset();
+        return ParamUtil.contactMap(formParams, bodyCharset);
     }
 }

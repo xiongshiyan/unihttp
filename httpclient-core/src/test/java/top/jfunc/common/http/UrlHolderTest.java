@@ -6,8 +6,8 @@ import top.jfunc.common.http.holder.DefaultPhpUrlHolder;
 import top.jfunc.common.http.holder.DefaultUrlHolder;
 import top.jfunc.common.http.holder.PhpUrlHolder;
 import top.jfunc.common.http.holder.UrlHolder;
-import top.jfunc.common.http.request.HttpRequest;
-import top.jfunc.common.http.request.impl.GetRequest;
+import top.jfunc.common.http.request.holder.HttpRequest;
+import top.jfunc.common.http.request.holder.impl.GetRequest;
 
 import static org.hamcrest.Matchers.is;
 

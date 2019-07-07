@@ -5,13 +5,8 @@ import top.jfunc.common.http.Method;
 import top.jfunc.common.http.ParamUtil;
 import top.jfunc.common.http.base.FormFile;
 import top.jfunc.common.http.holder.*;
-import top.jfunc.common.http.request.DownloadRequest;
-import top.jfunc.common.http.request.FormRequest;
-import top.jfunc.common.http.request.MutableStringBodyRequest;
-import top.jfunc.common.http.request.UploadRequest;
-import top.jfunc.common.http.request.impl.BaseRequest;
-import top.jfunc.common.http.request.impl.DownLoadRequest;
-import top.jfunc.common.http.request.impl.UpLoadRequest;
+import top.jfunc.common.http.request.holder.*;
+import top.jfunc.common.http.request.holder.impl.*;
 import top.jfunc.common.utils.MultiValueMap;
 import top.jfunc.common.utils.StrUtil;
 
@@ -25,10 +20,10 @@ import java.io.File;
  * !!!此类作为以前的大杂烩，什么样的请求都放到一起，给设置参数的时候造成困扰，已经不适应快速发展的需要
  * 现将其一拆为多，针对不同的请求使用不同的请求即可
  *
- * @see top.jfunc.common.http.request.HttpRequest
- * @see top.jfunc.common.http.request.impl.BaseRequest
- * @see top.jfunc.common.http.request.impl.PostBodyRequest
- * @see top.jfunc.common.http.request.impl.FormBodyRequest
+ * @see HttpRequest
+ * @see BaseRequest
+ * @see PostBodyRequest
+ * @see FormBodyRequest
  * @see UpLoadRequest
  * @see DownLoadRequest
  * @author xiongshiyan at 2017/12/9

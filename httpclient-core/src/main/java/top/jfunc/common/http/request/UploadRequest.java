@@ -1,8 +1,6 @@
 package top.jfunc.common.http.request;
 
 import top.jfunc.common.http.base.FormFile;
-import top.jfunc.common.http.holder.FormFileHolder;
-import top.jfunc.common.http.holder.ParamHolder;
 import top.jfunc.common.utils.MultiValueMap;
 
 /**
@@ -11,18 +9,10 @@ import top.jfunc.common.utils.MultiValueMap;
  */
 public interface UploadRequest extends HttpRequest {
     /**
-     * 接管Form param的处理
-     * @return ParamHolder must not null
-     */
-    ParamHolder formParamHolder();
-
-    /**
      * Form参数
      * @return Form参数
      */
-    default MultiValueMap<String, String> getFormParams(){
-        return formParamHolder().getParams();
-    }
+    MultiValueMap<String, String> getFormParams();
 
     /**
      * 新增form参数
@@ -31,42 +21,31 @@ public interface UploadRequest extends HttpRequest {
      * @param values values
      * @return this
      */
-    default UploadRequest addFormParam(String key, String value, String... values){
-        formParamHolder().addParam(key, value, values);
-        return this;
-    }
+    UploadRequest addFormParam(String key, String value, String... values);
+
+    /**
+     * 获取charset
+     * @return charset
+     */
+    String getParamCharset();
 
     /**
      * 提供便捷设置编码的方法
      * @param paramCharset 参数编码
      * @return this
      */
-    default UploadRequest setParamCharset(String paramCharset){
-        formParamHolder().setParamCharset(paramCharset);
-        return this;
-    }
+    UploadRequest setParamCharset(String paramCharset);
 
     /**
      * 上传文件信息
      * @return 上传文件信息
      */
-    default FormFile[] getFormFiles(){
-        return formFileHolder().getFormFiles();
-    }
+    FormFile[] getFormFiles();
 
     /**
      * 新增文件上传信息
      * @param formFiles 上传的文件
      * @return this
      */
-    default UploadRequest addFormFile(FormFile... formFiles){
-        formFileHolder().addFormFile(formFiles);
-        return this;
-    }
-
-    /**
-     * 接管文件上传信息
-     * @return FormFileHolder must not be null
-     */
-    FormFileHolder formFileHolder();
+    UploadRequest addFormFile(FormFile... formFiles);
 }

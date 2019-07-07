@@ -10,7 +10,7 @@ import java.util.Map;
  * Query参数、Form参数处理器
  * @author xiongshiyan
  */
-public interface ParamHolder {
+public interface ParamHolder extends Holder{
     /**
      * Param参数
      * @return Param参数

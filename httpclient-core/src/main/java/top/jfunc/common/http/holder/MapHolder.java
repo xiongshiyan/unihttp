@@ -8,7 +8,7 @@ import java.util.Map;
  * @see OverwriteHeaderHolder
  * @author xiongshiyan at 2019/6/3 , contact me with email yanshixiong@126.com or phone 15208384257
  */
-public interface MapHolder {
+public interface MapHolder extends Holder{
     /**
      * Map参数
      * @return Map参数

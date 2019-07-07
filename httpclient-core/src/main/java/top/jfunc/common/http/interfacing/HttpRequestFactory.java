@@ -5,12 +5,11 @@ import top.jfunc.common.http.MediaType;
 import top.jfunc.common.http.Method;
 import top.jfunc.common.http.annotation.method.*;
 import top.jfunc.common.http.annotation.parameter.*;
-import top.jfunc.common.http.holder.HeaderHolder;
 import top.jfunc.common.http.request.HttpRequest;
-import top.jfunc.common.http.request.impl.CommonBodyRequest;
-import top.jfunc.common.http.request.impl.CommonRequest;
-import top.jfunc.common.http.request.impl.FormBodyRequest;
-import top.jfunc.common.http.request.impl.UpLoadRequest;
+import top.jfunc.common.http.request.holder.impl.CommonBodyRequest;
+import top.jfunc.common.http.request.holder.impl.CommonRequest;
+import top.jfunc.common.http.request.holder.impl.FormBodyRequest;
+import top.jfunc.common.http.request.holder.impl.UpLoadRequest;
 import top.jfunc.common.utils.ArrayListMultiValueMap;
 import top.jfunc.common.utils.MultiValueMap;
 
@@ -183,13 +182,12 @@ class HttpRequestFactory implements RequestFactory {
 
         validateRouteParams(httpRequest);
 
-        HeaderHolder headerHolder = httpRequest.headerHolder();
         //处理方法上的Headers
         if(null != this.headers && !this.headers.isEmpty()){
-            this.headers.forEachKeyValue(headerHolder::addHeader);
+            this.headers.forEachKeyValue(httpRequest::addHeader);
         }
         if(null != contentType){
-            headerHolder.addHeader(HeaderRegular.CONTENT_TYPE.toString() , contentType.toString());
+            httpRequest.addHeader(HeaderRegular.CONTENT_TYPE.toString() , contentType.toString());
         }
 
 
@@ -218,7 +216,7 @@ class HttpRequestFactory implements RequestFactory {
     }
 
     private void validateRouteParams(HttpRequest httpRequest) {
-        Map<String, String> routeParams = httpRequest.routeParamHolder().getMap();
+        Map<String, String> routeParams = httpRequest.getRouteParams();
         //校验路径参数是否一致
         if(null != routeParams && !routeParams.isEmpty()){
             int size = routeParams.size();

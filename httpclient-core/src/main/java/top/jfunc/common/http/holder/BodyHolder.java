@@ -19,7 +19,7 @@ import java.util.Objects;
  * </ul>
  * @author xiongshiyan
  */
-public interface BodyHolder {
+public interface BodyHolder extends Holder{
     /**
      * 获取实际的Body
      * @return body
@@ -116,7 +116,7 @@ public interface BodyHolder {
      * @param bodyCharset 编码
      * @return this
      */
-    default BodyHolder setBody(InputStream inputStream , String bodyCharset){
+    default BodyHolder setBody(InputStream inputStream, String bodyCharset){
         byte[] bytes;
         try {
             bytes = IoUtil.stream2Bytes(inputStream);

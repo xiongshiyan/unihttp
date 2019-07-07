@@ -7,8 +7,6 @@ import top.jfunc.common.http.Method;
 import top.jfunc.common.http.base.ContentCallback;
 import top.jfunc.common.http.base.ResultCallback;
 import top.jfunc.common.http.basic.JoddHttpClient;
-import top.jfunc.common.http.holder.ParamHolder;
-import top.jfunc.common.http.holder.SSLHolder;
 import top.jfunc.common.http.request.DownloadRequest;
 import top.jfunc.common.http.request.StringBodyRequest;
 import top.jfunc.common.http.request.UploadRequest;
@@ -48,10 +46,9 @@ public class JoddSmartHttpClient extends JoddHttpClient implements SmartHttpClie
             request.timeout(getReadTimeoutWithDefault(httpRequest.getReadTimeout()));
 
             //3.SSL设置
-            SSLHolder sslHolder = httpRequest.sslHolder();
-            initSSL(request , getHostnameVerifierWithDefault(sslHolder.getHostnameVerifier()) ,
-                    getSSLSocketFactoryWithDefault(sslHolder.getSslSocketFactory()) ,
-                    getX509TrustManagerWithDefault(sslHolder.getX509TrustManager()),
+            initSSL(request , getHostnameVerifierWithDefault(httpRequest.getHostnameVerifier()) ,
+                    getSSLSocketFactoryWithDefault(httpRequest.getSslSocketFactory()) ,
+                    getX509TrustManagerWithDefault(httpRequest.getX509TrustManager()),
                     getProxyInfoWithDefault(httpRequest.getProxyInfo()));
 
 
@@ -61,12 +58,12 @@ public class JoddSmartHttpClient extends JoddHttpClient implements SmartHttpClie
             }
 
             //5.设置header
-            MultiValueMap<String, String> headers = mergeDefaultHeaders(httpRequest.headerHolder().getHeaders());
+            MultiValueMap<String, String> headers = mergeDefaultHeaders(httpRequest.getHeaders());
 
             headers = handleCookieIfNecessary(completedUrl, headers);
 
             setRequestHeaders(request , httpRequest.getContentType() , headers ,
-                    httpRequest.overwriteHeaderHolder().getMap());
+                    httpRequest.getOverwriteHeaders());
 
             //6.子类可以复写
             doWithHttpRequest(request);
@@ -163,10 +160,8 @@ public class JoddSmartHttpClient extends JoddHttpClient implements SmartHttpClie
     public Response upload(UploadRequest req) throws IOException {
         UploadRequest request = beforeTemplate(req);
         Response response = template(request , Method.POST ,
-                r -> {
-                    ParamHolder paramHolder = request.formParamHolder();
-                    upload0(r, paramHolder.getParams(), paramHolder.getParamCharset() ,request.getFormFiles());
-                }, Response::with);
+                r -> upload0(r, request.getFormParams(), request.getParamCharset() ,request.getFormFiles()),
+                Response::with);
         return afterTemplate(request , response);
     }
 

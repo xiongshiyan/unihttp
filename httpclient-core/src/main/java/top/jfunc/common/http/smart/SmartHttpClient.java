@@ -8,7 +8,7 @@ import top.jfunc.common.http.request.DownloadRequest;
 import top.jfunc.common.http.request.HttpRequest;
 import top.jfunc.common.http.request.StringBodyRequest;
 import top.jfunc.common.http.request.UploadRequest;
-import top.jfunc.common.http.request.impl.CommonRequest;
+import top.jfunc.common.http.request.holder.impl.CommonRequest;
 
 import java.io.File;
 import java.io.IOException;
@@ -69,7 +69,7 @@ public interface SmartHttpClient extends HttpClient {
      * @return <R>R
      * @throws IOException IOException
      */
-    <R> R http(HttpRequest httpRequest, Method method , ResultCallback<R> resultCallback) throws IOException;
+    <R> R http(HttpRequest httpRequest, Method method, ResultCallback<R> resultCallback) throws IOException;
 
     /**
      * 下载为字节数组

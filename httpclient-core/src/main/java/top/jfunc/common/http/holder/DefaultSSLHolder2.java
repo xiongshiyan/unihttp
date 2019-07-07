@@ -12,7 +12,7 @@ import javax.net.ssl.X509TrustManager;
 /**
  * @author xiongshiyan at 2019/6/3 , contact me with email yanshixiong@126.com or phone 15208384257
  */
-public class DefaultSSLHolder2 implements SSLHolder{
+public class DefaultSSLHolder2 implements SSLHolder {
     private HostnameVerifier hostnameVerifier = new TrustAnyHostnameVerifier();
     private SSLContext sslContext = getDefaultSSLContext();
     private SSLSocketFactory sslSocketFactory = getDefaultSSLSocketFactory();

@@ -10,7 +10,7 @@ import java.util.Map;
  * 请求头处理器，新增、获取header
  * @author xiongshiyan
  */
-public interface HeaderHolder {
+public interface HeaderHolder extends Holder{
     /**
      * 请求的Header
      * @return 请求的Header

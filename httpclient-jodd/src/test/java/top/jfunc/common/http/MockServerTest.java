@@ -81,7 +81,7 @@ public class MockServerTest{
         );
 
         StringBodyRequest request = Request.of("http://localhost:50000/hello/{name}").setBody(expected);
-        request.routeParamHolder().addRouteParam("name" , "John");
+        request.addRouteParam("name" , "John");
         Response response = smartHttpClient.post(request);
         Assert.assertEquals(expected , response.asString());
     }

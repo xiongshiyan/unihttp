@@ -1,7 +1,5 @@
 package top.jfunc.common.http.request;
 
-import top.jfunc.common.http.holder.FileHolder;
-
 import java.io.File;
 
 /**
@@ -13,23 +11,12 @@ public interface DownloadRequest extends HttpRequest {
      * 下载到的文件
      * @return file
      */
-    default File getFile(){
-        return fileHolder().getFile();
-    }
+    File getFile();
 
     /**
      * 设置下载到哪个文件
      * @param file file
      * @return this
      */
-    default DownloadRequest setFile(File file){
-        fileHolder().setFile(file);
-        return this;
-    }
-
-    /**
-     * 返回文件信息处理器
-     * @return fileHolder must not be null
-     */
-    FileHolder fileHolder();
+    DownloadRequest setFile(File file);
 }
