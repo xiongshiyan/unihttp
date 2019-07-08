@@ -6,8 +6,9 @@ import top.jfunc.common.http.holder.DefaultPhpUrlHolder;
 import top.jfunc.common.http.holder.DefaultUrlHolder;
 import top.jfunc.common.http.holder.PhpUrlHolder;
 import top.jfunc.common.http.holder.UrlHolder;
-import top.jfunc.common.http.request.holder.HttpRequest;
-import top.jfunc.common.http.request.holder.impl.GetRequest;
+import top.jfunc.common.http.request.HttpRequest;
+import top.jfunc.common.http.request.holder.HolderHttpRequest;
+import top.jfunc.common.http.request.holder.impl.HolderGetRequest;
 
 import static org.hamcrest.Matchers.is;
 
@@ -22,7 +23,7 @@ public class UrlHolderTest {
         Assert.assertEquals("http://127.0.0.1:8090/dddd/tttt?hill=hell&haven=heavy&kkk=kkk", holder.getUrl() );
         Assert.assertEquals("http://127.0.0.1:8090/dddd/tttt?hill=hell&haven=heavy&kkk=kkk", holder.getUrl() );
 
-        HttpRequest httpRequest = GetRequest.of("");
+        HolderHttpRequest httpRequest = HolderGetRequest.of("");
         Assert.assertTrue(httpRequest.urlHolder() instanceof UrlHolder);
         httpRequest.urlHolder(new DefaultPhpUrlHolder());
         Assert.assertTrue(httpRequest.urlHolder() instanceof PhpUrlHolder);
