@@ -44,12 +44,14 @@ public interface SSLHolder{
 
     /**
      * SSLSocketFactory
+     * @see SSLHolder#getSslContext()
      * @return SSLSocketFactory
      */
     SSLSocketFactory getSslSocketFactory();
 
     /**
      * 设置SSLSocketFactory
+     * @see SSLHolder#setSslContext(SSLContext)
      * @param sslSocketFactory SSLSocketFactory
      * @return this
      */
