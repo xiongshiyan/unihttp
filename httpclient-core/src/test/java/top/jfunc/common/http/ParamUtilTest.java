@@ -108,10 +108,13 @@ public class ParamUtilTest {
     public void testConcatParam5(){
         MultiValueMap<String , String> map = new ArrayListMultiValueMap<>();
         map.add("xx" , "xx");
-        map.add("yy" , "yy");
+        map.add("yy" , "熊诗言");
         Set<Map.Entry<String, List<String>>> entries = map.entrySet();
         String contactMap = ParamUtil.contactIterable(entries , "UTF-8");
-        Assert.assertThat(contactMap , is("xx=xx&yy=yy"));
+        Assert.assertThat(contactMap , is("xx=xx&yy=%E7%86%8A%E8%AF%97%E8%A8%80"));
+
+        String s = ParamUtil.contactIterableNotEncode(entries);
+        Assert.assertThat(s , is("xx=xx&yy=熊诗言"));
     }
 
     @Test
