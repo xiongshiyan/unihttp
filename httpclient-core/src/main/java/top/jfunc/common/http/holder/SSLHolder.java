@@ -1,9 +1,12 @@
 package top.jfunc.common.http.holder;
 
+import top.jfunc.common.http.base.ssl.SSLSocketFactoryBuilder;
+
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.X509TrustManager;
+import java.io.InputStream;
 
 /**
  * 处置SSL相关设置的
@@ -31,6 +34,9 @@ public interface SSLHolder{
 
     /**
      * 设置 SSLContext
+     * @see SSLSocketFactoryBuilder#getSSLContext()
+     * @see SSLSocketFactoryBuilder#getSSLContext(String, String)
+     * @see SSLSocketFactoryBuilder#getSSLContext(InputStream, String)
      * @param sslContext SSLContext
      * @return this
      */
