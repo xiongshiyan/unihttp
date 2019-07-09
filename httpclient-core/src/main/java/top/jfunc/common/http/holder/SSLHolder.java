@@ -51,10 +51,12 @@ public interface SSLHolder{
 
     /**
      * 设置SSLSocketFactory
+     * 废弃此方法,调用{@link SSLHolder#setSslContext(SSLContext)}设置
      * @see SSLHolder#setSslContext(SSLContext)
      * @param sslSocketFactory SSLSocketFactory
      * @return this
      */
+    @Deprecated
     SSLHolder setSslSocketFactory(SSLSocketFactory sslSocketFactory);
 
     /**
