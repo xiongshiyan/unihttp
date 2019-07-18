@@ -6,11 +6,12 @@ import top.jfunc.common.http.ParamUtil;
 import top.jfunc.common.http.base.FormFile;
 import top.jfunc.common.http.holder.*;
 import top.jfunc.common.http.holderrequest.*;
+import top.jfunc.common.http.holderrequest.impl.*;
 import top.jfunc.common.utils.MultiValueMap;
 import top.jfunc.common.utils.StrUtil;
 
-import top.jfunc.common.http.holderrequest.impl.*;
 import java.io.File;
+import java.util.Map;
 
 /**
  * 代表一个Http请求的所有参数,基于Request-Response的可以更好地扩展功能
@@ -123,6 +124,12 @@ public class Request extends BaseHolderHttpRequest<Request> implements
     @Override
     public Request setParamCharset(String paramCharset) {
         formParamHolder.setParamCharset(paramCharset);
+        return this;
+    }
+
+    @Override
+    public Request setFormParams(Map<String, String> params) {
+        formParamHolder.setParams(params);
         return this;
     }
 
