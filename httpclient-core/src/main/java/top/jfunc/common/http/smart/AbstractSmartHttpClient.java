@@ -50,15 +50,15 @@ public abstract class AbstractSmartHttpClient<CC> extends AbstractHttpClient<CC>
             //5.子类处理
             return afterTemplate(request , response);
         } catch (IOException e) {
-            //6.1拦截器在抛异常的时候处理
+            //6.1.拦截器在抛异常的时候处理
             onErrorIfNecessary(request , e);
             throw e;
         } catch (Exception e) {
-            //6.2拦截器在抛异常的时候处理
+            //6.2.拦截器在抛异常的时候处理
             onErrorIfNecessary(request, e);
             throw new RuntimeException(e);
         }finally {
-            //7拦截器在任何时候都处理
+            //7.拦截器在任何时候都处理
             onAfterIfNecessary(httpRequest);
         }
     }
