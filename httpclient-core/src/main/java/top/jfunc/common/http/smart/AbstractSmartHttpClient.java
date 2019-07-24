@@ -119,6 +119,7 @@ public abstract class AbstractSmartHttpClient<CC> extends AbstractHttpClient<CC>
      * 而是直接复写{@link HttpTemplate#template(String, Method, String, ContentCallback, MultiValueMap, Integer, Integer, String, boolean, ResultCallback)}
      * 所以抛出异常
      */
+    @Override
     protected <R> R doInternalTemplate(String url, Method method, String contentType, ContentCallback<CC> contentCallback, MultiValueMap<String, String> headers, Integer connectTimeout, Integer readTimeout, String resultCharset, boolean includeHeaders, ResultCallback<R> resultCallback) throws Exception{
         throw new UnsupportedOperationException("HttpRequest实现体系不支持此种方式");
     }
