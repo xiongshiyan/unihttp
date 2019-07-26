@@ -50,7 +50,7 @@ public class UrlHolderTest {
         String url = "http://127.0.0.1/dddd/tttt?hill=hell&haven=heavy";
         PhpUrlHolder holder = new DefaultPhpUrlHolder().setUrl(url);
         assertMultiValue (holder ,
-                "http://127.0.0.1/dddd/tttt?hill=hell&haven=heavy" ,
+                "http://127.0.0.1:80/dddd/tttt?hill=hell&haven=heavy" ,
                 Protocol.HTTP ,
                 "127.0.0.1",80,"/dddd/tttt" , 2);
     }
@@ -59,7 +59,7 @@ public class UrlHolderTest {
         String url = "https://127.0.0.1/dddd/tttt?hill=hell&haven=heavy";
         PhpUrlHolder holder = new DefaultPhpUrlHolder().setUrl(url);
         assertMultiValue (holder ,
-                "https://127.0.0.1/dddd/tttt?hill=hell&haven=heavy" ,
+                "https://127.0.0.1:443/dddd/tttt?hill=hell&haven=heavy" ,
                 Protocol.HTTPS ,
                 "127.0.0.1",443,"/dddd/tttt" , 2);
     }
@@ -155,5 +155,11 @@ public class UrlHolderTest {
         if(null != holder.queryParamHolder().getParams()){
             Assert.assertThat(holder.queryParamHolder().getParams().size() , is(querySize));
         }
+    }
+
+    @Test
+    public void t(){
+        PhpUrlHolder path = new DefaultPhpUrlHolder().protocol(Protocol.HTTP).host("xx").path("xxxxx");
+        print(path);
     }
 }
