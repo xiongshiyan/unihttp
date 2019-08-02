@@ -4,7 +4,6 @@ import top.jfunc.common.http.Method;
 import top.jfunc.common.http.base.ContentCallback;
 import top.jfunc.common.http.base.FormFile;
 import top.jfunc.common.http.base.ResultCallback;
-import top.jfunc.common.http.base.StreamUtil;
 import top.jfunc.common.http.basic.AbstractHttpClient;
 import top.jfunc.common.http.basic.HttpClient;
 import top.jfunc.common.http.basic.HttpTemplate;
@@ -13,6 +12,7 @@ import top.jfunc.common.http.request.HttpRequest;
 import top.jfunc.common.http.request.StringBodyRequest;
 import top.jfunc.common.http.request.UploadRequest;
 import top.jfunc.common.http.request.basic.GetRequest;
+import top.jfunc.common.utils.IoUtil;
 import top.jfunc.common.utils.MultiValueMap;
 
 import java.io.File;
@@ -132,12 +132,12 @@ public abstract class AbstractSmartHttpClient<CC> extends AbstractHttpClient<CC>
 
     @Override
     public byte[] getAsBytes(HttpRequest request) throws IOException {
-        return template(request , Method.GET , null , (s, b, r, h)-> StreamUtil.stream2Bytes(b));
+        return template(request , Method.GET , null , (s, b, r, h)-> IoUtil.stream2Bytes(b));
     }
 
     @Override
     public File download(DownloadRequest request) throws IOException {
-        return template(request , Method.GET, null , (s, b, r, h)-> StreamUtil.copy2File(b, request.getFile()));
+        return template(request , Method.GET, null , (s, b, r, h)-> IoUtil.copy2File(b, request.getFile()));
     }
 
     @Override
