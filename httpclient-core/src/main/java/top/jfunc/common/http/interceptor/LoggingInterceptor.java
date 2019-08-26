@@ -6,7 +6,6 @@ import top.jfunc.common.http.Method;
 import top.jfunc.common.http.request.*;
 import top.jfunc.common.http.smart.Response;
 
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Map;
 
@@ -80,7 +79,7 @@ public class LoggingInterceptor extends InterceptorAdapter {
                 UploadRequest uploadRequest = (UploadRequest) httpRequest;
                 builder.append("form:"+uploadRequest.getFormParams()+CRLF
                         +"formCharset:"+uploadRequest.getParamCharset()+CRLF
-                        +"formFiles:"+ Arrays.toString(uploadRequest.getFormFiles())+CRLF);
+                        +"formFiles:"+ uploadRequest.getFormFiles()+CRLF);
             }
             if(httpRequest instanceof DownloadRequest){
                 DownloadRequest downloadRequest = (DownloadRequest) httpRequest;
