@@ -6,7 +6,7 @@ def siteUrl = 'https://gitee.com/xxssyyyyssxx/httpclient-interfacing'
 def REPO_NAME = 'network'
 
 dependencies{
-    compile "top.jfunc.common:common-utils:${CommonUtilVersion}"
+    compile "top.jfunc.common:utils:${CommonUtilVersion}"
 }
 
 install {

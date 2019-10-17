@@ -27,7 +27,7 @@ subprojects{
 
     //统一版本管理
     ext {
-        CommonUtilVersion       = '1.0'
+        CommonUtilVersion       = '1.8.3'
         SpringBootVersion       = '1.5.7.RELEASE'
         SpringVersion           = '4.3.11.RELEASE'
 
