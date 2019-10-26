@@ -16,13 +16,9 @@ public class HttpDelegate {
     /**
      * http请求工具代理对象
      */
-    private static final SmartHttpClient delegate;
+    private static final SmartHttpClient DELEGATE = initDelegate();
     public static SmartHttpClient delegate() {
-        return delegate;
-    }
-
-    static {
-            delegate = initDelegate();
+        return DELEGATE;
     }
 
     private static SmartHttpClient initDelegate() {
