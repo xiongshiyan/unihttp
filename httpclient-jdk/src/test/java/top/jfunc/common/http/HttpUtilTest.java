@@ -14,6 +14,7 @@ public class HttpUtilTest {
         SmartHttpClient smartHttpClient = HttpUtil.getSmartHttpClient();
         Assert.assertTrue(smartHttpClient instanceof NativeSmartHttpClient);
 
-        SmartHttpClient smartHttpClient1 = new NativeSmartHttpClient();
+        SmartHttpClient httpClient = HttpDelegate.delegate();
+        Assert.assertTrue(httpClient instanceof NativeSmartHttpClient);
     }
 }

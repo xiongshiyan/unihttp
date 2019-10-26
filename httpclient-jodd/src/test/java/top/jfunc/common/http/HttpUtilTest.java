@@ -13,5 +13,8 @@ public class HttpUtilTest {
     public void testLoad(){
         SmartHttpClient smartHttpClient = HttpUtil.getSmartHttpClient();
         Assert.assertTrue(smartHttpClient instanceof JoddSmartHttpClient);
+
+        SmartHttpClient httpClient = HttpDelegate.delegate();
+        Assert.assertTrue(httpClient instanceof JoddSmartHttpClient);
     }
 }
