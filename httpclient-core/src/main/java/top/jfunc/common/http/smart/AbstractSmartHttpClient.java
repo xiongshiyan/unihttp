@@ -6,6 +6,7 @@ import top.jfunc.common.http.base.ResultCallback;
 import top.jfunc.common.http.basic.AbstractHttpClient;
 import top.jfunc.common.http.basic.HttpClient;
 import top.jfunc.common.http.basic.HttpTemplate;
+import top.jfunc.common.http.request.FormRequest;
 import top.jfunc.common.http.request.HttpRequest;
 import top.jfunc.common.http.request.StringBodyRequest;
 import top.jfunc.common.http.request.UploadRequest;
@@ -133,6 +134,16 @@ public abstract class AbstractSmartHttpClient<CC> extends AbstractHttpClient<CC>
         return template(request, Method.POST ,
                 bodyContentCallback(Method.POST , body, bodyCharset, request.getContentType()) ,
                 resultCallback);
+    }
+
+    /**
+     * post就支持form表单
+     * @see StringBodyRequest
+     * @see FormRequest
+     */
+    @Override
+    public <R> R form(FormRequest request, ResultCallback<R> resultCallback) throws IOException{
+        return post(request , resultCallback);
     }
 
     @Override
