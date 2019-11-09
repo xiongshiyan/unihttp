@@ -3,10 +3,7 @@ package top.jfunc.common.http.smart;
 import top.jfunc.common.http.Method;
 import top.jfunc.common.http.base.ResultCallback;
 import top.jfunc.common.http.basic.HttpClient;
-import top.jfunc.common.http.request.DownloadRequest;
-import top.jfunc.common.http.request.HttpRequest;
-import top.jfunc.common.http.request.StringBodyRequest;
-import top.jfunc.common.http.request.UploadRequest;
+import top.jfunc.common.http.request.*;
 
 import java.io.IOException;
 
@@ -31,6 +28,16 @@ public interface CallbackHttpClient extends HttpClient {
      * @throws IOException 超时等IO异常
      */
     <R> R post(StringBodyRequest request, ResultCallback<R> resultCallback) throws IOException;
+
+    /**
+     * POST方法，对form表单的语义化支持
+     * @param request 请求参数
+     * @return 响应
+     * @throws IOException 超时等IO异常
+     */
+    default <R> R form(FormRequest request, ResultCallback<R> resultCallback) throws IOException{
+        return post(request , resultCallback);
+    }
 
     /**
      * 下载文件
