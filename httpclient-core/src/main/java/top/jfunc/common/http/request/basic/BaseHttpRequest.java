@@ -120,6 +120,11 @@ public abstract class BaseHttpRequest<THIS extends BaseHttpRequest> implements H
     }
 
     @Override
+    public String getOriginalUrl(){
+        return url;
+    }
+
+    @Override
     public THIS setUrl(String url) {
         this.url = url;
         return myself();
