@@ -6,7 +6,7 @@ import org.junit.Test;
 import org.mockserver.client.MockServerClient;
 import org.mockserver.junit.MockServerRule;
 import top.jfunc.common.http.holderrequest.impl.HolderGetRequest;
-import top.jfunc.common.http.interceptor.UrlStatisticInterceptor;
+import top.jfunc.common.http.interceptor.UrlStatisticsInterceptor;
 import top.jfunc.common.http.request.HttpRequest;
 import top.jfunc.common.http.smart.JoddSmartHttpClient;
 import top.jfunc.common.http.smart.SmartHttpClient;
@@ -23,20 +23,20 @@ import static org.mockserver.model.HttpResponse.response;
 public class UrlStatisticsInterceptorTest {
     @Rule
     public MockServerRule server = new MockServerRule(this, 50000);
-    UrlStatisticInterceptor statisticInterceptor = new UrlStatisticInterceptor();
-    UrlStatisticInterceptor statisticInterceptor2 = new UrlStatisticInterceptor(true , true);
+    UrlStatisticsInterceptor statisticsInterceptor = new UrlStatisticsInterceptor();
+    UrlStatisticsInterceptor statisticsInterceptor2 = new UrlStatisticsInterceptor(true , true);
     private static final String BODY = "{ message: 'incorrect username and password combination' }";
 
     @Test
     public void testJodd() throws Exception{
         JoddSmartHttpClient smartHttpClient = new JoddSmartHttpClient();
-        smartHttpClient.getConfig().addInterceptor(statisticInterceptor , statisticInterceptor2);
+        smartHttpClient.getConfig().addInterceptor(statisticsInterceptor , statisticsInterceptor2);
         testGet(smartHttpClient);
     }
 
     private void testGet(SmartHttpClient smartHttpClient) throws Exception{
 
-        statisticInterceptor.start();
+        statisticsInterceptor.start();
 
         MockServerClient mockClient = new MockServerClient("127.0.0.1", 50000);
         mockClient.when(
@@ -66,8 +66,8 @@ public class UrlStatisticsInterceptorTest {
         r4.addQueryParam("k1" , "k2");
         smartHttpClient.get(r4);
 
-        statisticInterceptor.stop();
-        statisticInterceptor2.stop();
+        statisticsInterceptor.stop();
+        statisticsInterceptor2.stop();
 
         HttpRequest r5 = HolderGetRequest.of("http://localhost:50000/hellrrr/ff");
         r5.addQueryParam("k1" , "k2");
@@ -77,13 +77,13 @@ public class UrlStatisticsInterceptorTest {
         Set<String> set = new HashSet<>(2);
         set.add("http://localhost:50000/hello/{name}");
         set.add("http://localhost:50000/hell/ff");
-        Assert.assertEquals(set , statisticInterceptor.getUrls());
+        Assert.assertEquals(set , statisticsInterceptor.getUrls());
 
         Set<String> set2 = new HashSet<>(2);
         set2.add("http://localhost:50000/hello/John");
         set2.add("http://localhost:50000/hello/Mark");
         set2.add("http://localhost:50000/hello/Mark?k1=k2");
         set2.add("http://localhost:50000/hell/ff?k1=k2");
-        Assert.assertEquals(set2 , statisticInterceptor2.getUrls());
+        Assert.assertEquals(set2 , statisticsInterceptor2.getUrls());
     }
 }
