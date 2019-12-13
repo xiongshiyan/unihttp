@@ -15,6 +15,7 @@ import top.jfunc.common.http.base.ContentCallback;
 import top.jfunc.common.http.base.FormFile;
 import top.jfunc.common.http.base.ResultCallback;
 import top.jfunc.common.http.request.HttpRequest;
+import top.jfunc.common.http.util.ApacheUtil;
 import top.jfunc.common.utils.IoUtil;
 import top.jfunc.common.utils.MultiValueMap;
 
@@ -70,7 +71,7 @@ public class ApacheSmartHttpClient extends AbstractSmartHttpClient<HttpEntityEnc
             entity = response.getEntity();
 
             //7.处理返回值
-            inputStream = getStreamFrom(entity , httpRequest.isIgnoreResponseBody());
+            inputStream = getStreamFrom(entity , httpRequest);
 
             //8.处理headers
             MultiValueMap<String, String> responseHeaders = parseResponseHeaders(response, httpRequest, completedUrl);
@@ -84,6 +85,10 @@ public class ApacheSmartHttpClient extends AbstractSmartHttpClient<HttpEntityEnc
             IoUtil.close(response);
             IoUtil.close(httpClient);
         }
+    }
+
+    protected InputStream getStreamFrom(HttpEntity entity , HttpRequest httpRequest) throws IOException {
+        return ApacheUtil.getStreamFrom(entity, httpRequest.isIgnoreResponseBody());
     }
 
     protected MultiValueMap<String, String> parseResponseHeaders(CloseableHttpResponse response, HttpRequest httpRequest, String completedUrl) throws IOException {
