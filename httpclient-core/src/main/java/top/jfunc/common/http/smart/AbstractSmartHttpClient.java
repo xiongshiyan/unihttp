@@ -4,8 +4,8 @@ import top.jfunc.common.http.Method;
 import top.jfunc.common.http.base.ContentCallback;
 import top.jfunc.common.http.base.ResultCallback;
 import top.jfunc.common.http.basic.AbstractHttpClient;
-import top.jfunc.common.http.basic.HttpClient;
 import top.jfunc.common.http.basic.HttpTemplate;
+import top.jfunc.common.http.basic.SimpleHttpClient;
 import top.jfunc.common.http.request.FormRequest;
 import top.jfunc.common.http.request.HttpRequest;
 import top.jfunc.common.http.request.StringBodyRequest;
@@ -93,7 +93,7 @@ public abstract class AbstractSmartHttpClient<CC> extends AbstractHttpClient<CC>
 
 
     /**
-     * {@link HttpTemplate}和{@link HttpClient}接口体系实现此方法，
+     * {@link HttpTemplate}和{@link SimpleHttpClient}接口体系实现此方法，
      * 而{@link top.jfunc.common.http.smart.SmartHttpTemplate}和{@link top.jfunc.common.http.smart.SmartHttpClient}接口体系不需要实现之
      * 而是直接复写{@link HttpTemplate#template(String, Method, String, ContentCallback, MultiValueMap, Integer, Integer, String, boolean, ResultCallback)}
      * 所以抛出异常
