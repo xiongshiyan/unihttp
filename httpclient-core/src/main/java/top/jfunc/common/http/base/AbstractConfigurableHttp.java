@@ -2,7 +2,10 @@ package top.jfunc.common.http.base;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import top.jfunc.common.http.*;
+import top.jfunc.common.http.HttpConstants;
+import top.jfunc.common.http.MediaType;
+import top.jfunc.common.http.Method;
+import top.jfunc.common.http.ParamUtil;
 import top.jfunc.common.http.cookie.CookieJar;
 import top.jfunc.common.http.request.HttpRequest;
 import top.jfunc.common.utils.*;
@@ -124,7 +127,7 @@ public abstract class AbstractConfigurableHttp {
         if(null == requestHeaders){
             requestHeaders = new ArrayListMultiValueMap<>();
         }
-        requestHeaders.add(HeaderRegular.COOKIE.toString() , Joiner.on(HttpConstants.SEMICOLON).join(cookies));
+        requestHeaders.add(HttpHeaders.COOKIE, Joiner.on(HttpConstants.SEMICOLON).join(cookies));
 
         return requestHeaders;
     }
