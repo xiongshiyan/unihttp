@@ -19,19 +19,19 @@ public class SmartHttpProperties{
     /**
      * 连接超时时间
      */
-    private Integer defaultConnectionTimeout                = HttpConstants.DEFAULT_CONNECT_TIMEOUT;
+    private int defaultConnectionTimeout                = HttpConstants.DEFAULT_CONNECT_TIMEOUT;
     /**
      * 读数据超时时间
      */
-    private Integer defaultReadTimeout                      = HttpConstants.DEFAULT_READ_TIMEOUT;
+    private int defaultReadTimeout                      = HttpConstants.DEFAULT_READ_TIMEOUT;
     /**
      * 请求体编码
      */
-    private String defaultBodyCharset                       = HttpConstants.DEFAULT_CHARSET;
+    private int defaultBodyCharset                       = HttpConstants.DEFAULT_CHARSET;
     /**
      * 返回体编码
      */
-    private String defaultResultCharset                     = HttpConstants.DEFAULT_CHARSET;
+    private int defaultResultCharset                     = HttpConstants.DEFAULT_CHARSET;
     /**
      * 默认headers
      */
@@ -57,19 +57,19 @@ public class SmartHttpProperties{
         this.baseUrl = baseUrl;
     }
 
-    public Integer getDefaultConnectionTimeout() {
+    public int getDefaultConnectionTimeout() {
         return defaultConnectionTimeout;
     }
 
-    public void setDefaultConnectionTimeout(Integer defaultConnectionTimeout) {
+    public void setDefaultConnectionTimeout(int defaultConnectionTimeout) {
         this.defaultConnectionTimeout = defaultConnectionTimeout;
     }
 
-    public Integer getDefaultReadTimeout() {
+    public int getDefaultReadTimeout() {
         return defaultReadTimeout;
     }
 
-    public void setDefaultReadTimeout(Integer defaultReadTimeout) {
+    public void setDefaultReadTimeout(int defaultReadTimeout) {
         this.defaultReadTimeout = defaultReadTimeout;
     }
 
