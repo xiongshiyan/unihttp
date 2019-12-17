@@ -1,5 +1,6 @@
 package top.jfunc.common.http.basic;
 
+import top.jfunc.common.http.HttpConstants;
 import top.jfunc.common.http.ParamUtil;
 import top.jfunc.common.http.base.ConfigAccessor;
 import top.jfunc.common.http.base.FormFile;
@@ -21,8 +22,7 @@ import static top.jfunc.common.http.HttpConstants.*;
  * 从接口定义看出，参数直接在接口方法中，改变一个参数就需要重新定义个方法，
  * 实在太啰嗦，并且不好维护，
  * 所以墙裂建议使用其子类{@link SmartHttpClient}，
- * 使用{@link HttpRequest} 及子类
- * 或者{@link Request}来表达请求参数
+ * 使用{@link HttpRequest} 及子类或者{@link Request} 来表达请求参数
  * 使用{@link SmartHttpClient}还可以实现一些高级功能，比如拦截。
  * @author 熊诗言
  * @since 2017/11/24
@@ -40,11 +40,11 @@ public interface UnpackedParameterHttpClient extends ConfigAccessor {
      * @return 返回的内容
      * @throws IOException 超时异常 {@link java.net.SocketTimeoutException connect timed out/read time out}
      */
-    String get(String url, Map<String, String> params, Map<String, String> headers, Integer connectTimeout, Integer readTimeout, String resultCharset) throws IOException;
+    String get(String url, Map<String, String> params, Map<String, String> headers, int connectTimeout, int readTimeout, String resultCharset) throws IOException;
 
     /**
      * HTTP GET请求
-     * @see UnpackedParameterHttpClient#get(String, Map, Map, Integer, Integer, String)
+     * @see UnpackedParameterHttpClient#get(String, Map, Map, int, int, String)
      * @param url url
      * @param params params
      * @param headers headers
@@ -53,13 +53,13 @@ public interface UnpackedParameterHttpClient extends ConfigAccessor {
      * @return String
      * @throws IOException IOException
      */
-    default String get(String url, Map<String, String> params, Map<String, String> headers, Integer connectTimeout, Integer readTimeout) throws IOException{
+    default String get(String url, Map<String, String> params, Map<String, String> headers, int connectTimeout, int readTimeout) throws IOException{
         return get(url, params, headers, connectTimeout, readTimeout , null);
     }
 
     /**
      * HTTP GET请求
-     * @see UnpackedParameterHttpClient#get(String, Map, Map, Integer, Integer, String)
+     * @see UnpackedParameterHttpClient#get(String, Map, Map, int, int, String)
      * @param url url
      * @param params params
      * @param headers headers
@@ -68,12 +68,12 @@ public interface UnpackedParameterHttpClient extends ConfigAccessor {
      * @throws IOException IOException
      */
     default String get(String url, Map<String, String> params, Map<String, String> headers, String resultCharset) throws IOException{
-        return get(url,params,headers,null,null,resultCharset);
+        return get(url,params,headers, HttpConstants.TIMEOUT_UNSIGNED, HttpConstants.TIMEOUT_UNSIGNED,resultCharset);
     }
 
     /**
      * HTTP GET请求
-     * @see UnpackedParameterHttpClient#get(String, Map, Map, Integer, Integer, String)
+     * @see UnpackedParameterHttpClient#get(String, Map, Map, int, int, String)
      * @param url url
      * @param params params
      * @param headers headers
@@ -81,12 +81,12 @@ public interface UnpackedParameterHttpClient extends ConfigAccessor {
      * @throws IOException IOException
      */
     default String get(String url, Map<String, String> params, Map<String, String> headers) throws IOException{
-        return get(url,params,headers,null,null);
+        return get(url,params,headers, HttpConstants.TIMEOUT_UNSIGNED, HttpConstants.TIMEOUT_UNSIGNED);
     }
 
     /**
      * HTTP GET请求
-     * @see UnpackedParameterHttpClient#get(String, Map, Map, Integer, Integer, String)
+     * @see UnpackedParameterHttpClient#get(String, Map, Map, int, int, String)
      * @param url url
      * @param params params
      * @param connectTimeout connectTimeout
@@ -95,13 +95,13 @@ public interface UnpackedParameterHttpClient extends ConfigAccessor {
      * @return String
      * @throws IOException IOException
      */
-    default String get(String url, Map<String, String> params, Integer connectTimeout, Integer readTimeout, String resultCharset) throws IOException{
+    default String get(String url, Map<String, String> params, int connectTimeout, int readTimeout, String resultCharset) throws IOException{
         return get(url,params,null,connectTimeout,readTimeout,resultCharset);
     }
 
     /**
      * HTTP GET请求
-     * @see UnpackedParameterHttpClient#get(String, Map, Map, Integer, Integer, String)
+     * @see UnpackedParameterHttpClient#get(String, Map, Map, int, int, String)
      * @param url url
      * @param params params
      * @param connectTimeout connectTimeout
@@ -109,13 +109,13 @@ public interface UnpackedParameterHttpClient extends ConfigAccessor {
      * @return String
      * @throws IOException IOException
      */
-    default String get(String url, Map<String, String> params, Integer connectTimeout, Integer readTimeout) throws IOException{
+    default String get(String url, Map<String, String> params, int connectTimeout, int readTimeout) throws IOException{
         return get(url,params,null,connectTimeout,readTimeout);
     }
 
     /**
      * HTTP GET请求
-     * @see UnpackedParameterHttpClient#get(String, Map, Map, Integer, Integer, String)
+     * @see UnpackedParameterHttpClient#get(String, Map, Map, int, int, String)
      * @param url url
      * @param params params
      * @param resultCharset resultCharset
@@ -123,42 +123,42 @@ public interface UnpackedParameterHttpClient extends ConfigAccessor {
      * @throws IOException IOException
      */
     default String get(String url, Map<String, String> params, String resultCharset) throws IOException{
-        return get(url,params,null,null,null,resultCharset);
+        return get(url,params,null, HttpConstants.TIMEOUT_UNSIGNED, HttpConstants.TIMEOUT_UNSIGNED,resultCharset);
     }
 
     /**
      * HTTP GET请求
-     * @see UnpackedParameterHttpClient#get(String, Map, Map, Integer, Integer, String)
+     * @see UnpackedParameterHttpClient#get(String, Map, Map, int, int, String)
      * @param url url
      * @param params params
      * @return String
      * @throws IOException IOException
      */
     default String get(String url, Map<String, String> params) throws IOException{
-        return get(url,params,null, null,(Integer) null);
+        return get(url,params,null, HttpConstants.TIMEOUT_UNSIGNED, HttpConstants.TIMEOUT_UNSIGNED);
     }
 
     /**
      * HTTP GET请求
-     * @see UnpackedParameterHttpClient#get(String, Map, Map, Integer, Integer, String)
+     * @see UnpackedParameterHttpClient#get(String, Map, Map, int, int, String)
      * @param url url
      * @param resultCharset resultCharset
      * @return String
      * @throws IOException IOException
      */
     default String get(String url, String resultCharset) throws IOException{
-        return get(url,null,null,null,null, resultCharset);
+        return get(url,null,null, HttpConstants.TIMEOUT_UNSIGNED, HttpConstants.TIMEOUT_UNSIGNED, resultCharset);
     }
 
     /**
      * HTTP GET请求
-     * @see UnpackedParameterHttpClient#get(String, Map, Map, Integer, Integer, String)
+     * @see UnpackedParameterHttpClient#get(String, Map, Map, int, int, String)
      * @param url url
      * @return String
      * @throws IOException IOException
      */
     default String get(String url) throws IOException{
-        return get(url,null,null,null,(Integer)null);
+        return get(url,null,null, HttpConstants.TIMEOUT_UNSIGNED, HttpConstants.TIMEOUT_UNSIGNED);
     }
 
     /**
@@ -174,11 +174,11 @@ public interface UnpackedParameterHttpClient extends ConfigAccessor {
      * @return 请求返回
      * @throws IOException 超时异常 {@link java.net.SocketTimeoutException connect timed out/read time out}
      */
-    String post(String url, String body, String contentType, Map<String, String> headers, Integer connectTimeout, Integer readTimeout, String bodyCharset, String resultCharset) throws IOException;
+    String post(String url, String body, String contentType, Map<String, String> headers, int connectTimeout, int readTimeout, String bodyCharset, String resultCharset) throws IOException;
 
     /**
      * HTTP POST
-     * @see UnpackedParameterHttpClient#post(String, String, String, Map, Integer, Integer, String, String)
+     * @see UnpackedParameterHttpClient#post(String, String, String, Map, int, int, String, String)
      * @param url url
      * @param body body
      * @param contentType contentType
@@ -188,13 +188,13 @@ public interface UnpackedParameterHttpClient extends ConfigAccessor {
      * @return String
      * @throws IOException IOException
      */
-    default String post(String url, String body, String contentType, Map<String, String> headers, Integer connectTimeout, Integer readTimeout) throws IOException{
+    default String post(String url, String body, String contentType, Map<String, String> headers, int connectTimeout, int readTimeout) throws IOException{
         return post(url,body,contentType,headers,connectTimeout,readTimeout, null,null);
     }
 
     /**
      * HTTP POST
-     * @see UnpackedParameterHttpClient#post(String, String, String, Map, Integer, Integer, String, String)
+     * @see UnpackedParameterHttpClient#post(String, String, String, Map, int, int, String, String)
      * @param url url
      * @param body body
      * @param contentType contentType
@@ -205,12 +205,12 @@ public interface UnpackedParameterHttpClient extends ConfigAccessor {
      * @throws IOException IOException
      */
     default String post(String url, String body, String contentType, Map<String, String> headers, String bodyCharset, String resultCharset) throws IOException{
-        return post(url,body,contentType,headers,null,null,bodyCharset,resultCharset);
+        return post(url,body,contentType,headers, HttpConstants.TIMEOUT_UNSIGNED, HttpConstants.TIMEOUT_UNSIGNED,bodyCharset,resultCharset);
     }
 
     /**
      * HTTP POST
-     * @see UnpackedParameterHttpClient#post(String, String, String, Map, Integer, Integer, String, String)
+     * @see UnpackedParameterHttpClient#post(String, String, String, Map, int, int, String, String)
      * @param url url
      * @param body body
      * @param contentType contentType
@@ -219,12 +219,12 @@ public interface UnpackedParameterHttpClient extends ConfigAccessor {
      * @throws IOException IOException
      */
     default String post(String url, String body, String contentType, Map<String, String> headers) throws IOException{
-        return post(url,body,contentType,headers,null,(Integer) null);
+        return post(url,body,contentType,headers, HttpConstants.TIMEOUT_UNSIGNED, HttpConstants.TIMEOUT_UNSIGNED);
     }
 
     /**
      * HTTP POST
-     * @see UnpackedParameterHttpClient#post(String, String, String, Map, Integer, Integer, String, String)
+     * @see UnpackedParameterHttpClient#post(String, String, String, Map, int, int, String, String)
      * @param url url
      * @param body body
      * @param contentType contentType
@@ -235,13 +235,13 @@ public interface UnpackedParameterHttpClient extends ConfigAccessor {
      * @return String
      * @throws IOException IOException
      */
-    default String post(String url, String body, String contentType, Integer connectTimeout, Integer readTimeout, String bodyCharset, String resultCharset) throws IOException{
+    default String post(String url, String body, String contentType, int connectTimeout, int readTimeout, String bodyCharset, String resultCharset) throws IOException{
         return post(url,body,contentType,null,connectTimeout,readTimeout,bodyCharset,resultCharset);
     }
 
     /**
      * HTTP POST
-     * @see UnpackedParameterHttpClient#post(String, String, String, Map, Integer, Integer, String, String)
+     * @see UnpackedParameterHttpClient#post(String, String, String, Map, int, int, String, String)
      * @param url url
      * @param body body
      * @param contentType contentType
@@ -250,13 +250,13 @@ public interface UnpackedParameterHttpClient extends ConfigAccessor {
      * @return String
      * @throws IOException IOException
      */
-    default String post(String url, String body, String contentType, Integer connectTimeout, Integer readTimeout) throws IOException{
+    default String post(String url, String body, String contentType, int connectTimeout, int readTimeout) throws IOException{
         return post(url,body,contentType,null,connectTimeout,readTimeout);
     }
 
     /**
      * HTTP POST
-     * @see UnpackedParameterHttpClient#post(String, String, String, Map, Integer, Integer, String, String)
+     * @see UnpackedParameterHttpClient#post(String, String, String, Map, int, int, String, String)
      * @param url url
      * @param body body
      * @param contentType contentType
@@ -266,12 +266,12 @@ public interface UnpackedParameterHttpClient extends ConfigAccessor {
      * @throws IOException IOException
      */
     default String post(String url, String body, String contentType, String bodyCharset, String resultCharset) throws IOException{
-        return post(url,body,contentType,null,null,null,bodyCharset,resultCharset);
+        return post(url,body,contentType,null, HttpConstants.TIMEOUT_UNSIGNED, HttpConstants.TIMEOUT_UNSIGNED,bodyCharset,resultCharset);
     }
 
     /**
      * HTTP POST
-     * @see UnpackedParameterHttpClient#post(String, String, String, Map, Integer, Integer, String, String)
+     * @see UnpackedParameterHttpClient#post(String, String, String, Map, int, int, String, String)
      * @param url url
      * @param body body
      * @param contentType contentType
@@ -279,12 +279,12 @@ public interface UnpackedParameterHttpClient extends ConfigAccessor {
      * @throws IOException IOException
      */
     default String post(String url, String body, String contentType) throws IOException{
-        return post(url,body,contentType,null,null,(Integer) null);
+        return post(url,body,contentType,null, HttpConstants.TIMEOUT_UNSIGNED, HttpConstants.TIMEOUT_UNSIGNED);
     }
 
     /**
      * HTTP POST
-     * @see UnpackedParameterHttpClient#post(String, String, String, Map, Integer, Integer, String, String)
+     * @see UnpackedParameterHttpClient#post(String, String, String, Map, int, int, String, String)
      * @param url url
      * @param body body
      * @param bodyCharset bodyCharset
@@ -293,24 +293,24 @@ public interface UnpackedParameterHttpClient extends ConfigAccessor {
      * @throws IOException IOException
      */
     default String postJson(String url, String body, String bodyCharset, String resultCharset) throws IOException{
-        return post(url,body,JSON_WITH_DEFAULT_CHARSET,null,null,null,bodyCharset,resultCharset);
+        return post(url,body,JSON_WITH_DEFAULT_CHARSET,null, HttpConstants.TIMEOUT_UNSIGNED, HttpConstants.TIMEOUT_UNSIGNED,bodyCharset,resultCharset);
     }
 
     /**
      * HTTP POST
-     * @see UnpackedParameterHttpClient#post(String, String, String, Map, Integer, Integer, String, String)
+     * @see UnpackedParameterHttpClient#post(String, String, String, Map, int, int, String, String)
      * @param url url
      * @param body body
      * @return String
      * @throws IOException IOException
      */
     default String postJson(String url, String body) throws IOException{
-        return post(url,body,JSON_WITH_DEFAULT_CHARSET,null,null,(Integer) null);
+        return post(url,body,JSON_WITH_DEFAULT_CHARSET,null, HttpConstants.TIMEOUT_UNSIGNED, HttpConstants.TIMEOUT_UNSIGNED);
     }
 
     /**
      * HTTP POST form
-     * @see UnpackedParameterHttpClient#post(String, String, String, Map, Integer, Integer, String, String)
+     * @see UnpackedParameterHttpClient#post(String, String, String, Map, int, int, String, String)
      * @see ParamUtil#contactMap(Map)
      * @param url url
      * @param params params 参数用 =和& 连接
@@ -372,42 +372,42 @@ public interface UnpackedParameterHttpClient extends ConfigAccessor {
      * @return byte[]
      * @throws IOException IOException
      */
-    byte[] getAsBytes(String url, MultiValueMap<String, String> headers, Integer connectTimeout, Integer readTimeout) throws IOException;
+    byte[] getAsBytes(String url, MultiValueMap<String, String> headers, int connectTimeout, int readTimeout) throws IOException;
 
     /**
      * 下载为字节数组
-     * @see UnpackedParameterHttpClient#getAsBytes(String, MultiValueMap, Integer, Integer)
+     * @see UnpackedParameterHttpClient#getAsBytes(String, MultiValueMap, int, int)
      * @param url url
      * @param connectTimeout connectTimeout
      * @param readTimeout readTimeout
      * @return byte[]
      * @throws IOException IOException
      */
-    default byte[] getAsBytes(String url, Integer connectTimeout, Integer readTimeout) throws IOException{
+    default byte[] getAsBytes(String url, int connectTimeout, int readTimeout) throws IOException{
         return getAsBytes(url , null , connectTimeout , readTimeout);
     }
 
     /**
      * 下载为字节数组
-     * @see UnpackedParameterHttpClient#getAsBytes(String, MultiValueMap, Integer, Integer)
+     * @see UnpackedParameterHttpClient#getAsBytes(String, MultiValueMap, int, int)
      * @param url url
      * @param headers headers
      * @return byte[]
      * @throws IOException IOException
      */
     default byte[] getAsBytes(String url, MultiValueMap<String, String> headers) throws IOException{
-        return getAsBytes(url , headers , null, null);
+        return getAsBytes(url , headers , HttpConstants.TIMEOUT_UNSIGNED, HttpConstants.TIMEOUT_UNSIGNED);
     }
 
     /**
      * 下载为字节数组
-     * @see UnpackedParameterHttpClient#getAsBytes(String, MultiValueMap, Integer, Integer)
+     * @see UnpackedParameterHttpClient#getAsBytes(String, MultiValueMap, int, int)
      * @param url url
      * @return byte[]
      * @throws IOException IOException
      */
     default byte[] getAsBytes(String url) throws IOException{
-        return getAsBytes(url , null , null, null);
+        return getAsBytes(url , null , HttpConstants.TIMEOUT_UNSIGNED, HttpConstants.TIMEOUT_UNSIGNED);
     }
 
     /**
@@ -420,11 +420,11 @@ public interface UnpackedParameterHttpClient extends ConfigAccessor {
      * @return File
      * @throws IOException IOException
      */
-    File getAsFile(String url, MultiValueMap<String, String> headers, File file, Integer connectTimeout, Integer readTimeout) throws IOException;
+    File getAsFile(String url, MultiValueMap<String, String> headers, File file, int connectTimeout, int readTimeout) throws IOException;
 
     /**
      * 下载为文件
-     * @see UnpackedParameterHttpClient#getAsFile(String, File, Integer, Integer)
+     * @see UnpackedParameterHttpClient#getAsFile(String, File, int, int)
      * @param url url
      * @param file file
      * @param connectTimeout connectTimeout
@@ -432,12 +432,12 @@ public interface UnpackedParameterHttpClient extends ConfigAccessor {
      * @return File
      * @throws IOException IOException
      */
-    default File getAsFile(String url, File file, Integer connectTimeout, Integer readTimeout) throws IOException{
+    default File getAsFile(String url, File file, int connectTimeout, int readTimeout) throws IOException{
         return getAsFile(url , null  , file , connectTimeout , readTimeout);
     }
     /**
      * 下载为文件
-     * @see UnpackedParameterHttpClient#getAsFile(String, File, Integer, Integer)
+     * @see UnpackedParameterHttpClient#getAsFile(String, File, int, int)
      * @param url url
      * @param headers headers
      * @param file file
@@ -445,18 +445,18 @@ public interface UnpackedParameterHttpClient extends ConfigAccessor {
      * @throws IOException IOException
      */
     default File getAsFile(String url, MultiValueMap<String, String> headers, File file) throws IOException{
-        return getAsFile(url , headers  , file , null, null);
+        return getAsFile(url , headers  , file , HttpConstants.TIMEOUT_UNSIGNED, HttpConstants.TIMEOUT_UNSIGNED);
     }
     /**
      * 下载为文件
-     * @see UnpackedParameterHttpClient#getAsFile(String, File, Integer, Integer)
+     * @see UnpackedParameterHttpClient#getAsFile(String, File, int, int)
      * @param url url
      * @param file file
      * @return File
      * @throws IOException IOException
      */
     default File getAsFile(String url, File file) throws IOException{
-        return getAsFile(url , null  , file , null, null);
+        return getAsFile(url , null  , file , HttpConstants.TIMEOUT_UNSIGNED, HttpConstants.TIMEOUT_UNSIGNED);
     }
 
     /**
@@ -470,11 +470,11 @@ public interface UnpackedParameterHttpClient extends ConfigAccessor {
      * @return String
      * @throws IOException IOException
      */
-    String upload(String url, MultiValueMap<String, String> headers, Integer connectTimeout, Integer readTimeout, String resultCharset, FormFile... files) throws IOException;
+    String upload(String url, MultiValueMap<String, String> headers, int connectTimeout, int readTimeout, String resultCharset, FormFile... files) throws IOException;
 
     /**
      * 上传文件
-     * @see UnpackedParameterHttpClient#upload(String, MultiValueMap, Integer, Integer, String, FormFile...)
+     * @see UnpackedParameterHttpClient#upload(String, MultiValueMap, int, int, String, FormFile...)
      * @param url url
      * @param headers headers
      * @param connectTimeout connectTimeout
@@ -483,13 +483,13 @@ public interface UnpackedParameterHttpClient extends ConfigAccessor {
      * @return String
      * @throws IOException IOException
      */
-    default String upload(String url, MultiValueMap<String, String> headers, Integer connectTimeout, Integer readTimeout, FormFile... files) throws IOException{
+    default String upload(String url, MultiValueMap<String, String> headers, int connectTimeout, int readTimeout, FormFile... files) throws IOException{
         return upload(url, headers ,connectTimeout , readTimeout , null , files);
     }
 
     /**
      * 上传文件
-     * @see UnpackedParameterHttpClient#upload(String, MultiValueMap, Integer, Integer, String, FormFile...)
+     * @see UnpackedParameterHttpClient#upload(String, MultiValueMap, int, int, String, FormFile...)
      * @param url url
      * @param headers headers
      * @param files files
@@ -497,12 +497,12 @@ public interface UnpackedParameterHttpClient extends ConfigAccessor {
      * @throws IOException IOException
      */
     default String upload(String url, MultiValueMap<String, String> headers, FormFile... files) throws IOException{
-        return upload(url, headers ,null, null, null , files);
+        return upload(url, headers ,null, HttpConstants.TIMEOUT_UNSIGNED, HttpConstants.TIMEOUT_UNSIGNED , files);
     }
 
     /**
      * 上传文件
-     * @see UnpackedParameterHttpClient#upload(String, MultiValueMap, Integer, Integer, String, FormFile...)
+     * @see UnpackedParameterHttpClient#upload(String, MultiValueMap, int, int, String, FormFile...)
      * @param url url
      * @param connectTimeout connectTimeout
      * @param readTimeout readTimeout
@@ -510,20 +510,20 @@ public interface UnpackedParameterHttpClient extends ConfigAccessor {
      * @return String
      * @throws IOException IOException
      */
-    default String upload(String url, Integer connectTimeout, Integer readTimeout, FormFile... files) throws IOException{
+    default String upload(String url, int connectTimeout, int readTimeout, FormFile... files) throws IOException{
         return upload(url, null ,connectTimeout , readTimeout , null , files);
     }
 
     /**
      * 上传文件
-     * @see UnpackedParameterHttpClient#upload(String, MultiValueMap, Integer, Integer, String, FormFile...)
+     * @see UnpackedParameterHttpClient#upload(String, MultiValueMap, int, int, String, FormFile...)
      * @param url url
      * @param files files
      * @return String
      * @throws IOException IOException
      */
     default String upload(String url, FormFile... files) throws IOException{
-        return upload(url, null , null, null, null , files);
+        return upload(url, null , null, HttpConstants.TIMEOUT_UNSIGNED, HttpConstants.TIMEOUT_UNSIGNED , files);
     }
 
     /**
@@ -538,11 +538,11 @@ public interface UnpackedParameterHttpClient extends ConfigAccessor {
      * @return String
      * @throws IOException IOException
      */
-    String upload(String url, MultiValueMap<String, String> params, MultiValueMap<String, String> headers, Integer connectTimeout, Integer readTimeout, String resultCharset, FormFile... files) throws IOException;
+    String upload(String url, MultiValueMap<String, String> params, MultiValueMap<String, String> headers, int connectTimeout, int readTimeout, String resultCharset, FormFile... files) throws IOException;
 
     /**
      * 上传文件和key-value数据
-     * @see UnpackedParameterHttpClient#upload(String, MultiValueMap, MultiValueMap, Integer, Integer, String, FormFile...)
+     * @see UnpackedParameterHttpClient#upload(String, MultiValueMap, MultiValueMap, int, int, String, FormFile...)
      * @param url url
      * @param params params
      * @param headers headers
@@ -558,7 +558,7 @@ public interface UnpackedParameterHttpClient extends ConfigAccessor {
 
     /**
      * 上传文件和key-value数据
-     * @see UnpackedParameterHttpClient#upload(String, MultiValueMap, MultiValueMap, Integer, Integer, String, FormFile...)
+     * @see UnpackedParameterHttpClient#upload(String, MultiValueMap, MultiValueMap, int, int, String, FormFile...)
      * @param url url
      * @param params params
      * @param headers headers
@@ -567,12 +567,12 @@ public interface UnpackedParameterHttpClient extends ConfigAccessor {
      * @throws IOException IOException
      */
     default String upload(String url, MultiValueMap<String, String> params, MultiValueMap<String, String> headers, FormFile... files) throws IOException{
-        return upload(url, params ,headers ,DEFAULT_CONNECT_TIMEOUT, null, null , files);
+        return upload(url, params ,headers , HttpConstants.TIMEOUT_UNSIGNED, HttpConstants.TIMEOUT_UNSIGNED, null , files);
     }
 
     /**
      * 上传文件和key-value数据
-     * @see UnpackedParameterHttpClient#upload(String, MultiValueMap, MultiValueMap, Integer, Integer, String, FormFile...)
+     * @see UnpackedParameterHttpClient#upload(String, MultiValueMap, MultiValueMap, int, int, String, FormFile...)
      * @param url url
      * @param params params
      * @param connectTimeout connectTimeout
@@ -581,13 +581,13 @@ public interface UnpackedParameterHttpClient extends ConfigAccessor {
      * @return String
      * @throws IOException IOException
      */
-    default String upload(String url, Integer connectTimeout, Integer readTimeout, MultiValueMap<String, String> params, FormFile... files) throws IOException{
+    default String upload(String url, int connectTimeout, int readTimeout, MultiValueMap<String, String> params, FormFile... files) throws IOException{
         return upload(url, params ,null ,connectTimeout , readTimeout , null , files);
     }
 
     /**
      * 上传文件和key-value数据
-     * @see UnpackedParameterHttpClient#upload(String, MultiValueMap, MultiValueMap, Integer, Integer, String, FormFile...)
+     * @see UnpackedParameterHttpClient#upload(String, MultiValueMap, MultiValueMap, int, int, String, FormFile...)
      * @param url url
      * @param params params
      * @param files files
@@ -596,6 +596,6 @@ public interface UnpackedParameterHttpClient extends ConfigAccessor {
      */
     default String upload(String url, Map<String, String> params, FormFile... files) throws IOException{
         MultiValueMap<String , String> multimap = ArrayListMultiValueMap.fromMap(params);
-        return upload(url, multimap ,null , null, null, null , files);
+        return upload(url, multimap ,null , HttpConstants.TIMEOUT_UNSIGNED, HttpConstants.TIMEOUT_UNSIGNED, null , files);
     }
 }

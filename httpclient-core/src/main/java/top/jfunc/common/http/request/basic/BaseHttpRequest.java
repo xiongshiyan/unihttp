@@ -20,7 +20,7 @@ import java.util.Objects;
 /**
  * @author xiongshiyan at 2019/7/5 , contact me with email yanshixiong@126.com or phone 15208384257
  */
-public abstract class BaseHttpRequest<THIS extends BaseHttpRequest> implements HttpRequest, ChainCall<THIS>{
+public abstract class BaseHttpRequest<THIS extends BaseHttpRequest> implements HttpRequest, ChainCall<THIS> {
     /**
      * 设置的URL
      */
@@ -57,12 +57,12 @@ public abstract class BaseHttpRequest<THIS extends BaseHttpRequest> implements H
      * 连接超时时间，不设置就使用系统默认的
      * @see top.jfunc.common.http.base.Config#defaultConnectionTimeout
      */
-    private Integer connectionTimeout = null;
+    private int connectionTimeout = HttpConstants.TIMEOUT_UNSIGNED;
     /**
      * 读数据超时时间，不设置就使用系统默认的
      * @see top.jfunc.common.http.base.Config#defaultReadTimeout
      */
-    private Integer readTimeout = null;
+    private int readTimeout = HttpConstants.TIMEOUT_UNSIGNED;
     /**
      * 返回体编码，不设置就使用系统默认的
      * @see top.jfunc.common.http.base.Config#defaultResultCharset
@@ -120,11 +120,6 @@ public abstract class BaseHttpRequest<THIS extends BaseHttpRequest> implements H
     }
 
     @Override
-    public String getOriginalUrl(){
-        return url;
-    }
-
-    @Override
     public THIS setUrl(String url) {
         this.url = url;
         return myself();
@@ -134,6 +129,11 @@ public abstract class BaseHttpRequest<THIS extends BaseHttpRequest> implements H
     public HttpRequest setUrl(URL url) {
         setUrl(url.toString());
         return myself();
+    }
+
+    @Override
+    public String getOriginalUrl(){
+        return url;
     }
 
     @Override
@@ -269,7 +269,7 @@ public abstract class BaseHttpRequest<THIS extends BaseHttpRequest> implements H
     }
 
     @Override
-    public Integer getConnectionTimeout() {
+    public int getConnectionTimeout() {
         return connectionTimeout;
     }
 
@@ -280,7 +280,7 @@ public abstract class BaseHttpRequest<THIS extends BaseHttpRequest> implements H
     }
 
     @Override
-    public Integer getReadTimeout() {
+    public int getReadTimeout() {
         return readTimeout;
     }
 
