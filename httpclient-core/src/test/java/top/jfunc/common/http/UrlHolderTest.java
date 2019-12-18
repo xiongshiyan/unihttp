@@ -8,6 +8,9 @@ import top.jfunc.common.http.holder.PhpUrlHolder;
 import top.jfunc.common.http.holder.UrlHolder;
 import top.jfunc.common.http.holderrequest.HolderHttpRequest;
 import top.jfunc.common.http.holderrequest.impl.HolderGetRequest;
+import top.jfunc.common.utils.MultiValueMap;
+
+import java.util.Map;
 
 import static org.hamcrest.Matchers.is;
 
@@ -15,12 +18,19 @@ import static org.hamcrest.Matchers.is;
  * @author xiongshiyan at 2019/6/28 , contact me with email yanshixiong@126.com or phone 15208384257
  */
 public class UrlHolderTest {
+    private static String r(String originUrl , Map<String , String> routeParam , MultiValueMap<String , String> queryParams , String paramCharset){
+        //1.处理Route参数
+        String routeUrl = ParamUtil.replaceRouteParamsIfNecessary(originUrl , routeParam);
+        //2.处理Query参数
+        return ParamUtil.contactUrlParams(routeUrl, queryParams, paramCharset);
+    }
     @Test
     public void testUrl1(){
         String url = "http://127.0.0.1:8090/dddd/tttt?hill=hell&haven=heavy";
         UrlHolder holder = new DefaultUrlHolder().setUrl(url).addQueryParam("kkk","kkk");
-        Assert.assertEquals("http://127.0.0.1:8090/dddd/tttt?hill=hell&haven=heavy&kkk=kkk", holder.getUrl() );
-        Assert.assertEquals("http://127.0.0.1:8090/dddd/tttt?hill=hell&haven=heavy&kkk=kkk", holder.getUrl() );
+        String holderUrl = r(holder.getUrl() , holder.routeParamHolder().getMap() , holder.queryParamHolder().getParams() , holder.queryParamHolder().getParamCharset());
+        Assert.assertEquals("http://127.0.0.1:8090/dddd/tttt?hill=hell&haven=heavy&kkk=kkk", holderUrl);
+        Assert.assertEquals("http://127.0.0.1:8090/dddd/tttt?hill=hell&haven=heavy&kkk=kkk", holderUrl);
 
         HolderHttpRequest httpRequest = HolderGetRequest.of("");
         Assert.assertTrue(httpRequest.urlHolder() instanceof UrlHolder);
@@ -32,7 +42,8 @@ public class UrlHolderTest {
         String url = "http://127.0.0.1:8090/{ddd}/{ttt}?hill=hell&haven=heavy";
         UrlHolder holder = new DefaultUrlHolder().setUrl(url).addRouteParam("ddd","111")
                 .addRouteParam("ttt","222").addQueryParam("kkk","kkk");
-        Assert.assertEquals("http://127.0.0.1:8090/111/222?hill=hell&haven=heavy&kkk=kkk", holder.getUrl() );
+        String holderUrl = r(holder.getUrl() , holder.routeParamHolder().getMap() , holder.queryParamHolder().getParams() , holder.queryParamHolder().getParamCharset());
+        Assert.assertEquals("http://127.0.0.1:8090/111/222?hill=hell&haven=heavy&kkk=kkk", holderUrl );
     }
 
     @Test
@@ -115,26 +126,8 @@ public class UrlHolderTest {
         assertMultiValue (holder ,
                 "/1111/222/tt?k1=v1" ,
                 null ,
-                null,-1,"/1111/222/tt" , 1);
+                null,-1,"/{sss}/{ddd}/tt" , 1);
     }
-
-    @Test
-    public void testRecalculate(){
-        PhpUrlHolder holder = new DefaultPhpUrlHolder()
-                .protocol(Protocol.HTTPS)
-                .host("localhost")
-                .port(1234)
-                .path("/{sss}", "/{ddd}" , "tt")
-                .addQueryParam("k1" , "v1").addRouteParam("sss" , "1111").addRouteParam("ddd" , "222");
-        Assert.assertThat(holder.getUrl() , is("https://localhost:1234/1111/222/tt?k1=v1"));
-        holder.protocol(Protocol.HTTP).addQueryParam("hh" , "hh");
-
-        Assert.assertThat(holder.getUrl() , is("https://localhost:1234/1111/222/tt?k1=v1"));
-
-        Assert.assertThat(holder.recalculateUrl() , is("http://localhost:1234/1111/222/tt?hh=hh&k1=v1"));
-    }
-
-
 
     private void print(PhpUrlHolder holder){
         System.out.println(holder.getUrl());
@@ -147,7 +140,8 @@ public class UrlHolderTest {
 
     private void assertMultiValue(PhpUrlHolder holder ,
                                   String url , Protocol protocol , String host , int port , String path , int querySize){
-        Assert.assertThat(holder.getUrl() , is(url));
+        String holderUrl = r(holder.getUrl() , holder.routeParamHolder().getMap() , holder.queryParamHolder().getParams() , holder.queryParamHolder().getParamCharset());
+        Assert.assertThat(holderUrl , is(url));
         Assert.assertThat(holder.protocol() , is(protocol));
         Assert.assertThat(holder.host() , is(host));
         Assert.assertThat(holder.port() , is(port));

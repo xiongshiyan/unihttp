@@ -3,7 +3,6 @@ package top.jfunc.common.http.request.basic;
 import top.jfunc.common.ChainCall;
 import top.jfunc.common.http.HttpConstants;
 import top.jfunc.common.http.MediaType;
-import top.jfunc.common.http.ParamUtil;
 import top.jfunc.common.http.base.ProxyInfo;
 import top.jfunc.common.http.request.HttpRequest;
 import top.jfunc.common.utils.ArrayListMultiValueMap;
@@ -20,15 +19,11 @@ import java.util.Objects;
 /**
  * @author xiongshiyan at 2019/7/5 , contact me with email yanshixiong@126.com or phone 15208384257
  */
-public abstract class BaseHttpRequest<THIS extends BaseHttpRequest> implements HttpRequest, ChainCall<THIS> {
+public abstract class BaseHttpRequest<THIS extends BaseHttpRequest> implements HttpRequest, ChainCall<THIS>{
     /**
      * 设置的URL
      */
     private String url;
-    /**
-     * 缓存处理后的Url
-     */
-    private String cacheFinalUrl;
     /**
      * 路径参数
      */
@@ -109,14 +104,7 @@ public abstract class BaseHttpRequest<THIS extends BaseHttpRequest> implements H
 
     @Override
     public String getUrl() {
-        if(null != cacheFinalUrl){
-            return cacheFinalUrl;
-        }
-        //处理路径参数
-        cacheFinalUrl = ParamUtil.replaceRouteParamsIfNecessary(url , getRouteParams());
-        //处理Query参数
-        cacheFinalUrl = ParamUtil.contactUrlParams(cacheFinalUrl , getQueryParams() , getQueryParamCharset());
-        return cacheFinalUrl;
+        return url;
     }
 
     @Override
@@ -132,11 +120,6 @@ public abstract class BaseHttpRequest<THIS extends BaseHttpRequest> implements H
     }
 
     @Override
-    public String getOriginalUrl(){
-        return url;
-    }
-
-    @Override
     public Map<String, String> getRouteParams() {
         return routeParams;
     }
@@ -147,14 +130,12 @@ public abstract class BaseHttpRequest<THIS extends BaseHttpRequest> implements H
             routeParams = new HashMap<>(2);
         }
         routeParams.put(key, value);
-        cacheFinalUrl = null;
         return myself();
     }
 
     @Override
     public THIS setRouteParams(Map<String, String> routeParams) {
         this.routeParams = routeParams;
-        cacheFinalUrl = null;
         return myself();
     }
 
@@ -171,7 +152,6 @@ public abstract class BaseHttpRequest<THIS extends BaseHttpRequest> implements H
     @Override
     public THIS setQueryParamCharset(String paramCharset) {
         this.queryParamCharset = paramCharset;
-        cacheFinalUrl = null;
         return myself();
     }
 
@@ -180,7 +160,6 @@ public abstract class BaseHttpRequest<THIS extends BaseHttpRequest> implements H
         if(null == queryParams){
             queryParams = new ArrayListMultiValueMap<>(2);
         }
-        cacheFinalUrl = null;
         queryParams.add(key, value, values);
         return myself();
     }
@@ -188,14 +167,12 @@ public abstract class BaseHttpRequest<THIS extends BaseHttpRequest> implements H
     @Override
     public THIS setQueryParams(MultiValueMap<String, String> params) {
         this.queryParams = Objects.requireNonNull(params);
-        cacheFinalUrl = null;
         return myself();
     }
 
     @Override
     public THIS setQueryParams(Map<String, String> params) {
         this.queryParams = ArrayListMultiValueMap.fromMap(Objects.requireNonNull(params));
-        cacheFinalUrl = null;
         return myself();
     }
 

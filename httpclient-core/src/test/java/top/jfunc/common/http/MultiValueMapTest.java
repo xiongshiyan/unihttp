@@ -55,6 +55,15 @@ public class MultiValueMapTest {
         Assert.assertThat(ParamUtil.contactMap(ArrayListMultimap.fromMap(map)) , is("xx=xx&yy=yy"));
     }
     @Test
+    public void testClone(){
+        MultiValueMap<String , String> map = new ArrayListMultiValueMap<>();
+        map.add("xx" , "xx");
+        map.add("yy" , "yy");
+        final ArrayListMultiValueMap<String, String> temp = new ArrayListMultiValueMap<>(map.size());
+        map.forEachKeyValue(temp::add);
+        Assert.assertEquals(temp , map);
+    }
+    @Test
     public void testInit(){
         MultiValueMap<String, String> multiValueMap =
                 new ArrayListMultiValueMap<String, String>(){
