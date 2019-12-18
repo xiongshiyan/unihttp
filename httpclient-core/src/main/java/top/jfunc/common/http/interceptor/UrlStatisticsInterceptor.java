@@ -3,10 +3,8 @@ package top.jfunc.common.http.interceptor;
 import top.jfunc.common.http.Method;
 import top.jfunc.common.http.ParamUtil;
 import top.jfunc.common.http.request.HttpRequest;
-import top.jfunc.common.utils.MultiValueMap;
 
 import java.util.LinkedHashSet;
-import java.util.Map;
 import java.util.Set;
 
 /**
