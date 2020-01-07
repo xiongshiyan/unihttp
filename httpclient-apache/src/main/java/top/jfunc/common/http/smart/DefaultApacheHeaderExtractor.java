@@ -2,7 +2,6 @@ package top.jfunc.common.http.smart;
 
 import org.apache.http.HttpResponse;
 import top.jfunc.common.http.request.HttpRequest;
-import top.jfunc.common.http.smart.AbstractHeaderExtractor;
 import top.jfunc.common.http.util.ApacheUtil;
 import top.jfunc.common.utils.MultiValueMap;
 

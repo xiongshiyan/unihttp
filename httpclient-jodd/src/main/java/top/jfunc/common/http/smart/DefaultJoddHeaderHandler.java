@@ -1,7 +1,6 @@
 package top.jfunc.common.http.smart;
 
 import top.jfunc.common.http.request.HttpRequest;
-import top.jfunc.common.http.smart.AbstractHeaderHandler;
 import top.jfunc.common.http.util.JoddUtil;
 import top.jfunc.common.utils.MultiValueMap;
 
