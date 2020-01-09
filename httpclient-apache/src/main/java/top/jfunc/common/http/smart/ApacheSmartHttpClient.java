@@ -8,11 +8,12 @@ import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
+import top.jfunc.common.http.request.HttpRequest;
 import top.jfunc.common.http.Method;
 import top.jfunc.common.http.base.ContentCallback;
 import top.jfunc.common.http.base.ResultCallback;
-import top.jfunc.common.http.request.HttpRequest;
-import top.jfunc.common.http.smart.apache.*;
+import top.jfunc.common.http.component.*;
+import top.jfunc.common.http.component.apache.*;
 import top.jfunc.common.utils.IoUtil;
 import top.jfunc.common.utils.MultiValueMap;
 
