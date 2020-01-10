@@ -1,7 +1,6 @@
 package top.jfunc.common.http.component.okhttp3;
 
 import okhttp3.OkHttpClient;
-import top.jfunc.common.http.Method;
 import top.jfunc.common.http.ParamUtil;
 import top.jfunc.common.http.base.Config;
 import top.jfunc.common.http.base.ProxyInfo;
@@ -30,7 +29,7 @@ public class SingleOkHttp3ClientFactory extends AbstractRequesterFactory<OkHttpC
     }
 
     @Override
-    public OkHttpClient doCreate(HttpRequest httpRequest, Method method) throws IOException {
+    public OkHttpClient doCreate(HttpRequest httpRequest) throws IOException {
 
         Config config = httpRequest.getConfig();
 

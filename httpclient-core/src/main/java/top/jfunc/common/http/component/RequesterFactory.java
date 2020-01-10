@@ -1,6 +1,5 @@
 package top.jfunc.common.http.component;
 
-import top.jfunc.common.http.Method;
 import top.jfunc.common.http.request.HttpRequest;
 
 import java.io.IOException;
@@ -12,9 +11,8 @@ public interface RequesterFactory<C> {
     /**
      * 创建请求处理器
      * @param httpRequest HttpRequest
-     * @param method Method
      * @return HttpURLConnection
      * @throws IOException IOException
      */
-    C create(HttpRequest httpRequest, Method method) throws IOException;
+    C create(HttpRequest httpRequest) throws IOException;
 }

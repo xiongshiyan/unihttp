@@ -1,6 +1,7 @@
 package top.jfunc.common.http.request;
 
 import top.jfunc.common.http.MediaType;
+import top.jfunc.common.http.Method;
 import top.jfunc.common.http.base.ConfigAccessor;
 import top.jfunc.common.http.base.ProxyInfo;
 import top.jfunc.common.http.base.ssl.SSLSocketFactoryBuilder;
@@ -348,4 +349,20 @@ public interface HttpRequest extends ConfigAccessor {
      * @return 属性map
      */
     Map<String , Object> getAttributes();
+
+    /**
+     * 获取设置的Method
+     * @since 1.2.0
+     * @return Method
+     */
+    Method getMethod();
+
+    /**
+     * 设置Method
+     * 此方法一般在接口入口处由框架调用，用户自己设置的就以用户的为准，一般不需要设置
+     * @since 1.2.0
+     * @param method Method
+     * @return this
+     */
+    HttpRequest setMethod(Method method);
 }

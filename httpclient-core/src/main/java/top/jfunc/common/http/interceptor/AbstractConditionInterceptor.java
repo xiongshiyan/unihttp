@@ -1,6 +1,5 @@
 package top.jfunc.common.http.interceptor;
 
-import top.jfunc.common.http.Method;
 import top.jfunc.common.http.request.HttpRequest;
 
 /**
@@ -10,26 +9,24 @@ import top.jfunc.common.http.request.HttpRequest;
  */
 public abstract class AbstractConditionInterceptor extends InterceptorAdapter {
     @Override
-    public HttpRequest onBefore(HttpRequest httpRequest, Method method) {
-        if(needIntercept(httpRequest, method)){
-            return internalIntercept(httpRequest, method);
+    public HttpRequest onBefore(HttpRequest httpRequest) {
+        if(needIntercept(httpRequest)){
+            return internalIntercept(httpRequest);
         }
-        return super.onBefore(httpRequest, method);
+        return super.onBefore(httpRequest);
     }
 
     /**
      * 指定对哪些请求进行拦截，like judge httpRequest instanceof StringBodyRequest
      * @param httpRequest HttpRequest
-     * @param method method
      * @return true if need
      */
-    protected abstract boolean needIntercept(HttpRequest httpRequest, Method method);
+    protected abstract boolean needIntercept(HttpRequest httpRequest);
 
     /**
      * 做真正拦截的事情，比如对body进行统一包裹一层
      * @param httpRequest HttpRequest
-     * @param method method
      * @return 修改后的HttpRequest
      */
-    protected abstract HttpRequest internalIntercept(HttpRequest httpRequest, Method method);
+    protected abstract HttpRequest internalIntercept(HttpRequest httpRequest);
 }

@@ -1,6 +1,5 @@
 package top.jfunc.common.http.smart;
 
-import top.jfunc.common.http.Method;
 import top.jfunc.common.http.base.ContentCallback;
 import top.jfunc.common.http.base.ResultCallback;
 import top.jfunc.common.http.component.*;
@@ -40,18 +39,18 @@ public class NativeSmartHttpClient extends AbstractImplementSmartHttpClient<Http
     }
 
     @Override
-    protected <R> R doInternalTemplate(HttpRequest httpRequest, Method method, ContentCallback<HttpURLConnection> contentCallback , ResultCallback<R> resultCallback) throws Exception {
+    protected <R> R doInternalTemplate(HttpRequest httpRequest, ContentCallback<HttpURLConnection> contentCallback , ResultCallback<R> resultCallback) throws Exception {
         HttpURLConnection connection = null;
         InputStream inputStream = null;
         try {
             //1.初始化connection
-            connection = getHttpURLConnectionFactory().create(httpRequest, method);
+            connection = getHttpURLConnectionFactory().create(httpRequest);
 
             //2.处理header
             getHttpURLConnectionHeaderHandler().configHeaders(connection , httpRequest);
 
             //3.写入内容
-            getContentCallbackHandler().handle(connection , contentCallback , httpRequest , method);
+            getContentCallbackHandler().handle(connection , contentCallback , httpRequest);
 
             //4.连接
             getConnectionSender().send(connection);

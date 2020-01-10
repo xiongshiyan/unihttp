@@ -1,7 +1,6 @@
 package top.jfunc.common.http.component.okhttp3;
 
 import okhttp3.Request;
-import top.jfunc.common.http.Method;
 import top.jfunc.common.http.component.AbstractRequesterFactory;
 import top.jfunc.common.http.request.HttpRequest;
 
@@ -12,7 +11,7 @@ import java.io.IOException;
  */
 public class DefaultOkHttp3RequestBuilderFactory extends AbstractRequesterFactory<Request.Builder> {
     @Override
-    public Request.Builder doCreate(HttpRequest httpRequest, Method method) throws IOException {
+    public Request.Builder doCreate(HttpRequest httpRequest) throws IOException {
         return new Request.Builder().url(httpRequest.getCompletedUrl());
     }
 }

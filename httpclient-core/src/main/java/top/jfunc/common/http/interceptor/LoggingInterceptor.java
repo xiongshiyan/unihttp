@@ -30,9 +30,9 @@ public class LoggingInterceptor extends InterceptorAdapter {
     }
 
     @Override
-    public HttpRequest onBefore(HttpRequest httpRequest, Method method) {
+    public HttpRequest onBefore(HttpRequest httpRequest) {
         try {
-            logger.info("请求方法:"+method.name());
+            logger.info("请求方法:"+httpRequest.getMethod().name());
             logger.info("httpRequestClass:"+httpRequest.getClass());
             StringBuilder builder = new StringBuilder("url:"+httpRequest.getUrl()+CRLF);
             if(notEmpty(httpRequest.getRouteParams())){
@@ -91,7 +91,7 @@ public class LoggingInterceptor extends InterceptorAdapter {
         } catch (Exception e) {
             logger.error(e.getMessage() , e);
         }
-        return super.onBefore(httpRequest, method);
+        return super.onBefore(httpRequest);
     }
 
     protected boolean notEmpty(Object o){
