@@ -15,8 +15,9 @@ import java.net.Socket;
 public class DemoImpl extends AbstractImplementSmartHttpClient<Socket> {
     @Override
     protected <R> R doInternalTemplate(HttpRequest httpRequest, Method method, ContentCallback<Socket> contentCallback, ResultCallback<R> resultCallback) throws Exception {
+
         //1.获取真实请求的URL
-        String completedUrl = getCompletedUrlCreator().complete(httpRequest);
+        String completedUrl = httpRequest.getCompletedUrl();
         //2.创建请求
 
         //3.设置header
