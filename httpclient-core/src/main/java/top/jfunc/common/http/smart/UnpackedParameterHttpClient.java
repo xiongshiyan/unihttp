@@ -7,6 +7,7 @@ import top.jfunc.common.http.base.FormFile;
 import top.jfunc.common.http.base.FreezableConfigAccessor;
 import top.jfunc.common.http.request.HttpRequest;
 import top.jfunc.common.utils.ArrayListMultiValueMap;
+import top.jfunc.common.utils.MapUtil;
 import top.jfunc.common.utils.MultiValueMap;
 
 import java.io.File;
@@ -594,7 +595,10 @@ public interface UnpackedParameterHttpClient extends FreezableConfigAccessor {
      * @throws IOException IOException
      */
     default String upload(String url, Map<String, String> params, FormFile... files) throws IOException{
-        MultiValueMap<String , String> multimap = ArrayListMultiValueMap.fromMap(params);
-        return upload(url, multimap ,null , HttpConstants.TIMEOUT_UNSIGNED, HttpConstants.TIMEOUT_UNSIGNED, null , files);
+        MultiValueMap<String , String> p = null;
+        if(MapUtil.notEmpty(params)){
+            p = ArrayListMultiValueMap.fromMap(params);
+        }
+        return upload(url, p ,null , HttpConstants.TIMEOUT_UNSIGNED, HttpConstants.TIMEOUT_UNSIGNED, null , files);
     }
 }
