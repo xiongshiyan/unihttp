@@ -8,10 +8,10 @@ def REPO_NAME = 'network'
 dependencies{
     compile project(path: ":httpclient-core")
 
-    compile ("org.apache.httpcomponents:httpclient:${ApacheHttpCleintVersion}"){
+    compile ("org.apache.httpcomponents:httpclient:${ApacheHttpComponentsVersion}"){
         exclude group:'commons-logging'
     }
-    compile ("org.apache.httpcomponents:httpmime:${ApacheHttpCleintVersion}"){
+    compile ("org.apache.httpcomponents:httpmime:${ApacheHttpComponentsVersion}"){
         exclude group:'commons-logging'
     }
 }

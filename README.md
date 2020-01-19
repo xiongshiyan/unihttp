@@ -4,7 +4,7 @@
 
 本项目针对http协议定义了所有http实现之上的接口来描述一个http请求，使用者只需要面对同一套语义化的接口，
 如果需要切换http的实现，可以做到完全无代码修改。支持GET、POST、文件上传下载等，目前适配了以下项目：
-`OKHttp3、ApacheHttpClient、HttpURLConnection、Jodd-http`。
+`OKHttp3、ApacheHttpComponents、HttpURLConnection、Jodd-http`。
 
 这一套接口基本覆盖了一个Http请求的所有参数，接口的使用也是简单的、统一的、一致的、连缀的。对URL、Header、Body、Form、文件上传提供最大的支持。
 
@@ -20,7 +20,7 @@
 - [x] `Response`支持基于策略接口的String转换为Java对象
 - [x] 支持文件上传、下载
 - [x] 支持https
-- [x] 支持无代码修改的`OkHttp3、ApacheHttpClient、HttpURLConnection、JoddHttp`的切换
+- [x] 支持无代码修改的`OkHttp3、ApacheHttpComponents、HttpURLConnection、JoddHttp`的切换
 - [x] HttpUtil支持根据jar包的存在性加载实现
 - [x] 可以对某个实现的对象例如 `NativeSmartHttpClient` 全局设置，也可以针对某一个请求Request单独设置，优先级逐渐升高
 - [x] 通过`Config`全局配置默认参数

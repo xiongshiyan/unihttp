@@ -14,7 +14,7 @@ dependencies{
     //compileOnly project(path: ":httpclient-okhttp3")
 
     //compileOnly ("org.springframework.boot:spring-boot-configuration-processor:${SpringBootVersion}")
-    compile ("org.springframework:spring-context:${SpringVersion}")
+    compileOnly ("org.springframework:spring-context:${SpringVersion}")
 
     // https://mvnrepository.com/artifact/org.mybatis.spring.boot/mybatis-spring-boot-starter
     //compile group: 'org.mybatis.spring.boot', name: 'mybatis-spring-boot-starter', version: '2.0.1'
