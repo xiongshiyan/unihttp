@@ -79,8 +79,9 @@ public class UpLoadRequest extends BaseHttpRequest<UpLoadRequest> implements Upl
 
     @Override
     public UploadRequest addFormFiles(Iterable<FormFile> formFiles) {
-        Objects.requireNonNull(formFiles);
-        formFiles.forEach(this.formFiles::add);
-        return null;
+        if(null != formFiles){
+            formFiles.forEach(this.formFiles::add);
+        }
+        return myself();
     }
 }
