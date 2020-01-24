@@ -45,7 +45,7 @@ public class MultiRequestTest {
         HttpRequest request = HolderGetRequest.of("http://localhost:50000/hello/{name}");
         request.addRouteParam("name" , "John");
         Response response = smartHttpClient.get(request);
-        Assert.assertEquals(expected , response.asString());
+        Assert.assertEquals(expected , response.getBodyAsString());
     }
     @Test
     public void testGetQueryParam() throws Exception{
@@ -67,7 +67,7 @@ public class MultiRequestTest {
         request.addRouteParam("name" , "John");
         request.addQueryParam("key1" , "value1").addQueryParam("key2" , "value2");
         Response response = smartHttpClient.get(request);
-        Assert.assertEquals(expected , response.asString());
+        Assert.assertEquals(expected , response.getBodyAsString());
     }
     @Test
     public void testPost() throws Exception{
@@ -86,7 +86,7 @@ public class MultiRequestTest {
         StringBodyRequest request = HolderPostBodyRequest.of("http://localhost:50000/hello/{name}").setBody(expected);
         request.addRouteParam("name" , "John");
         Response response = smartHttpClient.post(request);
-        Assert.assertEquals(expected , response.asString());
+        Assert.assertEquals(expected , response.getBodyAsString());
     }
     @Test
     public void testPostForm() throws Exception{
@@ -108,7 +108,7 @@ public class MultiRequestTest {
         request.routeParamHolder().addRouteParam("name" , "John");
         request.formParamHolder().addParam("key1" , "value1").addParam("key2" , "value2");
         Response response = smartHttpClient.post(request);
-        Assert.assertEquals(expected , response.asString());
+        Assert.assertEquals(expected , response.getBodyAsString());
     }
     @Test
     public void testHeader() throws Exception{
@@ -127,6 +127,6 @@ public class MultiRequestTest {
         request.addRouteParam("name" , "John");
         request.addHeader("sale" , "2").addHeader("ca-xx" , "ca-xx");
         Response response = smartHttpClient.get(request);
-        Assert.assertEquals("xx" , response.getOneHeader("xx"));
+        Assert.assertEquals("xx" , response.getFirstHeader("xx"));
     }
 }
