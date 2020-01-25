@@ -22,10 +22,10 @@ import java.util.ServiceLoader;
  * 3.提供对SmartHttpClient的静态代理，使可以一句话实现Http请求
  * @author xiongshiyan at 2017/12/11
  */
-public class HttpUtil {
-    private static final Logger logger = LoggerFactory.getLogger(HttpUtil.class);
+public class HttpStatic {
+    private static final Logger logger = LoggerFactory.getLogger(HttpStatic.class);
 
-    private HttpUtil(){}
+    private HttpStatic(){}
 
     private static SmartHttpClient SMART_HTTP_CLIENT;
     public static SmartHttpClient getSmartHttpClient() { return SMART_HTTP_CLIENT; }
@@ -35,7 +35,7 @@ public class HttpUtil {
         try {
             ServiceLoader<SmartHttpClient> smartHttpClients = ServiceLoader.load(SmartHttpClient.class);
             SMART_HTTP_CLIENT = smartHttpClients.iterator().next();
-            logger.info("HttpUtil loads SmartHttpClient's implement successfully..." + SMART_HTTP_CLIENT);
+            logger.info("HttpStatic loads SmartHttpClient's implement successfully..." + SMART_HTTP_CLIENT);
         } catch (Exception e) {
             logger.warn("通过jar包自动加载实现类失败...请手动设置SmartHttpClient实现类,否则无法使用HttpUtil功能" , e);
         }
@@ -44,11 +44,11 @@ public class HttpUtil {
     /**
      * 以下代码是对SmartHttpClient的代理，使用更方便
      * <pre>
-     *     HttpUtil.get(...)
-     *     HttpUtil.post(...)
-     *     HttpUtil.getAsBytes(...)
-     *     HttpUtil.getAsFile(...) 文件下载
-     *     HttpUtil.upload(...) 文件上传
+     *     HttpStatic.get(...)
+     *     HttpStatic.post(...)
+     *     HttpStatic.getAsBytes(...)
+     *     HttpStatic.getAsFile(...) 文件下载
+     *     HttpStatic.upload(...) 文件上传
      * </pre>
      * @since 1.0.1
      */

@@ -11,7 +11,7 @@ import top.jfunc.common.http.smart.SmartHttpClient;
 public class HttpUtilTest {
     @Test
     public void testLoad(){
-        SmartHttpClient smartHttpClient = HttpUtil.getSmartHttpClient();
+        SmartHttpClient smartHttpClient = HttpStatic.getSmartHttpClient();
         Assert.assertTrue(smartHttpClient instanceof JoddSmartHttpClient);
 
         SmartHttpClient httpClient = HttpDelegate.delegate();

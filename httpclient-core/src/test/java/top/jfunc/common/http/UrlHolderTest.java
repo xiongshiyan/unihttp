@@ -2,12 +2,14 @@ package top.jfunc.common.http;
 
 import org.junit.Assert;
 import org.junit.Test;
+import top.jfunc.common.http.base.Protocol;
 import top.jfunc.common.http.holder.DefaultPhpUrlHolder;
 import top.jfunc.common.http.holder.DefaultUrlHolder;
 import top.jfunc.common.http.holder.PhpUrlHolder;
 import top.jfunc.common.http.holder.UrlHolder;
 import top.jfunc.common.http.holderrequest.HolderHttpRequest;
 import top.jfunc.common.http.holderrequest.impl.HolderGetRequest;
+import top.jfunc.common.http.util.ParamUtil;
 import top.jfunc.common.utils.MultiValueMap;
 
 import java.util.Map;

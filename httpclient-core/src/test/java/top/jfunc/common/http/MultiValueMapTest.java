@@ -2,6 +2,7 @@ package top.jfunc.common.http;
 
 import org.junit.Assert;
 import org.junit.Test;
+import top.jfunc.common.http.util.ParamUtil;
 import top.jfunc.common.utils.ArrayListMultiValueMap;
 import top.jfunc.common.utils.ArrayListMultimap;
 import top.jfunc.common.utils.LinkedMultiValueMap;
