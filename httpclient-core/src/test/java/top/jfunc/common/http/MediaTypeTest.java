@@ -2,6 +2,7 @@ package top.jfunc.common.http;
 
 import org.junit.Assert;
 import org.junit.Test;
+import top.jfunc.common.http.base.MediaType;
 
 import java.nio.charset.Charset;
 

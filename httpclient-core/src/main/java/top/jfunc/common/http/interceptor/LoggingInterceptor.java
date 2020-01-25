@@ -2,7 +2,6 @@ package top.jfunc.common.http.interceptor;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import top.jfunc.common.http.Method;
 import top.jfunc.common.http.request.*;
 import top.jfunc.common.http.smart.Response;
 
