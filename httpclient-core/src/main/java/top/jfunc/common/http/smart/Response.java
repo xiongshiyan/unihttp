@@ -153,7 +153,7 @@ public interface Response extends Closeable{
      * @return 重定向地址
      */
     default String getRedirectUrl(){
-        return this.getHeaders().get(HttpHeaders.LOCATION).get(0);
+        return this.getHeaders().getFirst(HttpHeaders.LOCATION);
     }
 
     @Override
