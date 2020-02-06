@@ -2,7 +2,6 @@ package top.jfunc.common.http.holder;
 
 import top.jfunc.common.http.kv.Header;
 import top.jfunc.common.http.kv.SingleValueEntry;
-import top.jfunc.common.utils.ArrayListMultimap;
 import top.jfunc.common.utils.MultiValueMap;
 
 import java.util.Map;
@@ -11,7 +10,7 @@ import java.util.Map;
  * 请求头处理器，新增、获取header
  * @author xiongshiyan
  */
-public interface HeaderHolder {
+public interface HeaderHolder{
     /**
      * 请求的Header
      * @return 请求的Header
@@ -31,13 +30,6 @@ public interface HeaderHolder {
      * @return this
      */
     HeaderHolder setHeaders(Map<String, String> headers);
-
-    /**
-     * 设置请求的header
-     * @param headers headers
-     * @return this
-     */
-    HeaderHolder setHeaders(ArrayListMultimap<String, String> headers);
 
     /**
      * 添加header,set方式
