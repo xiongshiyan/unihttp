@@ -18,5 +18,5 @@ public interface SmartHttpTemplate<CC> {
      * @throws IOException IOException
      * @return <R> R
      */
-    <R> R  template(HttpRequest httpRequest, ContentCallback<CC> contentCallback, ResultCallback<R> resultCallback) throws IOException;
+    <R> R template(HttpRequest httpRequest, ContentCallback<CC> contentCallback, ResultCallback<R> resultCallback) throws IOException;
 }
