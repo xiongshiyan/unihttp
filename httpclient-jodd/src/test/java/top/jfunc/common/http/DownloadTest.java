@@ -58,4 +58,13 @@ public class DownloadTest {
         downloader.download(downLoadRequest);
         System.out.println(System.currentTimeMillis() - l);
     }
+
+    @Test
+    public void getNetFileLength() throws IOException{
+        Downloader downloader = new InterruptBaseDownloadFileDownloader(smartHttpClient , 1024);
+        DownLoadRequest downLoadRequest = RequestCreator.download("http://mirrors.tuna.tsinghua.edu.cn/apache/tomcat/tomcat-8/v8.5.51/bin/apache-tomcat-8.5.51.tar.gz"
+                , new File("C:\\Users\\xiongshiyan\\Desktop\\tomcat.tar.gz"));
+        long netFileLength = downloader.getNetFileLength(downLoadRequest);
+        System.out.println(netFileLength);
+    }
 }
