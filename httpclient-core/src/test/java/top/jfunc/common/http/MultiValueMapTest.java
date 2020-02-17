@@ -4,7 +4,6 @@ import org.junit.Assert;
 import org.junit.Test;
 import top.jfunc.common.http.util.ParamUtil;
 import top.jfunc.common.utils.ArrayListMultiValueMap;
-import top.jfunc.common.utils.ArrayListMultimap;
 import top.jfunc.common.utils.LinkedMultiValueMap;
 import top.jfunc.common.utils.MultiValueMap;
 
@@ -17,17 +16,6 @@ import static org.hamcrest.Matchers.is;
  * @author xiongshiyan at 2019/3/28 , contact me with email yanshixiong@126.com or phone 15208384257
  */
 public class MultiValueMapTest {
-
-    @Test
-    public void testConcatParam(){
-        ArrayListMultimap<String , String> multimap = new ArrayListMultimap<>();
-        multimap.put("xx" , "xx");
-        multimap.put("yy" , "yy");
-        multimap.put("xx" , "zz");
-        String contactMap = ParamUtil.contactMap(multimap);
-        Assert.assertThat(contactMap , is("xx=xx&xx=zz&yy=yy"));
-        Assert.assertThat(ParamUtil.contactMap(ArrayListMultiValueMap.fromMap(multimap)) , is("xx=xx&xx=zz&yy=yy"));
-    }
     @Test
     public void testConcatParam2(){
         Map<String , String> map = new HashMap<>();
@@ -44,7 +32,6 @@ public class MultiValueMapTest {
         map.add("yy" , "yy");
         String contactMap = ParamUtil.contactMap(map);
         Assert.assertThat(contactMap , is("xx=xx&yy=yy"));
-        Assert.assertThat(ParamUtil.contactMap(ArrayListMultimap.fromMap(map)) , is("xx=xx&yy=yy"));
     }
     @Test
     public void testConcatParam4(){
@@ -53,7 +40,6 @@ public class MultiValueMapTest {
         map.add("yy" , "yy");
         String contactMap = ParamUtil.contactMap(map);
         Assert.assertThat(contactMap , is("xx=xx&yy=yy"));
-        Assert.assertThat(ParamUtil.contactMap(ArrayListMultimap.fromMap(map)) , is("xx=xx&yy=yy"));
     }
     @Test
     public void testClone(){

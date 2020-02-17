@@ -51,15 +51,6 @@ public class ParamUtilTest {
     }
 
     @Test
-    public void testConcatParam(){
-        ArrayListMultimap<String , String> multimap = new ArrayListMultimap<>();
-        multimap.put("xx" , "xx");
-        multimap.put("yy" , "yy");
-        multimap.put("xx" , "zz");
-        String contactMap = ParamUtil.contactMap(multimap);
-        Assert.assertThat(contactMap , is("xx=xx&xx=zz&yy=yy"));
-    }
-    @Test
     public void testConcatParam2(){
         Map<String , String> map = new HashMap<>();
         map.put("xx" , "xx");
