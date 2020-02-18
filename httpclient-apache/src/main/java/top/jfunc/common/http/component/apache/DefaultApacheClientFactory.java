@@ -2,11 +2,11 @@ package top.jfunc.common.http.component.apache;
 
 import org.apache.http.client.HttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
-import top.jfunc.common.http.util.ParamUtil;
 import top.jfunc.common.http.base.Config;
 import top.jfunc.common.http.component.AbstractRequesterFactory;
 import top.jfunc.common.http.request.HttpRequest;
 import top.jfunc.common.http.util.ApacheUtil;
+import top.jfunc.common.http.util.ParamUtil;
 
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLContext;
@@ -30,7 +30,7 @@ public class DefaultApacheClientFactory extends AbstractRequesterFactory<HttpCli
         }
         ////////////////////////////////////ssl处理///////////////////////////////////
 
-        HttpClientBuilder clientBuilder = ApacheUtil.getCloseableHttpClientBuilder(completedUrl, hostnameVerifier, sslContext, httpRequest.followRedirects());
+        HttpClientBuilder clientBuilder = ApacheUtil.getCloseableHttpClientBuilder(completedUrl, hostnameVerifier, sslContext, config.followRedirectsWithDefault(httpRequest.followRedirects()));
         return clientBuilder.build();
     }
 }

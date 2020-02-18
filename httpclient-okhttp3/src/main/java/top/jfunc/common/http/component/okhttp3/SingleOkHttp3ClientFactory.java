@@ -1,12 +1,12 @@
 package top.jfunc.common.http.component.okhttp3;
 
 import okhttp3.OkHttpClient;
-import top.jfunc.common.http.util.ParamUtil;
 import top.jfunc.common.http.base.Config;
 import top.jfunc.common.http.base.ProxyInfo;
 import top.jfunc.common.http.component.AbstractRequesterFactory;
 import top.jfunc.common.http.request.HttpRequest;
 import top.jfunc.common.http.util.OkHttp3Util;
+import top.jfunc.common.http.util.ParamUtil;
 
 import java.io.IOException;
 import java.util.Objects;
@@ -43,7 +43,7 @@ public class SingleOkHttp3ClientFactory extends AbstractRequesterFactory<OkHttpC
             clientBuilder.proxy(proxyInfo.getProxy());
         }
         //是否重定向
-        clientBuilder.followRedirects(httpRequest.followRedirects());
+        clientBuilder.followRedirects(config.followRedirectsWithDefault(httpRequest.followRedirects()));
 
         ////////////////////////////////////ssl处理///////////////////////////////////
         if(ParamUtil.isHttps(httpRequest.getCompletedUrl())){
