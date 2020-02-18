@@ -1,4 +1,4 @@
-package top.jfunc.common.http.base.ssl;
+package top.jfunc.common.http.ssl;
 
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;

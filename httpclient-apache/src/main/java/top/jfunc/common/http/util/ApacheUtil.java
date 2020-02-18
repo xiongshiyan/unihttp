@@ -166,8 +166,8 @@ public class ApacheUtil {
     }
 
     /**
-     * @see top.jfunc.common.http.base.ssl.SSLSocketFactoryBuilder#getSSLContext()
-     * @see top.jfunc.common.http.base.ssl.SSLSocketFactoryBuilder#getSSLContext(String, String)
+     * @see top.jfunc.common.http.ssl.SSLSocketFactoryBuilder#getSSLContext()
+     * @see top.jfunc.common.http.ssl.SSLSocketFactoryBuilder#getSSLContext(String, String)
      */
     public static void initSSL(HttpClientBuilder httpClientBuilder , HostnameVerifier hostnameVerifier , SSLContext sslContext) {
         // 验证域
