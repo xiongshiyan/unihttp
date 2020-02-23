@@ -1,13 +1,16 @@
 package top.jfunc.common.http.request.basic;
 
-import top.jfunc.common.http.HttpConstants;
 import top.jfunc.common.http.base.FormFile;
 import top.jfunc.common.http.request.UploadRequest;
 import top.jfunc.common.utils.ArrayListMultiValueMap;
+import top.jfunc.common.utils.CharsetUtil;
 import top.jfunc.common.utils.MapUtil;
 import top.jfunc.common.utils.MultiValueMap;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 多文件、参数同时支持的上传请求
@@ -27,7 +30,7 @@ public class UpLoadRequest extends BaseHttpRequest<UpLoadRequest> implements Upl
     }
 
     private MultiValueMap<String , String> formParams = new ArrayListMultiValueMap<>(2);
-    private String formParamCharset = HttpConstants.DEFAULT_CHARSET;
+    private String formParamCharset = CharsetUtil.UTF_8;
     private List<FormFile> formFiles = new ArrayList<>(2);
 
     @Override
