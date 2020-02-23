@@ -7,13 +7,13 @@ import org.mockserver.client.MockServerClient;
 import org.mockserver.junit.MockServerRule;
 import org.mockserver.model.Header;
 import org.mockserver.model.Parameter;
+import top.jfunc.common.http.base.Config;
 import top.jfunc.common.http.base.MediaType;
 import top.jfunc.common.http.request.StringBodyRequest;
 import top.jfunc.common.http.smart.OkHttp3SmartHttpClient;
 import top.jfunc.common.http.smart.Request;
 import top.jfunc.common.http.smart.Response;
 import top.jfunc.common.http.smart.SmartHttpClient;
-import top.jfunc.common.utils.CharsetUtil;
 
 import static org.mockserver.model.HttpRequest.request;
 import static org.mockserver.model.HttpResponse.response;
@@ -96,7 +96,7 @@ public class MockServerTest{
                         .withPath("/hello/John")
                         .withMethod("POST")
                         .withBody("key1=value1&key2=value2")
-                        .withHeader(Header.header("Content-Type" , MediaType.APPLICATIPON_FORM_DATA.withCharset(CharsetUtil.UTF_8).toString())))
+                        .withHeader(Header.header("Content-Type" , MediaType.APPLICATIPON_FORM_DATA.withCharset(Config.DEFAULT_CHARSET).toString())))
         .respond(
                 response()
                         .withStatusCode(200)
