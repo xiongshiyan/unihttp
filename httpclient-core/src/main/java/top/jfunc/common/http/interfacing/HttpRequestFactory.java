@@ -1,10 +1,10 @@
 package top.jfunc.common.http.interfacing;
 
-import top.jfunc.common.http.base.MediaType;
-import top.jfunc.common.http.base.Method;
 import top.jfunc.common.http.annotation.method.*;
 import top.jfunc.common.http.annotation.parameter.*;
 import top.jfunc.common.http.base.HttpHeaders;
+import top.jfunc.common.http.base.MediaType;
+import top.jfunc.common.http.base.Method;
 import top.jfunc.common.http.holderrequest.impl.HolderCommonBodyRequest;
 import top.jfunc.common.http.holderrequest.impl.HolderCommonRequest;
 import top.jfunc.common.http.holderrequest.impl.HolderFormBodyRequest;
@@ -342,7 +342,7 @@ class HttpRequestFactory implements RequestFactory {
             if (String.class != keyType) {
                 throw parameterError(method, p, "@PathMap keys must be of type String: " + keyType);
             }
-            new AbstractParameterHandler.RouteMap();
+            return new AbstractParameterHandler.RouteMap();
         } else if (annotation instanceof Query) {
             validateResolvableType(p, type);
             Query query = (Query) annotation;
