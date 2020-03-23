@@ -109,21 +109,6 @@ public class HttpConfig {
         smartHttpClient.setConfig(Config.defaultConfig()...);//设置baseUrl...
         retrun smartHttpClient;
     }
-    
-    
-    //以下配置可以扫描 top.jfunc.network.controller.client 包下的标注 @HttpService 注解的接口
-    @Bean
-    public HttpServiceCreator httpServiceCreator(SmartHttpClient smartHttpClient){
-        return new HttpServiceCreator().setSmartHttpClient(smartHttpClient);
-    }
-    @Bean
-    public HttpServiceScanConfigure httpServiceScanConfigure(){
-        HttpServiceScanConfigure httpServiceScanConfigure = new HttpServiceScanConfigure(jFuncHttp(smartHttpClient()));
-        httpServiceScanConfigure.setAnnotationClassScan(HttpService.class);
-        httpServiceScanConfigure.setScanPackages("top.jfunc.network.controller.client");
-        return httpServiceScanConfigure;
-    }
-}
 ```
 
 当拿到实例之后，就可以使用接口定义的所有的方法用于http请求。
@@ -215,8 +200,37 @@ http.setConfig(Config.defaultConfig()
    );
 ```
 
-在配置HttpService接口扫描之后，定义如下一样的接口
+类似MyBatis接口使用方式
+
+1.配置HttpService接口扫描 
+2.定义如下一样的接口
+
 ```java
+    @Configuration
+    public class SomeConfiguration{
+        @Bean
+        public SmartHttpClient smartHttpClient(){
+            Config config = Config.defaultConfig().setBaseUrl("xxxxx);
+            SmartHttpClientImpl smartHttpClient = new SmartHttpClientImpl();
+            smartHttpClient.setConfig(config);
+            return smartHttpClient;
+        }
+        //以下配置可以扫描 top.jfunc.network.controller.client 包下的标注 @HttpService 注解的接口
+        @Bean
+        public HttpServiceCreator httpServiceCreator(SmartHttpClient smartHttpClient){
+            return new HttpServiceCreator().setSmartHttpClient(smartHttpClient);
+        }
+        @Bean
+        public HttpServiceScanConfigure httpServiceScanConfigure(){
+            HttpServiceScanConfigure httpServiceScanConfigure = new HttpServiceScanConfigure(httpServiceCreator(smartHttpClient()));
+            httpServiceScanConfigure.setAnnotationClassScan(HttpService.class);
+            httpServiceScanConfigure.setScanPackages("top.jfunc.network.controller.client");
+            return httpServiceScanConfigure;
+        }
+    }
+    
+
+
 
 @HttpService
 public interface InterfaceForTestHttpService {
