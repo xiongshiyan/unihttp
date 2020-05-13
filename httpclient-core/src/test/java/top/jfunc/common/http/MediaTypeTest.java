@@ -40,27 +40,27 @@ public class MediaTypeTest {
         Assert.assertThat(MediaType.VIDEO_WMA.toString() , is("video/x-ms-wmv"));
         Assert.assertThat(MediaType.VIDEO_FLV.toString() , is("video/x-flv"));
         Assert.assertThat(MediaType.VIDEO_3GPP.toString() , is("video/3gpp"));
-        Assert.assertThat(MediaType.APPLICATIPON_XML.toString() , is("application/xml"));
-        Assert.assertThat(MediaType.APPLICATIPON_ATOM.toString() , is("application/atom+xml"));
-        Assert.assertThat(MediaType.APPLICATIPON_FORM_DATA.toString() , is("application/x-www-form-urlencoded"));
-        Assert.assertThat(MediaType.APPLICATIPON_JSON.toString() , is("application/json"));
-        Assert.assertThat(MediaType.APPLICATIPON_JAVASCRIPT.toString() , is("application/javascript"));
-        Assert.assertThat(MediaType.APPLICATIPON_MICROSOFT_WORD.toString() , is("application/msword"));
-        Assert.assertThat(MediaType.APPLICATIPON_MICROSOFT_EXCEL.toString() , is("application/vnd.ms-excel"));
-        Assert.assertThat(MediaType.APPLICATIPON_OCTET_STREAM.toString() , is("application/octet-stream"));
-        Assert.assertThat(MediaType.APPLICATIPON_PDF.toString() , is("application/pdf"));
-        Assert.assertThat(MediaType.APPLICATIPON_RTF.toString() , is("application/rtf"));
-        Assert.assertThat(MediaType.APPLICATIPON_RDF.withCharset("utf-8").toString() , is("application/rdf+xml;charset=utf-8"));
-        Assert.assertThat(MediaType.APPLICATIPON_SOAP_XML.withCharset("utf-8").toString() , is("application/soap+xml;charset=utf-8"));
-        Assert.assertThat(MediaType.APPLICATIPON_TAR.toString() , is("application/x-tar"));
-        Assert.assertThat(MediaType.APPLICATIPON_WOFF.toString() , is("application/font-woff"));
-        Assert.assertThat(MediaType.APPLICATIPON_WOFF2.toString() , is("application/font-woff2"));
-        Assert.assertThat(MediaType.APPLICATIPON_XHTML.toString() , is("application/xhtml+xml"));
-        Assert.assertThat(MediaType.APPLICATIPON_ZIP.toString() , is("application/zip"));
+        Assert.assertThat(MediaType.APPLICATION_XML.toString() , is("application/xml"));
+        Assert.assertThat(MediaType.APPLICATION_ATOM.toString() , is("application/atom+xml"));
+        Assert.assertThat(MediaType.APPLICATION_FORM_DATA.toString() , is("application/x-www-form-urlencoded"));
+        Assert.assertThat(MediaType.APPLICATION_JSON.toString() , is("application/json"));
+        Assert.assertThat(MediaType.APPLICATION_JAVASCRIPT.toString() , is("application/javascript"));
+        Assert.assertThat(MediaType.APPLICATION_MICROSOFT_WORD.toString() , is("application/msword"));
+        Assert.assertThat(MediaType.APPLICATION_MICROSOFT_EXCEL.toString() , is("application/vnd.ms-excel"));
+        Assert.assertThat(MediaType.APPLICATION_OCTET_STREAM.toString() , is("application/octet-stream"));
+        Assert.assertThat(MediaType.APPLICATION_PDF.toString() , is("application/pdf"));
+        Assert.assertThat(MediaType.APPLICATION_RTF.toString() , is("application/rtf"));
+        Assert.assertThat(MediaType.APPLICATION_RDF.withCharset("utf-8").toString() , is("application/rdf+xml;charset=utf-8"));
+        Assert.assertThat(MediaType.APPLICATION_SOAP_XML.withCharset("utf-8").toString() , is("application/soap+xml;charset=utf-8"));
+        Assert.assertThat(MediaType.APPLICATION_TAR.toString() , is("application/x-tar"));
+        Assert.assertThat(MediaType.APPLICATION_WOFF.toString() , is("application/font-woff"));
+        Assert.assertThat(MediaType.APPLICATION_WOFF2.toString() , is("application/font-woff2"));
+        Assert.assertThat(MediaType.APPLICATION_XHTML.toString() , is("application/xhtml+xml"));
+        Assert.assertThat(MediaType.APPLICATION_ZIP.toString() , is("application/zip"));
         Assert.assertThat(MediaType.MULTIPART_FORM_DATA.toString() , is("multipart/form-data"));
 
         Assert.assertEquals("UTF-8" , Charset.forName("utf-8").name());
 
-        System.out.println(MediaType.APPLICATIPON_FORM_DATA.withCharset("UTF-8").toString());
+        System.out.println(MediaType.APPLICATION_FORM_DATA.withCharset("UTF-8").toString());
     }
 }
