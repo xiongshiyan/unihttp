@@ -40,7 +40,7 @@ public class MediaTypeTest {
         Assert.assertThat(MediaType.VIDEO_WMA.toString() , is("video/x-ms-wmv"));
         Assert.assertThat(MediaType.VIDEO_FLV.toString() , is("video/x-flv"));
         Assert.assertThat(MediaType.VIDEO_3GPP.toString() , is("video/3gpp"));
-        Assert.assertThat(MediaType.APPLICATIPON_XML_.toString() , is("application/xml"));
+        Assert.assertThat(MediaType.APPLICATIPON_XML.toString() , is("application/xml"));
         Assert.assertThat(MediaType.APPLICATIPON_ATOM.toString() , is("application/atom+xml"));
         Assert.assertThat(MediaType.APPLICATIPON_FORM_DATA.toString() , is("application/x-www-form-urlencoded"));
         Assert.assertThat(MediaType.APPLICATIPON_JSON.toString() , is("application/json"));

@@ -125,7 +125,7 @@ public final class MediaType {
     public static final MediaType VIDEO_FLV                     = parse(VIDEO_FLV_STRING);
     public static final MediaType VIDEO_3GPP                    = parse(VIDEO_3GPP_STRING);
     /**常见的MediaType-APPLICATION*/
-    public static final MediaType APPLICATIPON_XML_             = parse(APPLICATIPON_XML_STRING);
+    public static final MediaType APPLICATIPON_XML              = parse(APPLICATIPON_XML_STRING);
     public static final MediaType APPLICATIPON_ATOM             = parse(APPLICATIPON_ATOM_STRING);
     public static final MediaType APPLICATIPON_FORM_DATA        = parse(APPLICATIPON_FORM_DATA_STRING);
     public static final MediaType APPLICATIPON_JSON             = parse(APPLICATIPON_JSON_STRING);
