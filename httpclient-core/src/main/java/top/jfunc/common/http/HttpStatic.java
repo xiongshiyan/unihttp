@@ -13,6 +13,7 @@ import top.jfunc.common.utils.MultiValueMap;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.ServiceLoader;
 
@@ -32,12 +33,21 @@ public class HttpStatic {
     public static void setSmartHttpClient(SmartHttpClient smartHttpClient){SMART_HTTP_CLIENT = smartHttpClient;}
 
     static {
+        initHttpStatic();
+    }
+
+    private static void initHttpStatic() {
         try {
             ServiceLoader<SmartHttpClient> smartHttpClients = ServiceLoader.load(SmartHttpClient.class);
-            SMART_HTTP_CLIENT = smartHttpClients.iterator().next();
-            logger.info("HttpStatic loads SmartHttpClient's implement successfully..." + SMART_HTTP_CLIENT);
+            Iterator<SmartHttpClient> iterator = smartHttpClients.iterator();
+            if(iterator.hasNext()){
+                SMART_HTTP_CLIENT = iterator.next();
+                logger.info("HttpStatic loads SmartHttpClient's implement successfully..." + SMART_HTTP_CLIENT);
+            }else {
+                logger.warn("没有成功加载到SmartHttpClient接口的实现类...请调用HttpStatic#setSmartHttpClient初始化,否则无法使用HttpStatic功能");
+            }
         } catch (Exception e) {
-            logger.warn("通过jar包自动加载实现类失败...请手动设置SmartHttpClient实现类,否则无法使用HttpUtil功能" , e);
+            logger.warn("通过jar包自动加载实现类发生异常...请调用HttpStatic#setSmartHttpClient初始化,否则无法使用HttpStatic功能" , e);
         }
     }
 

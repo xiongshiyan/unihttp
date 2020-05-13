@@ -37,7 +37,7 @@ public class MediaTypeTest {
         Assert.assertThat(MediaType.VIDEO_OGG.toString() , is("video/ogg"));
         Assert.assertThat(MediaType.VIDEO_QUICKTIME.toString() , is("video/quicktime"));
         Assert.assertThat(MediaType.VIDEO_WEBM.toString() , is("video/webm"));
-        Assert.assertThat(MediaType.VIDEO_WMA.toString() , is("video/x-ms-wmv"));
+        Assert.assertThat(MediaType.VIDEO_WMV.toString() , is("video/x-ms-wmv"));
         Assert.assertThat(MediaType.VIDEO_FLV.toString() , is("video/x-flv"));
         Assert.assertThat(MediaType.VIDEO_3GPP.toString() , is("video/3gpp"));
         Assert.assertThat(MediaType.APPLICATION_XML.toString() , is("application/xml"));
