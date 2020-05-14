@@ -4,9 +4,9 @@ import okhttp3.*;
 import okio.BufferedSink;
 import okio.Okio;
 import okio.Source;
-import top.jfunc.common.http.base.Method;
 import top.jfunc.common.http.base.FormFile;
 import top.jfunc.common.http.base.HttpHeaders;
+import top.jfunc.common.http.base.Method;
 import top.jfunc.common.utils.ArrayListMultiValueMap;
 import top.jfunc.common.utils.IoUtil;
 import top.jfunc.common.utils.MultiValueMap;
@@ -28,6 +28,15 @@ public class OkHttp3Util {
     public static InputStream getStreamFrom(Response response) {
         ResponseBody body = response.body();
         return (body != null) ? body.byteStream() : IoUtil.emptyStream();
+    }
+
+    public static void closeQuietly(Response response) {
+        if(null != response){
+            try {
+                response.close();
+            } catch (Exception e) {
+            }
+        }
     }
 
     /**

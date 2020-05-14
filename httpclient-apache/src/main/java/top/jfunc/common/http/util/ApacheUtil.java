@@ -262,10 +262,19 @@ public class ApacheUtil {
 
     public static MultiValueMap<String , String> parseHeaders(HttpResponse response) {
         Header[] allHeaders = response.getAllHeaders();
-        MultiValueMap<String,String> arrayListMultimap = new ArrayListMultiValueMap<>(allHeaders.length);
+        MultiValueMap<String,String> multiValueMap = new ArrayListMultiValueMap<>(allHeaders.length);
         for (Header header : allHeaders) {
-            arrayListMultimap.add(header.getName() , header.getValue());
+            multiValueMap.add(header.getName() , header.getValue());
         }
-        return arrayListMultimap;
+        return multiValueMap;
+    }
+
+
+    public static void closeQuietly(HttpResponse httpResponse) {
+        if(null != httpResponse && httpResponse instanceof CloseableHttpResponse){
+            try{
+                ((CloseableHttpResponse) httpResponse).close();
+            }catch (Exception e){}
+        }
     }
 }
