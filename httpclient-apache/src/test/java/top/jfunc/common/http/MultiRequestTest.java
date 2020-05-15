@@ -108,7 +108,7 @@ public class MultiRequestTest {
 
         HolderFormBodyRequest request = HolderFormBodyRequest.of("http://localhost:50000/hello/{name}");
         request.routeParamHolder().put("name" , "John");
-        request.formParamHolder().addParam("key1" , "value1").addParam("key2" , "value2");
+        request.formParamHolder().add("key1" , "value1").add("key2" , "value2");
         Response response = smartHttpClient.post(request);
         Assert.assertEquals(expected , response.getBodyAsString());
     }

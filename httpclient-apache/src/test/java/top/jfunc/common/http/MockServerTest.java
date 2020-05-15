@@ -61,7 +61,7 @@ public class MockServerTest{
 
         Request request = Request.of("http://localhost:50000/hello/{name}");
         request.routeParamHolder().put("name" , "John");
-        request.queryParamHolder().addParam("key1" , "value1").addParam("key2" , "value2");
+        request.queryParamHolder().add("key1" , "value1").add("key2" , "value2");
         Response response = smartHttpClient.get(request);
         Assert.assertEquals(expected , response.getBodyAsString());
     }
@@ -102,7 +102,7 @@ public class MockServerTest{
 
         Request request = Request.of("http://localhost:50000/hello/{name}");
         request.routeParamHolder().put("name" , "John");
-        request.formParamHolder().addParam("key1" , "value1").addParam("key2" , "value2");
+        request.formParamHolder().add("key1" , "value1").add("key2" , "value2");
         Response response = smartHttpClient.post(request);
         Assert.assertEquals(expected , response.getBodyAsString());
     }
@@ -121,7 +121,7 @@ public class MockServerTest{
 
         Request request = Request.of("http://localhost:50000/hello/{name}").retainResponseHeaders(true);
         request.routeParamHolder().put("name" , "John");
-        request.headerHolder().addHeader("sale" , "2").addHeader("ca-xx" , "ca-xx");
+        request.headerHolder().add("sale" , "2").add("ca-xx" , "ca-xx");
         Response response = smartHttpClient.get(request);
         Assert.assertEquals("xx" , response.getFirstHeader("xx"));
     }
