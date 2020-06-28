@@ -160,4 +160,56 @@ public class ParamUtilTest {
         String necessary = ParamUtil.replaceRouteParamsIfNecessary(url, routeParamHolder.getMap());
         Assert.assertEquals("http://httpbin.org/book/121313/edit/gg/xxxxx/yyyyy" , necessary);
     }
+
+    @Test
+    public void testParseMap1() {
+        String kv = "key1=value1&key2=value2";
+        Map<String, String> map1 = ParamUtil.parseParam(kv);
+        Assert.assertEquals(2 , map1.size());
+        Assert.assertEquals("value1" , map1.get("key1"));
+        Assert.assertEquals("value2" , map1.get("key2"));
+
+
+        kv = "xx";
+        Map<String, String> map2 = ParamUtil.parseParam(kv);
+        Assert.assertEquals(1 , map2.size());
+        Assert.assertEquals("" , map2.get("xx"));
+
+        kv = "xx=";
+        Map<String, String> map3 = ParamUtil.parseParam(kv);
+        Assert.assertEquals(1 , map3.size());
+        Assert.assertEquals("" , map3.get("xx"));
+
+        kv = "xx=&x1=";
+        Map<String, String> map4 = ParamUtil.parseParam(kv);
+        Assert.assertEquals(2 , map4.size());
+        Assert.assertEquals("" , map4.get("xx"));
+        Assert.assertEquals("" , map4.get("x1"));
+
+        kv = "xx&x1=&x2=ss";
+        Map<String, String> map5 = ParamUtil.parseParam(kv);
+        Assert.assertEquals(3 , map5.size());
+        Assert.assertEquals("" , map5.get("xx"));
+        Assert.assertEquals("" , map5.get("x1"));
+        Assert.assertEquals("ss" , map5.get("x2"));
+    }
+    @Test
+    public void testParseMap2() {
+        Map<String , String> map = new HashMap<>(2);
+        map.put("key1" , "熊诗言");
+        map.put("key2" , "value2");
+        String s = ParamUtil.contactMap(map);
+        //key1=%E7%86%8A%E8%AF%97%E8%A8%80&key2=value2
+
+        Map<String, String> map1 = ParamUtil.parseParam(s , false);
+        Assert.assertEquals(2 , map1.size());
+        Assert.assertEquals("%E7%86%8A%E8%AF%97%E8%A8%80" , map1.get("key1"));
+        Assert.assertEquals("value2" , map1.get("key2"));
+
+        Map<String, String> map2 = ParamUtil.parseParam(s , true);
+        Assert.assertEquals(2 , map2.size());
+        Assert.assertEquals("熊诗言" , map2.get("key1"));
+        Assert.assertEquals("value2" , map2.get("key2"));
+
+    }
 }
