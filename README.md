@@ -4,7 +4,7 @@
 
 本项目针对http协议定义了所有http实现之上的接口来描述一个http请求，使用者只需要面对同一套语义化的接口，
 如果需要切换http的实现，可以做到完全无代码修改。支持GET、POST、文件上传下载等，目前适配了以下项目：
-`OKHttp3、ApacheHttpComponents、HttpURLConnection、Jodd-http`。
+`OKHttp3、ApacheHttpComponents、HttpURLConnection、Jodd-Http`。
 
 这一套接口基本覆盖了一个Http请求的所有参数，接口的使用也是简单的、统一的、一致的、连缀的。对URL、Header、Body、Form、文件上传提供最大的支持。
 
@@ -44,7 +44,7 @@
 
 ##### 项目管理工具导入 
 
-项目已经发布至 `jcenter` 和 `maven` 中央仓库 最新版本version: **1.2.6** **引入其中一种实现即可**
+项目已经发布至 `jcenter` 和 `maven` 中央仓库 最新版本version: **1.2.7** **引入其中一种实现即可**
 
 Gradle:
 
