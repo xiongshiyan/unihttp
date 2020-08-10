@@ -14,7 +14,7 @@ buildscript {
 
 subprojects{
     group 'top.jfunc.network'
-    version '1.2.6'
+    version '1.2.7'
 
     apply plugin: 'java'
     apply plugin: 'maven'
@@ -29,13 +29,13 @@ subprojects{
 
     //统一版本管理
     ext {
-        CommonUtilVersion           = '1.8.3.4'
+        CommonUtilVersion           = '1.8.3.5'
         SpringBootVersion           = '1.5.7.RELEASE'
         SpringVersion               = '4.3.11.RELEASE'
 
-        OkHttp3Version              = '3.14.4'
-        JoddVersion                 = '5.1.0-20190624'
-        ApacheHttpComponentsVersion = '4.5.10'
+        OkHttp3Version              = '3.14.9'
+        JoddVersion                 = '5.1.5'
+        ApacheHttpComponentsVersion = '4.5.12'
 
         JUnitVersion                = '4.12'
         HamcrestVersion             = '1.3'
