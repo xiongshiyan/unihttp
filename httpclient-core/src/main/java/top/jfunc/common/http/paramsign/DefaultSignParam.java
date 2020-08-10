@@ -3,7 +3,11 @@ package top.jfunc.common.http.paramsign;
 /**
  * @author xiongshiyan at 2020/8/10 , contact me with email yanshixiong@126.com or phone 15208384257
  */
-public class DefaultSignParam implements SignParam{
+public class DefaultSignParam implements SignParam {
+    /**
+     * 请求方法
+     */
+    private final String method;
     /**
      * 路径
      */
@@ -21,11 +25,17 @@ public class DefaultSignParam implements SignParam{
      */
     private final String sign;
 
-    public DefaultSignParam(String path, String ts, String nonceStr, String sign) {
-        this.path = path;
-        this.ts = ts;
+    public DefaultSignParam(String method, String path, String ts, String nonceStr, String sign) {
+        this.method   = method;
+        this.path     = path;
+        this.ts       = ts;
         this.nonceStr = nonceStr;
-        this.sign = sign;
+        this.sign     = sign;
+    }
+
+    @Override
+    public String getMethod() {
+        return method;
     }
 
     @Override
