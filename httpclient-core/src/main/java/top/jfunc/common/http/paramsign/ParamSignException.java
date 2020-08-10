@@ -5,13 +5,12 @@ package top.jfunc.common.http.paramsign;
  */
 public class ParamSignException extends RuntimeException {
     private SignParam signParam;
-
-    public SignParam getSignParam() {
-        return signParam;
-    }
-
     public ParamSignException(String message , SignParam signParam) {
         super(message);
         this.signParam = signParam;
+    }
+
+    public SignParam getSignParam() {
+        return signParam;
     }
 }
