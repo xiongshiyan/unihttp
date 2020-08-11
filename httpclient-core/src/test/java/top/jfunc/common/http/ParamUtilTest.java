@@ -211,5 +211,14 @@ public class ParamUtilTest {
         Assert.assertEquals("熊诗言" , map2.get("key1"));
         Assert.assertEquals("value2" , map2.get("key2"));
 
+        Map<String, String> map3 = ParamUtil.parseParam("key1=%E7%86%8A%E8%AF%97%E8%A8%80|key2=value2", true, "\\|");
+        Assert.assertEquals(2 , map3.size());
+        Assert.assertEquals("熊诗言" , map3.get("key1"));
+        Assert.assertEquals("value2" , map3.get("key2"));
+        MultiValueMap<String, String> map4 = ParamUtil.parseMultiValueParam("key1=%E7%86%8A%E8%AF%97%E8%A8%80|key2=value2", true, "\\|");
+        Assert.assertEquals(2 , map4.size());
+        Assert.assertEquals("熊诗言" , map4.get("key1").get(0));
+        Assert.assertEquals("value2" , map4.get("key2").get(0));
+
     }
 }
