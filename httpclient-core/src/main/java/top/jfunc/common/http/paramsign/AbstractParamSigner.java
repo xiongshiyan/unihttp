@@ -48,12 +48,8 @@ public abstract class AbstractParamSigner<R> implements ParamSigner<R> {
     }
 
     protected void valid(R r , SignParam signParam) throws IOException {
-        if (StrUtil.isEmpty(signParam.getTimeStamp())
-                || StrUtil.isEmpty(signParam.getNonceStr())
-                || StrUtil.isEmpty(signParam.getSign())) {
-            throw new ParamSignException("参数异常" , signParam);
-        }
-
+        //校验是否有必要的参数
+        validHasParam(r, signParam);
 
         //校验时间戳，目前要求以服务器时间前后60秒
         validTimeStamp(r , signParam);
@@ -63,6 +59,15 @@ public abstract class AbstractParamSigner<R> implements ParamSigner<R> {
 
         //校验POST请求，分Form和其他的含有body的（主要是json），Form所有参数参与签名，body类型的使用param=md5(body)参与签名
         validPost(r, signParam);
+    }
+
+    protected void validHasParam(R r , SignParam signParam) {
+        if (StrUtil.isEmpty(signParam.getTimeStamp())
+                || StrUtil.isEmpty(signParam.getNonceStr())
+                || StrUtil.isEmpty(signParam.getSign())) {
+            logger.info("参数为空:" + signParam.getPath());
+            throw new ParamSignException("参数异常" , signParam);
+        }
     }
 
     protected void validTimeStamp(R r , SignParam signParam) {
@@ -108,7 +113,7 @@ public abstract class AbstractParamSigner<R> implements ParamSigner<R> {
     }
 
     /**
-     * 默认去除空值，并放入noncestr和ts。可以进一步对map进行处理，比如把secret放进去一起排序
+     * 可以进一步对map进行处理，比如把secret放进去一起排序
      */
     protected MultiValueMap<String, String> handleMap(MultiValueMap<String, String> paramMap, SignParam signParam){
         //去掉空值
