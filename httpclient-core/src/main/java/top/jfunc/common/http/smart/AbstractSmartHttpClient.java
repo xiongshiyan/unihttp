@@ -89,7 +89,6 @@ public abstract class AbstractSmartHttpClient<CC> implements SmartHttpClient, Sm
      */
     @Override
     public <R> R form(FormRequest formRequest, ResultCallback<R> resultCallback) throws IOException{
-        init(formRequest, Method.POST);
         return post(formRequest , resultCallback);
     }
 
