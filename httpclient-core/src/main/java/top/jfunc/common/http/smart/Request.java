@@ -41,8 +41,7 @@ public class Request extends BaseHolderHttpRequest<Request> implements
     private ParamHolder formParamHolder = new DefaultParamHolder();
 
     /**
-     * 针对POST存在，params这种加进来的参数最终拼接之后保存到这里 private String body
-     * @see Method#hasContent()
+     * 针对POST存在，params这种加进来的参数最终拼接之后保存到这里
      */
     private BodyHolder bodyHolder = new DefaultBodyHolder();
 
