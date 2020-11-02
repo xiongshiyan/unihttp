@@ -94,7 +94,7 @@ public class DefaultCookieAccessor implements CookieAccessor {
     }
 
     protected List<Cookie> getCookies(MultiValueMap<String, String> responseHeaders, String cookieHeader) {
-        List<String> newCookies = new ArrayList<>();
+        List<String> newCookies = new ArrayList<>(4);
         for (Map.Entry<String, List<String>> entry : responseHeaders.entrySet()) {
             if(cookieHeader.equalsIgnoreCase(entry.getKey())){
                 newCookies.addAll(entry.getValue());
