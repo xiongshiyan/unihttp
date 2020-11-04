@@ -26,7 +26,7 @@ public class ParamUtil {
      * @return 是否https
      */
     public static boolean isHttps(String url) {
-        return url.trim().toLowerCase().startsWith(HTTPS_PREFIX);
+        return urlStartWith(url, HTTPS_PREFIX);
     }
     /**
      * 检测是否http
@@ -34,7 +34,13 @@ public class ParamUtil {
      * @return 是否https
      */
     public static boolean isHttp(String url) {
-        return url.trim().toLowerCase().startsWith(HTTP_PREFIX);
+        return urlStartWith(url, HTTP_PREFIX);
+    }
+    private static boolean urlStartWith(String url, String prefix) {
+        if(StrUtil.isEmpty(url) || url.length() < prefix.length()){
+            return false;
+        }
+        return prefix.equalsIgnoreCase(url.substring(0, prefix.length()));
     }
     /**
      * 判断给定的字符串是否是完整的URL
@@ -54,7 +60,12 @@ public class ParamUtil {
      * @return 协议
      */
     public static String protocol(String completeUrl){
-        return completeUrl.split(StrUtil.COLON)[0];
+        int index = completeUrl.indexOf(StrUtil.COLON);
+        if(-1 == index){
+            return null;
+        }
+        return completeUrl.substring(0, index);
+        //return completeUrl.split(StrUtil.COLON)[0];
     }
 
     /**
@@ -63,7 +74,11 @@ public class ParamUtil {
      * @return Protocol
      */
     public static Protocol httpProtocol(String httpCompleteUrl){
-        return Protocol.valueOf(protocol(httpCompleteUrl).toUpperCase());
+        String protocol = protocol(httpCompleteUrl);
+        if(null == protocol){
+            return null;
+        }
+        return Protocol.valueOf(protocol.toUpperCase());
     }
 
 
