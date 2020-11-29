@@ -11,8 +11,8 @@ public class ExeTest {
     @Test
     public void testExe() throws IOException {
         SmartHttpClient smartHttpClient = new ApacheExeSmartHttpClient();
-        String s = smartHttpClient.get("https://dzgtest.palmte.cn/dzg/api/v2/h5/common/getIp");
+        String s = smartHttpClient.get("https://www.baidu.com");
         System.out.println(s);
-        System.out.println(smartHttpClient.head(Request.of("https://dzgtest.palmte.cn/dzg/api/v2/h5/common/getIp")));
+        System.out.println(smartHttpClient.head(Request.of("https://www.baidu.com")));
     }
 }
