@@ -1,8 +1,8 @@
 package top.jfunc.common.http.smart;
 
 
-import top.jfunc.common.http.base.HttpStatus;
 import top.jfunc.common.http.base.HttpHeaders;
+import top.jfunc.common.http.base.HttpStatus;
 import top.jfunc.common.http.request.DownloadRequest;
 import top.jfunc.common.string.FromString;
 import top.jfunc.common.string.FromStringHandler;
@@ -26,6 +26,12 @@ public interface Response extends Closeable{
      * @return 响应码
      */
     int getStatusCode();
+
+    /**
+     * 响应的简短说明
+     * @return 响应的简短说明
+     */
+    String getStatusPhrase();
 
     /**
      * 响应体作为字节数组

@@ -1,8 +1,8 @@
 package top.jfunc.common.http.smart;
 
 import top.jfunc.common.http.base.Config;
-import top.jfunc.common.http.base.Method;
 import top.jfunc.common.http.base.FreezableConfigAccessor;
+import top.jfunc.common.http.base.Method;
 import top.jfunc.common.http.base.ResultCallback;
 import top.jfunc.common.http.request.*;
 import top.jfunc.common.utils.IoUtil;
@@ -137,7 +137,7 @@ public interface HttpRequestHttpClient extends FreezableConfigAccessor {
      */
     default File download(DownloadRequest downloadRequest) throws IOException{
         return download(downloadRequest ,
-                (statusCode, inputStream, resultCharset, headers) -> IoUtil.copy2File(inputStream, downloadRequest.getFile()));
+                (statusCode, statusPhrase, inputStream, resultCharset, headers) -> IoUtil.copy2File(inputStream, downloadRequest.getFile()));
     }
 
     /**
