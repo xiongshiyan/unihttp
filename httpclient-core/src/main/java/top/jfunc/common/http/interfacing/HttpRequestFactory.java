@@ -2,7 +2,10 @@ package top.jfunc.common.http.interfacing;
 
 import top.jfunc.common.http.annotation.method.*;
 import top.jfunc.common.http.annotation.parameter.*;
-import top.jfunc.common.http.base.*;
+import top.jfunc.common.http.base.Config;
+import top.jfunc.common.http.base.HttpHeaders;
+import top.jfunc.common.http.base.MediaType;
+import top.jfunc.common.http.base.Method;
 import top.jfunc.common.http.holderrequest.impl.HolderCommonBodyRequest;
 import top.jfunc.common.http.holderrequest.impl.HolderCommonRequest;
 import top.jfunc.common.http.holderrequest.impl.HolderFormBodyRequest;
@@ -47,14 +50,14 @@ class HttpRequestFactory implements RequestFactory {
     private Method httpMethod;
 
     /**
+     * 全局配置
+     */
+    private Config config;
+
+    /**
      * 参数对应的处理器
      */
     private final AbstractParameterHandler<?>[] parameterHandlers;
-
-    /**
-     * 判断方法是否支持body
-     */
-    private MethodContentStrategy methodContentStrategy = new DefaultMethodContentStrategy();
 
     /**
      * 是否有Body
@@ -97,8 +100,9 @@ class HttpRequestFactory implements RequestFactory {
     private boolean gotQueryMap;
     private boolean gotUrl;
 
-    public HttpRequestFactory(java.lang.reflect.Method method) {
+    public HttpRequestFactory(java.lang.reflect.Method method, Config config) {
         this.method = method;
+        this.config = config;
 
         //处理方法上的注解
         for (Annotation annotation : method.getAnnotations()) {
@@ -553,7 +557,7 @@ class HttpRequestFactory implements RequestFactory {
                     this.httpMethod, httpMethod);
         }
         this.httpMethod = httpMethod;
-        this.hasBody = methodContentStrategy.supportContent(httpMethod);
+        this.hasBody = config.getMethodContentStrategy().supportContent(httpMethod);
 
         if (value.isEmpty()) {
             return;
