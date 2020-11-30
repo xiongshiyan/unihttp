@@ -9,7 +9,7 @@ import top.jfunc.common.http.component.RequestExecutor;
 import top.jfunc.common.http.component.RequesterFactory;
 import top.jfunc.common.http.component.okhttp3.*;
 import top.jfunc.common.http.exe.BaseHttpRequestExecutor;
-import top.jfunc.common.http.exe.ClientHttpResponse;
+import top.jfunc.common.http.response.ClientHttpResponse;
 import top.jfunc.common.http.exe.HttpRequestExecutor;
 import top.jfunc.common.http.request.HttpRequest;
 
