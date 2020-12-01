@@ -1,9 +1,9 @@
 package top.jfunc.common.http.smart;
 
 import org.apache.http.HttpEntityEnclosingRequest;
+import top.jfunc.common.http.component.apache.ApacheHttpRequestExecutor;
 import top.jfunc.common.http.component.apache.DefaultApacheBodyContentCallbackCreator;
 import top.jfunc.common.http.component.apache.DefaultApacheUploadContentCallbackCreator;
-import top.jfunc.common.http.component.apache.ApacheHttpRequestExecutor;
 
 /**
  * 使用Apache HttpClient 实现的Http请求类
@@ -12,14 +12,11 @@ import top.jfunc.common.http.component.apache.ApacheHttpRequestExecutor;
  * @author 熊诗言2020/12/01
  */
 public class ApacheSmartHttpClient extends BaseExeSmartHttpClient<HttpEntityEnclosingRequest> {
-    @Override
-    protected void init() {
-        super.init();
 
-        setBodyContentCallbackCreator(new DefaultApacheBodyContentCallbackCreator());
-        setUploadContentCallbackCreator(new DefaultApacheUploadContentCallbackCreator());
-
-        setHttpRequestExecutor(new ApacheHttpRequestExecutor());
+    public ApacheSmartHttpClient(){
+        super(new DefaultApacheBodyContentCallbackCreator(),
+                new DefaultApacheUploadContentCallbackCreator(),
+                new ApacheHttpRequestExecutor());
     }
 
     @Override
