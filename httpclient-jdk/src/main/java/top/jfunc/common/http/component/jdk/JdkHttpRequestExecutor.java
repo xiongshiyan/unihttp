@@ -8,6 +8,12 @@ import top.jfunc.common.http.response.ClientHttpResponse;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 
+/**
+ * HTTPURLConnection实现的处理
+ * @author xiongshiyan
+ * @see 2020.12.01
+ * @since 1.2.12
+ */
 public class JdkHttpRequestExecutor extends BaseHttpRequestExecutor<HttpURLConnection, HttpURLConnection> implements HttpRequestExecutor<HttpURLConnection> {
     private RequesterFactory<HttpURLConnection> httpURLConnectionFactory;
     private RequestSender<HttpURLConnection , HttpURLConnection> connectionSender;
