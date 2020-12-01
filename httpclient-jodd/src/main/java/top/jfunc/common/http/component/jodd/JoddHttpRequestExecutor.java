@@ -1,14 +1,13 @@
-package top.jfunc.common.http.exe.jodd;
+package top.jfunc.common.http.component.jodd;
 
 import jodd.http.HttpResponse;
 import top.jfunc.common.http.base.ContentCallback;
 import top.jfunc.common.http.component.HeaderHandler;
 import top.jfunc.common.http.component.RequestSender;
 import top.jfunc.common.http.component.RequesterFactory;
-import top.jfunc.common.http.component.jodd.*;
-import top.jfunc.common.http.exe.BaseHttpRequestExecutor;
+import top.jfunc.common.http.component.BaseHttpRequestExecutor;
 import top.jfunc.common.http.response.ClientHttpResponse;
-import top.jfunc.common.http.exe.HttpRequestExecutor;
+import top.jfunc.common.http.component.HttpRequestExecutor;
 import top.jfunc.common.http.request.HttpRequest;
 
 import java.io.IOException;

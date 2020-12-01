@@ -1,8 +1,8 @@
-package top.jfunc.common.http.exe.jdk;
+package top.jfunc.common.http.component.jdk;
 
 import top.jfunc.common.http.component.HeaderExtractor;
 import top.jfunc.common.http.component.StreamExtractor;
-import top.jfunc.common.http.exe.BaseClientHttpResponse;
+import top.jfunc.common.http.response.BaseClientHttpResponse;
 import top.jfunc.common.http.response.ClientHttpResponse;
 import top.jfunc.common.http.request.HttpRequest;
 import top.jfunc.common.http.util.NativeUtil;
