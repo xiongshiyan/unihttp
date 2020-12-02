@@ -1,4 +1,4 @@
-package top.jfunc.common.http.component.httprequest;
+package top.jfunc.common.http.component.assembling;
 
 import top.jfunc.common.http.base.FormFile;
 import top.jfunc.common.http.request.UploadRequest;
@@ -22,9 +22,9 @@ public interface UploadRequestFactory{
      */
     UploadRequest create(String url,
                          MultiValueMap<String, String> formParams,
+                         FormFile[] formFiles,
                          MultiValueMap<String, String> headers,
                          int connectTimeout,
                          int readTimeout,
-                         String resultCharset,
-                         FormFile... formFiles);
+                         String resultCharset);
 }
