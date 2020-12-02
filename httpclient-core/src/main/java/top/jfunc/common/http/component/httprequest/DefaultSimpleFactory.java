@@ -47,12 +47,12 @@ public class DefaultSimpleFactory implements HttpRequestFactory, StringBodyHttpR
                                 String resultCharset,
                                 FormFile... files) {
         UploadRequest uploadRequest = UpLoadRequest.of(url);
-        if(ArrayUtil.isNotEmpty(files)){
-            uploadRequest.addFormFile(files);
-        }
 
         if(MapUtil.notEmpty(formParams)){
             uploadRequest.setFormParams(formParams);
+        }
+        if(ArrayUtil.isNotEmpty(files)){
+            uploadRequest.addFormFile(files);
         }
 
         set(uploadRequest, null, headers, connectTimeout, readTimeout, resultCharset);
