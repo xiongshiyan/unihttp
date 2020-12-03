@@ -1,9 +1,9 @@
 package top.jfunc.common.http.smart;
 
+import top.jfunc.common.http.component.AssemblingFactory;
 import top.jfunc.common.http.component.BodyContentCallbackCreator;
 import top.jfunc.common.http.component.HttpRequestExecutor;
 import top.jfunc.common.http.component.UploadContentCallbackCreator;
-import top.jfunc.common.http.component.AssemblingFactory;
 import top.jfunc.common.http.component.jdk.DefaultJdkBodyContentCallbackCreator;
 import top.jfunc.common.http.component.jdk.DefaultJdkUploadContentCallbackCreator;
 import top.jfunc.common.http.component.jdk.JdkHttpRequestExecutor;
@@ -13,8 +13,6 @@ import java.net.HttpURLConnection;
 
 /**
  * 使用URLConnection实现的Http请求类
- * @since 1.2.12
- * @since 2020.12.01
  * @author 熊诗言2020/12/01
  */
 public class NativeSmartHttpClient extends AbstractImplementSmartHttpClient<HttpURLConnection> {
