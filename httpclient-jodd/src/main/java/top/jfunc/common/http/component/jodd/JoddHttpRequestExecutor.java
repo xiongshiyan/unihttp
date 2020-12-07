@@ -18,24 +18,14 @@ public class JoddHttpRequestExecutor extends BaseHttpRequestExecutor<jodd.http.H
     private RequesterFactory<jodd.http.HttpRequest> httpRequestRequesterFactory;
 
     public JoddHttpRequestExecutor() {
-        super(new DefaultJoddStreamExtractor(), new DefaultJoddHeaderExtractor(), new DefaultJoddHeaderHandler());
+        super(new DefaultJoddHeaderHandler(), new DefaultJoddStreamExtractor(), new DefaultJoddHeaderExtractor());
         this.httpRequestRequesterFactory = new DefaultJoddHttpRequestFactory();
     }
 
-    public JoddHttpRequestExecutor(StreamExtractor<HttpResponse> responseStreamExtractor,
+    public JoddHttpRequestExecutor(HeaderHandler<jodd.http.HttpRequest> httpRequestHeaderHandler, StreamExtractor<HttpResponse> responseStreamExtractor,
                                    HeaderExtractor<HttpResponse> responseHeaderExtractor,
-                                   RequesterFactory<jodd.http.HttpRequest> httpRequestRequesterFactory,
-                                   HeaderHandler<jodd.http.HttpRequest> httpRequestHeaderHandler) {
-        super(responseStreamExtractor, responseHeaderExtractor, httpRequestHeaderHandler);
-        this.httpRequestRequesterFactory = httpRequestRequesterFactory;
-    }
-
-    public JoddHttpRequestExecutor(ContentCallbackHandler<jodd.http.HttpRequest> contentCallbackHandler,
-                                   StreamExtractor<HttpResponse> responseStreamExtractor,
-                                   HeaderExtractor<HttpResponse> responseHeaderExtractor,
-                                   HeaderHandler<jodd.http.HttpRequest> requestHeaderHandler,
                                    RequesterFactory<jodd.http.HttpRequest> httpRequestRequesterFactory) {
-        super(contentCallbackHandler, responseStreamExtractor, responseHeaderExtractor, requestHeaderHandler);
+        super(httpRequestHeaderHandler, responseStreamExtractor, responseHeaderExtractor);
         this.httpRequestRequesterFactory = httpRequestRequesterFactory;
     }
 
