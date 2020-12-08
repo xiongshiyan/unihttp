@@ -5,8 +5,6 @@ import top.jfunc.common.http.base.ContentCallback;
 import top.jfunc.common.http.component.AssemblingFactory;
 import top.jfunc.common.http.component.ContentCallbackCreator;
 import top.jfunc.common.http.component.HttpRequestExecutor;
-import top.jfunc.common.http.cookie.CookieAccessor;
-import top.jfunc.common.http.cookie.DefaultCookieAccessor;
 import top.jfunc.common.http.request.HttpRequest;
 import top.jfunc.common.http.response.ClientHttpResponse;
 import top.jfunc.common.http.response.ClientHttpResponseConverter;
@@ -27,34 +25,19 @@ import java.io.IOException;
 public abstract class AbstractImplementSmartHttpClient<CC> extends AbstractSmartHttpClient<CC> implements TemplateInterceptor {
     /**执行请求获取响应*/
     private HttpRequestExecutor<CC> httpRequestExecutor;
-    /**处理Cookie*/
-    private CookieAccessor cookieAccessor;
 
     protected AbstractImplementSmartHttpClient(ContentCallbackCreator<CC> bodyContentCallbackCreator,
                                                ContentCallbackCreator<CC> uploadContentCallbackCreator,
                                                HttpRequestExecutor<CC> httpRequestExecutor) {
         super(bodyContentCallbackCreator, uploadContentCallbackCreator);
         this.httpRequestExecutor = httpRequestExecutor;
-        this.cookieAccessor = new DefaultCookieAccessor();
-    }
-    protected AbstractImplementSmartHttpClient(ContentCallbackCreator<CC> bodyContentCallbackCreator,
-                                               ContentCallbackCreator<CC> uploadContentCallbackCreator,
-                                               HttpRequestExecutor<CC> httpRequestExecutor,
-                                               CookieAccessor cookieAccessor) {
-        super(bodyContentCallbackCreator, uploadContentCallbackCreator);
-        this.httpRequestExecutor = httpRequestExecutor;
-        this.cookieAccessor = cookieAccessor;
     }
     protected AbstractImplementSmartHttpClient(AssemblingFactory assemblingFactory,
                                                ContentCallbackCreator<CC> bodyContentCallbackCreator,
                                                ContentCallbackCreator<CC> uploadContentCallbackCreator,
-                                               HttpRequestExecutor<CC> httpRequestExecutor,
-                                               CookieAccessor cookieAccessor) {
-        super(assemblingFactory,
-                bodyContentCallbackCreator,
-                uploadContentCallbackCreator);
+                                               HttpRequestExecutor<CC> httpRequestExecutor) {
+        super(assemblingFactory, bodyContentCallbackCreator, uploadContentCallbackCreator);
         this.httpRequestExecutor = httpRequestExecutor;
-        this.cookieAccessor = cookieAccessor;
     }
 
     /**
@@ -97,21 +80,11 @@ public abstract class AbstractImplementSmartHttpClient<CC> extends AbstractSmart
     }
 
     protected ClientHttpResponse execute(HttpRequest httpRequest , ContentCallback<CC> contentCallback) throws Exception {
-        getCookieAccessor().addCookieIfNecessary(httpRequest);
-
-        ClientHttpResponse clientHttpResponse = getHttpRequestExecutor().execute(httpRequest, contentCallback);
-
-        getCookieAccessor().saveCookieIfNecessary(httpRequest, clientHttpResponse.getHeaders());
-
-        return clientHttpResponse;
+        return getHttpRequestExecutor().execute(httpRequest, contentCallback);
     }
 
     public HttpRequestExecutor<CC> getHttpRequestExecutor() {
         return httpRequestExecutor;
-    }
-
-    public CookieAccessor getCookieAccessor() {
-        return cookieAccessor;
     }
 }
 

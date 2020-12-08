@@ -1,6 +1,5 @@
 package top.jfunc.common.http.base;
 
-import top.jfunc.common.http.cookie.CookieStore;
 import top.jfunc.common.http.holder.*;
 import top.jfunc.common.http.interceptor.CompositeInterceptor;
 import top.jfunc.common.http.interceptor.Interceptor;
@@ -9,6 +8,8 @@ import top.jfunc.common.http.response.ClientHttpResponse;
 import top.jfunc.common.utils.ArrayListMultiValueMap;
 import top.jfunc.common.utils.CharsetUtil;
 import top.jfunc.common.utils.MultiValueMap;
+
+import java.io.IOException;
 
 /**
  * 全局公共配置
@@ -64,8 +65,6 @@ public class Config {
     private HeaderHolder headerHolder                       = new DefaultHeaderHolder();
     /**默认的请求Query参数,每个请求都会加上*/
     private ParamHolder queryParamHolder                    = new DefaultParamHolder();
-    /**CookieStore,处理Cookie*/
-    private CookieStore cookieStore                         = null;
     /**拦截器链*/
     private CompositeInterceptor compositeInterceptor       = null;
     /**方法是否支持body的策略*/
@@ -196,20 +195,6 @@ public class Config {
         return queryParamHolder;
     }
 
-    public CookieStore getCookieStore() {
-        return cookieStore;
-    }
-
-    public boolean supportCookie(){
-        return null != cookieStore;
-    }
-
-    public Config setCookieStore(CookieStore cookieStore) {
-        configFrozen.ensureConfigNotFreeze();
-        this.cookieStore = cookieStore;
-        return this;
-    }
-
     public CompositeInterceptor getCompositeInterceptor() {
         return compositeInterceptor;
     }
@@ -228,14 +213,14 @@ public class Config {
         return this;
     }
 
-    public HttpRequest onBeforeIfNecessary(HttpRequest httpRequest){
+    public HttpRequest onBeforeIfNecessary(HttpRequest httpRequest) throws IOException {
         if(hasInterceptors()){
             return compositeInterceptor.onBefore(httpRequest);
         }
         return httpRequest;
     }
 
-    public ClientHttpResponse onBeforeReturnIfNecessary(HttpRequest httpRequest , ClientHttpResponse clientHttpResponse){
+    public ClientHttpResponse onBeforeReturnIfNecessary(HttpRequest httpRequest , ClientHttpResponse clientHttpResponse) throws IOException {
         if(hasInterceptors()){
             return compositeInterceptor.onBeforeReturn(httpRequest, clientHttpResponse);
         }
