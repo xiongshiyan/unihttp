@@ -1,16 +1,18 @@
 package top.jfunc.common.http.smart;
 
 import top.jfunc.common.http.base.*;
-import top.jfunc.common.http.component.BodyContentCallbackCreator;
-import top.jfunc.common.http.component.UploadContentCallbackCreator;
 import top.jfunc.common.http.component.AssemblingFactory;
+import top.jfunc.common.http.component.ContentCallbackCreator;
 import top.jfunc.common.http.component.DefaultSimpleAssemblingFactory;
 import top.jfunc.common.http.request.HttpRequest;
 import top.jfunc.common.http.request.StringBodyRequest;
 import top.jfunc.common.http.request.UploadRequest;
 import top.jfunc.common.http.response.ClientHttpResponseConverter;
 import top.jfunc.common.http.util.ResponseExtractor;
-import top.jfunc.common.utils.*;
+import top.jfunc.common.utils.ArrayListMultiValueMap;
+import top.jfunc.common.utils.IoUtil;
+import top.jfunc.common.utils.MultiValueMap;
+import top.jfunc.common.utils.ObjectUtil;
 
 import java.io.File;
 import java.io.IOException;
@@ -28,25 +30,24 @@ public abstract class AbstractSmartHttpClient<CC> implements SmartHttpClient, Sm
     private AssemblingFactory assemblingFactory;
 
     /**处理一般包含body的*/
-    private BodyContentCallbackCreator<CC> bodyContentCallbackCreator;
+    private ContentCallbackCreator<CC> bodyContentCallbackCreator;
     /**处理文件上传*/
-    private UploadContentCallbackCreator<CC> uploadContentCallbackCreator;
+    private ContentCallbackCreator<CC> uploadContentCallbackCreator;
 
     /**配置冻结器*/
     private ConfigFrozen configFrozen = new ConfigFrozen();
     /**保存系统默认配置*/
     private Config config = Config.defaultConfig();
 
-    protected AbstractSmartHttpClient(BodyContentCallbackCreator<CC> bodyContentCallbackCreator,
-                                      UploadContentCallbackCreator<CC> uploadContentCallbackCreator){
+    protected AbstractSmartHttpClient(ContentCallbackCreator<CC> bodyContentCallbackCreator,
+                                      ContentCallbackCreator<CC> uploadContentCallbackCreator){
         this.assemblingFactory = new DefaultSimpleAssemblingFactory();
-
         this.bodyContentCallbackCreator = bodyContentCallbackCreator;
         this.uploadContentCallbackCreator = uploadContentCallbackCreator;
     }
     protected AbstractSmartHttpClient(AssemblingFactory assemblingFactory,
-                                      BodyContentCallbackCreator<CC> bodyContentCallbackCreator,
-                                      UploadContentCallbackCreator<CC> uploadContentCallbackCreator){
+                                      ContentCallbackCreator<CC> bodyContentCallbackCreator,
+                                      ContentCallbackCreator<CC> uploadContentCallbackCreator){
         this.assemblingFactory = assemblingFactory;
         this.bodyContentCallbackCreator = bodyContentCallbackCreator;
         this.uploadContentCallbackCreator = uploadContentCallbackCreator;
@@ -136,11 +137,11 @@ public abstract class AbstractSmartHttpClient<CC> implements SmartHttpClient, Sm
         return ObjectUtil.defaultIfNull(httpRequest.getResultCharset(), config.getDefaultResultCharset());
     }
 
-    public BodyContentCallbackCreator<CC> getBodyContentCallbackCreator() {
+    public ContentCallbackCreator<CC> getBodyContentCallbackCreator() {
         return bodyContentCallbackCreator;
     }
 
-    public UploadContentCallbackCreator<CC> getUploadContentCallbackCreator() {
+    public ContentCallbackCreator<CC> getUploadContentCallbackCreator() {
         return uploadContentCallbackCreator;
     }
 

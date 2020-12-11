@@ -2,13 +2,11 @@ package top.jfunc.common.http.smart;
 
 import jodd.http.HttpRequest;
 import top.jfunc.common.http.component.AssemblingFactory;
-import top.jfunc.common.http.component.BodyContentCallbackCreator;
+import top.jfunc.common.http.component.ContentCallbackCreator;
 import top.jfunc.common.http.component.HttpRequestExecutor;
-import top.jfunc.common.http.component.UploadContentCallbackCreator;
 import top.jfunc.common.http.component.jodd.DefaultJoddBodyContentCallbackCreator;
 import top.jfunc.common.http.component.jodd.DefaultJoddUploadContentCallbackCreator;
 import top.jfunc.common.http.component.jodd.JoddHttpRequestExecutor;
-import top.jfunc.common.http.cookie.CookieAccessor;
 
 /**
  * 使用Jodd实现的Http请求类
@@ -22,25 +20,17 @@ public class JoddSmartHttpClient extends AbstractImplementSmartHttpClient<HttpRe
                 new JoddHttpRequestExecutor());
     }
 
-    public JoddSmartHttpClient(BodyContentCallbackCreator<HttpRequest> bodyContentCallbackCreator,
-                               UploadContentCallbackCreator<HttpRequest> uploadContentCallbackCreator,
+    public JoddSmartHttpClient(ContentCallbackCreator<HttpRequest> bodyContentCallbackCreator,
+                               ContentCallbackCreator<HttpRequest> uploadContentCallbackCreator,
                                HttpRequestExecutor<HttpRequest> httpRequestExecutor) {
         super(bodyContentCallbackCreator, uploadContentCallbackCreator, httpRequestExecutor);
     }
 
-    public JoddSmartHttpClient(BodyContentCallbackCreator<HttpRequest> bodyContentCallbackCreator,
-                               UploadContentCallbackCreator<HttpRequest> uploadContentCallbackCreator,
-                               HttpRequestExecutor<HttpRequest> httpRequestExecutor,
-                               CookieAccessor cookieAccessor) {
-        super(bodyContentCallbackCreator, uploadContentCallbackCreator, httpRequestExecutor, cookieAccessor);
-    }
-
     public JoddSmartHttpClient(AssemblingFactory assemblingFactory,
-                               BodyContentCallbackCreator<HttpRequest> bodyContentCallbackCreator,
-                               UploadContentCallbackCreator<HttpRequest> uploadContentCallbackCreator,
-                               HttpRequestExecutor<HttpRequest> httpRequestExecutor,
-                               CookieAccessor cookieAccessor) {
-        super(assemblingFactory, bodyContentCallbackCreator, uploadContentCallbackCreator, httpRequestExecutor, cookieAccessor);
+                               ContentCallbackCreator<HttpRequest> bodyContentCallbackCreator,
+                               ContentCallbackCreator<HttpRequest> uploadContentCallbackCreator,
+                               HttpRequestExecutor<HttpRequest> httpRequestExecutor) {
+        super(assemblingFactory, bodyContentCallbackCreator, uploadContentCallbackCreator, httpRequestExecutor);
     }
 
     @Override

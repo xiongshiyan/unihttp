@@ -22,28 +22,17 @@ public class ApacheHttpRequestExecutor extends BaseHttpRequestExecutor<org.apach
     private RequesterFactory<HttpClient> httpClientRequesterFactory;
 
     public ApacheHttpRequestExecutor() {
-        super(new DefaultApacheResponseStreamExtractor(), new DefaultApacheHeaderExtractor(), new DefaultApacheHeaderHandler());
+        super(new DefaultApacheHeaderHandler(), new DefaultApacheResponseStreamExtractor(), new DefaultApacheHeaderExtractor());
         this.httpRequestRequesterFactory = new DefaultApacheRequestFactory();
         this.httpClientRequesterFactory = new DefaultApacheClientFactory();
     }
 
-    public ApacheHttpRequestExecutor(StreamExtractor<HttpResponse> responseStreamExtractor,
-                                     HeaderExtractor<HttpResponse> responseHeaderExtractor,
-                                     RequesterFactory<org.apache.http.HttpRequest> httpRequestRequesterFactory,
-                                     HeaderHandler<org.apache.http.HttpRequest> httpUriRequestHeaderHandler,
-                                     RequesterFactory<HttpClient> httpClientRequesterFactory) {
-        super(responseStreamExtractor, responseHeaderExtractor, httpUriRequestHeaderHandler);
-        this.httpRequestRequesterFactory = httpRequestRequesterFactory;
-        this.httpClientRequesterFactory = httpClientRequesterFactory;
-    }
-
-    public ApacheHttpRequestExecutor(ContentCallbackHandler<org.apache.http.HttpRequest> contentCallbackHandler,
+    public ApacheHttpRequestExecutor(HeaderHandler<org.apache.http.HttpRequest> httpUriRequestHeaderHandler,
                                      StreamExtractor<HttpResponse> responseStreamExtractor,
                                      HeaderExtractor<HttpResponse> responseHeaderExtractor,
-                                     HeaderHandler<org.apache.http.HttpRequest> requestHeaderHandler,
                                      RequesterFactory<org.apache.http.HttpRequest> httpRequestRequesterFactory,
                                      RequesterFactory<HttpClient> httpClientRequesterFactory) {
-        super(contentCallbackHandler, responseStreamExtractor, responseHeaderExtractor, requestHeaderHandler);
+        super(httpUriRequestHeaderHandler, responseStreamExtractor, responseHeaderExtractor);
         this.httpRequestRequesterFactory = httpRequestRequesterFactory;
         this.httpClientRequesterFactory = httpClientRequesterFactory;
     }

@@ -21,28 +21,17 @@ public class OkHttp3HttpRequestExecutor extends BaseHttpRequestExecutor<Request.
     private RequesterFactory<Request.Builder> requestBuilderFactory;
 
     public OkHttp3HttpRequestExecutor() {
-        super(new DefaultOkHttp3StreamExtractor(), new DefaultOkHttp3HeaderExtractor(), new DefaultOkHttp3HeaderHandler());
+        super(new DefaultOkHttp3HeaderHandler(), new DefaultOkHttp3StreamExtractor(), new DefaultOkHttp3HeaderExtractor());
         this.okHttpClientFactory = new SingleOkHttp3ClientFactory();
         this.requestBuilderFactory = new DefaultOkHttp3RequestBuilderFactory();
     }
 
-    public OkHttp3HttpRequestExecutor(StreamExtractor<Response> responseStreamExtractor,
-                                      HeaderExtractor<Response> responseHeaderExtractor,
-                                      RequesterFactory<OkHttpClient> okHttpClientFactory,
-                                      RequesterFactory<Request.Builder> requestBuilderFactory,
-                                      HeaderHandler<Request.Builder> requestBuilderHeaderHandler) {
-        super(responseStreamExtractor, responseHeaderExtractor, requestBuilderHeaderHandler);
-        this.okHttpClientFactory = okHttpClientFactory;
-        this.requestBuilderFactory = requestBuilderFactory;
-    }
-
-    public OkHttp3HttpRequestExecutor(ContentCallbackHandler<Request.Builder> contentCallbackHandler,
+    public OkHttp3HttpRequestExecutor(HeaderHandler<Request.Builder> requestBuilderHeaderHandler,
                                       StreamExtractor<Response> responseStreamExtractor,
                                       HeaderExtractor<Response> responseHeaderExtractor,
-                                      HeaderHandler<Request.Builder> requestHeaderHandler,
                                       RequesterFactory<OkHttpClient> okHttpClientFactory,
                                       RequesterFactory<Request.Builder> requestBuilderFactory) {
-        super(contentCallbackHandler, responseStreamExtractor, responseHeaderExtractor, requestHeaderHandler);
+        super(requestBuilderHeaderHandler, responseStreamExtractor, responseHeaderExtractor);
         this.okHttpClientFactory = okHttpClientFactory;
         this.requestBuilderFactory = requestBuilderFactory;
     }

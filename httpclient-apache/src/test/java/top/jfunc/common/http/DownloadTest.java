@@ -6,6 +6,7 @@ import top.jfunc.common.http.download.Downloader;
 import top.jfunc.common.http.download.InterruptBaseConfFileDownloader;
 import top.jfunc.common.http.download.InterruptBaseDownloadFileDownloader;
 import top.jfunc.common.http.download.MultiThreadDownloader;
+import top.jfunc.common.http.request.DownloadRequest;
 import top.jfunc.common.http.request.RequestCreator;
 import top.jfunc.common.http.request.DefaultDownLoadRequest;
 import top.jfunc.common.http.smart.ApacheSmartHttpClient;
@@ -20,14 +21,14 @@ import java.io.IOException;
  */
 @Ignore
 public class DownloadTest {
-    DefaultDownLoadRequest defaultDownLoadRequest = RequestCreator.download("http://mirrors.tuna.tsinghua.edu.cn/apache/tomcat/tomcat-8/v8.5.51/bin/apache-tomcat-8.5.51.tar.gz"
-            , new File("C:\\Users\\xiongshiyan\\Desktop\\tomcat-" + CommonUtil.randomString(16) + ".tar.gz"));
+    DownloadRequest downLoadRequest = RequestCreator.download("https://dss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=974248807,3098128878&fm=26&gp=0.jpg"
+            , new File("C:\\Users\\xiongshiyan\\Desktop\\" + CommonUtil.randomString(16) + ".jpg"));
     SmartHttpClient smartHttpClient = new ApacheSmartHttpClient();
 
     @Test
     public void testCommonDownload() throws IOException{
         long l = System.currentTimeMillis();
-        smartHttpClient.download(defaultDownLoadRequest);
+        smartHttpClient.download(downLoadRequest);
         System.out.println(System.currentTimeMillis() - l);
     }
 
@@ -35,7 +36,7 @@ public class DownloadTest {
     public void multiThreadDownload() throws IOException{
         long l = System.currentTimeMillis();
         MultiThreadDownloader downloader = new MultiThreadDownloader(smartHttpClient , 102400 , 10);
-        downloader.download(defaultDownLoadRequest);
+        downloader.download(downLoadRequest);
         System.out.println(System.currentTimeMillis() - l);
     }
 
@@ -43,9 +44,9 @@ public class DownloadTest {
     public void interruptBaseConfFileDownloader() throws IOException{
         long l = System.currentTimeMillis();
         Downloader downloader = new InterruptBaseConfFileDownloader(smartHttpClient , 1024);
-        DefaultDownLoadRequest defaultDownLoadRequest = RequestCreator.download("http://mirrors.tuna.tsinghua.edu.cn/apache/tomcat/tomcat-8/v8.5.51/bin/apache-tomcat-8.5.51.tar.gz"
-                , new File("C:\\Users\\xiongshiyan\\Desktop\\tomcat-apache.tar.gz"));
-        downloader.download(defaultDownLoadRequest);
+        DownloadRequest downLoadRequest = RequestCreator.download("https://dss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=974248807,3098128878&fm=26&gp=0.jpg"
+                , new File("C:\\Users\\xiongshiyan\\Desktop\\1.jpg"));
+        downloader.download(downLoadRequest);
         System.out.println(System.currentTimeMillis() - l);
     }
 
@@ -53,17 +54,17 @@ public class DownloadTest {
     public void interruptBaseDownloadFileDownloader() throws IOException{
         long l = System.currentTimeMillis();
         Downloader downloader = new InterruptBaseDownloadFileDownloader(smartHttpClient , 1024);
-        DefaultDownLoadRequest defaultDownLoadRequest = RequestCreator.download("http://mirrors.tuna.tsinghua.edu.cn/apache/tomcat/tomcat-8/v8.5.51/bin/apache-tomcat-8.5.51.tar.gz"
-                , new File("C:\\Users\\xiongshiyan\\Desktop\\tomcat-apache.tar.gz"));
-        downloader.download(defaultDownLoadRequest);
+        DownloadRequest downLoadRequest = RequestCreator.download("https://dss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=974248807,3098128878&fm=26&gp=0.jpg"
+                , new File("C:\\Users\\xiongshiyan\\Desktop\\2.jpg"));
+        downloader.download(downLoadRequest);
         System.out.println(System.currentTimeMillis() - l);
     }
 
     @Test
     public void getNetFileLength() throws IOException{
         Downloader downloader = new InterruptBaseDownloadFileDownloader(smartHttpClient , 1024);
-        DefaultDownLoadRequest defaultDownLoadRequest = RequestCreator.download("http://mirrors.tuna.tsinghua.edu.cn/apache/tomcat/tomcat-8/v8.5.51/bin/apache-tomcat-8.5.51.tar.gz"
-                , new File("C:\\Users\\xiongshiyan\\Desktop\\tomcat.tar.gz"));
+        DefaultDownLoadRequest defaultDownLoadRequest = RequestCreator.download("https://dss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=974248807,3098128878&fm=26&gp=0.jpg"
+                , new File("C:\\Users\\xiongshiyan\\Desktop\\3.jpg"));
         long netFileLength = downloader.getNetFileLength(defaultDownLoadRequest);
         System.out.println(netFileLength);
     }

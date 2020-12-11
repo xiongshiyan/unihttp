@@ -138,7 +138,7 @@ public interface HttpRequestHttpClient extends FreezableConfigAccessor {
      */
     default File download(DownloadRequest downloadRequest) throws IOException{
         return download(downloadRequest ,
-                (clientHttpResponse, resultCharset) -> IoUtil.copy2File(clientHttpResponse.getBody(), downloadRequest.getFile()));
+                (chr, rc) -> IoUtil.copy2File(chr.getBody(), downloadRequest.getFile()));
     }
 
     /**
@@ -170,10 +170,14 @@ public interface HttpRequestHttpClient extends FreezableConfigAccessor {
      * @throws IOException IOException
      */
     default <R> R head(HttpRequest httpRequest, ClientHttpResponseConverter<R> clientHttpResponseConverter) throws IOException{
-        //必须要响应头
-        httpRequest.retainResponseHeaders(Config.RETAIN_RESPONSE_HEADERS);
-        //设置忽略响应体
-        httpRequest.ignoreResponseBody(Config.IGNORE_RESPONSE_BODY);
+        //##必须要响应头,未明确指定时##
+        if(null == httpRequest.retainResponseHeaders()){
+            httpRequest.retainResponseHeaders(Config.RETAIN_RESPONSE_HEADERS);
+        }
+        //##设置忽略响应体,未明确指定时##
+        if(null == httpRequest.ignoreResponseBody()){
+            httpRequest.ignoreResponseBody(Config.IGNORE_RESPONSE_BODY);
+        }
 
         return http(httpRequest, Method.HEAD, clientHttpResponseConverter);
     }
@@ -202,10 +206,14 @@ public interface HttpRequestHttpClient extends FreezableConfigAccessor {
      * @throws IOException IOException
      */
     default <R> R options(HttpRequest httpRequest, ClientHttpResponseConverter<R> clientHttpResponseConverter) throws IOException{
-        //必须要响应头
-        httpRequest.retainResponseHeaders(Config.RETAIN_RESPONSE_HEADERS);
-        //设置忽略响应体
-        httpRequest.ignoreResponseBody(Config.IGNORE_RESPONSE_BODY);
+        //##必须要响应头,未明确指定时##
+        if(null == httpRequest.retainResponseHeaders()){
+            httpRequest.retainResponseHeaders(Config.RETAIN_RESPONSE_HEADERS);
+        }
+        //##设置忽略响应体,未明确指定时##
+        if(null == httpRequest.ignoreResponseBody()){
+            httpRequest.ignoreResponseBody(Config.IGNORE_RESPONSE_BODY);
+        }
 
         return http(httpRequest, Method.OPTIONS, clientHttpResponseConverter);
     }
@@ -277,10 +285,14 @@ public interface HttpRequestHttpClient extends FreezableConfigAccessor {
      * @throws IOException IOException
      */
     default <R> R trace(HttpRequest httpRequest, ClientHttpResponseConverter<R> clientHttpResponseConverter) throws IOException{
-        //必须要响应头
-        httpRequest.retainResponseHeaders(Config.RETAIN_RESPONSE_HEADERS);
-        //设置忽略响应体
-        httpRequest.ignoreResponseBody(Config.IGNORE_RESPONSE_BODY);
+        //##必须要响应头,未明确指定时##
+        if(null == httpRequest.retainResponseHeaders()){
+            httpRequest.retainResponseHeaders(Config.RETAIN_RESPONSE_HEADERS);
+        }
+        //##设置忽略响应体,未明确指定时##
+        if(null == httpRequest.ignoreResponseBody()){
+            httpRequest.ignoreResponseBody(Config.IGNORE_RESPONSE_BODY);
+        }
 
         return http(httpRequest, Method.TRACE, clientHttpResponseConverter);
     }
