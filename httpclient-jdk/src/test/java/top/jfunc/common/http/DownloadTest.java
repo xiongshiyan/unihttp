@@ -27,7 +27,7 @@ public class DownloadTest {
     @Test
     public void testCommonDownload() throws IOException{
         long l = System.currentTimeMillis();
-        smartHttpClient.download(defaultDownLoadRequest);
+        smartHttpClient.download(downLoadRequest);
         System.out.println(System.currentTimeMillis() - l);
     }
 
@@ -35,7 +35,7 @@ public class DownloadTest {
     public void multiThreadDownload() throws IOException{
         long l = System.currentTimeMillis();
         MultiThreadDownloader downloader = new MultiThreadDownloader(smartHttpClient , 102400 , 10);
-        downloader.download(defaultDownLoadRequest);
+        downloader.download(downLoadRequest);
         System.out.println(System.currentTimeMillis() - l);
     }
 
