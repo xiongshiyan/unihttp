@@ -2,10 +2,8 @@ package top.jfunc.common.http.smart;
 
 import top.jfunc.common.http.base.FormFile;
 import top.jfunc.common.http.base.MediaType;
-import top.jfunc.common.http.base.Method;
 import top.jfunc.common.http.holder.*;
 import top.jfunc.common.http.holderrequest.*;
-import top.jfunc.common.http.holderrequest.impl.*;
 import top.jfunc.common.http.util.ParamUtil;
 import top.jfunc.common.utils.MultiValueMap;
 import top.jfunc.common.utils.StrUtil;
@@ -20,20 +18,20 @@ import java.util.Map;
  * @see HttpRequestHttpClient
  * @see SmartHttpClient
  *
- * @see HolderHttpRequest
- * @see BaseHolderHttpRequest
- * @see HolderCommonBodyRequest
- * @see HolderStringBodyRequest
- * @see HolderFormBodyRequest
- * @see HolderUpLoadRequest
- * @see HolderDownLoadRequest
+ * @see HttpRequest
+ * @see BaseHttpRequest
+ * @see DefaultBodyRequest
+ * @see StringBodyRequest
+ * @see DefaultFormBodyRequest
+ * @see DefaultUpLoadRequest
+ * @see DefaultDownLoadRequest
  * @author xiongshiyan at 2017/12/9
  */
-public class Request extends BaseHolderHttpRequest<Request> implements
-        HolderMutableStringBodyRequest,
-        HolderFormRequest,
-        HolderUploadRequest,
-        HolderDownloadRequest {
+public class Request extends BaseHttpRequest<Request> implements
+        MutableStringBodyRequest,
+        FormRequest,
+        UploadRequest,
+        DownloadRequest {
     /**
      * form参数
      * POST请求，会作为body存在 并且设置Content-Type为 application/xxx-form-url-encoded

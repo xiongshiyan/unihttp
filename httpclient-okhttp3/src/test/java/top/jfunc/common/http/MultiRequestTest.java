@@ -9,11 +9,11 @@ import org.mockserver.model.Header;
 import org.mockserver.model.Parameter;
 import top.jfunc.common.http.base.Config;
 import top.jfunc.common.http.base.MediaType;
+import top.jfunc.common.http.holderrequest.DefaultBodyRequest;
+import top.jfunc.common.http.holderrequest.DefaultRequest;
 import top.jfunc.common.http.request.HttpRequest;
 import top.jfunc.common.http.request.StringBodyRequest;
-import top.jfunc.common.http.holderrequest.impl.HolderFormBodyRequest;
-import top.jfunc.common.http.holderrequest.impl.HolderGetRequest;
-import top.jfunc.common.http.holderrequest.impl.HolderPostBodyRequest;
+import top.jfunc.common.http.holderrequest.DefaultFormBodyRequest;
 import top.jfunc.common.http.smart.OkHttp3SmartHttpClient;
 import top.jfunc.common.http.smart.Response;
 import top.jfunc.common.http.smart.SmartHttpClient;
@@ -44,7 +44,7 @@ public class MultiRequestTest {
                         .withBody(expected)
         );
 
-        HttpRequest request = HolderGetRequest.of("http://localhost:50000/hello/{name}");
+        HttpRequest request = DefaultRequest.of("http://localhost:50000/hello/{name}");
         request.addRouteParam("name" , "John");
         Response response = smartHttpClient.get(request);
         Assert.assertEquals(expected , response.getBodyAsString());
@@ -65,7 +65,7 @@ public class MultiRequestTest {
                         .withBody(expected)
         );
 
-        HttpRequest request = HolderGetRequest.of("http://localhost:50000/hello/{name}");
+        HttpRequest request = DefaultRequest.of("http://localhost:50000/hello/{name}");
         request.addRouteParam("name" , "John");
         request.addQueryParam("key1" , "value1").addQueryParam("key2" , "value2");
         Response response = smartHttpClient.get(request);
@@ -85,7 +85,7 @@ public class MultiRequestTest {
                         .withBody(expected)
         );
 
-        StringBodyRequest request = HolderPostBodyRequest.of("http://localhost:50000/hello/{name}").setBody(expected);
+        StringBodyRequest request = DefaultBodyRequest.of("http://localhost:50000/hello/{name}").setBody(expected);
         request.addRouteParam("name" , "John");
         Response response = smartHttpClient.post(request);
         Assert.assertEquals(expected , response.getBodyAsString());
@@ -106,7 +106,7 @@ public class MultiRequestTest {
                         .withBody(expected)
         );
 
-        HolderFormBodyRequest request = HolderFormBodyRequest.of("http://localhost:50000/hello/{name}");
+        DefaultFormBodyRequest request = DefaultFormBodyRequest.of("http://localhost:50000/hello/{name}");
         request.routeParamHolder().addRouteParam("name" , "John");
         request.formParamHolder().add("key1" , "value1").add("key2" , "value2");
         Response response = smartHttpClient.post(request);
@@ -125,7 +125,7 @@ public class MultiRequestTest {
                         .withHeader(Header.header("xx" , "xx"))
         );
 
-        HttpRequest request = HolderGetRequest.of("http://localhost:50000/hello/{name}").retainResponseHeaders(true);
+        HttpRequest request = DefaultRequest.of("http://localhost:50000/hello/{name}").retainResponseHeaders(true);
         request.addRouteParam("name" , "John");
         request.addHeader("sale" , "2").addHeader("ca-xx" , "ca-xx");
         Response response = smartHttpClient.get(request);

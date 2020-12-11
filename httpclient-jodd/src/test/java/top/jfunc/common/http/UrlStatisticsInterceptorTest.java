@@ -5,7 +5,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.mockserver.client.MockServerClient;
 import org.mockserver.junit.MockServerRule;
-import top.jfunc.common.http.holderrequest.impl.HolderGetRequest;
+import top.jfunc.common.http.holderrequest.DefaultRequest;
 import top.jfunc.common.http.interceptor.UrlStatisticsInterceptor;
 import top.jfunc.common.http.request.HttpRequest;
 import top.jfunc.common.http.smart.JoddSmartHttpClient;
@@ -49,27 +49,27 @@ public class UrlStatisticsInterceptorTest {
                                 .withBody(BODY)
                 );
 
-        HttpRequest r1 = HolderGetRequest.of("http://localhost:50000/hello/{name}");
+        HttpRequest r1 = DefaultRequest.of("http://localhost:50000/hello/{name}");
         r1.addRouteParam("name" , "John");
         smartHttpClient.get(r1);
 
-        HttpRequest r2 = HolderGetRequest.of("http://localhost:50000/hello/{name}");
+        HttpRequest r2 = DefaultRequest.of("http://localhost:50000/hello/{name}");
         r2.addRouteParam("name" , "Mark");
         smartHttpClient.get(r2);
 
-        HttpRequest r3 = HolderGetRequest.of("http://localhost:50000/hello/{name}");
+        HttpRequest r3 = DefaultRequest.of("http://localhost:50000/hello/{name}");
         r3.addRouteParam("name" , "Mark");
         r3.addQueryParam("k1" , "k2");
         smartHttpClient.get(r3);
 
-        HttpRequest r4 = HolderGetRequest.of("http://localhost:50000/hell/ff");
+        HttpRequest r4 = DefaultRequest.of("http://localhost:50000/hell/ff");
         r4.addQueryParam("k1" , "k2");
         smartHttpClient.get(r4);
 
         statisticsInterceptor.stop();
         statisticsInterceptor2.stop();
 
-        HttpRequest r5 = HolderGetRequest.of("http://localhost:50000/hellrrr/ff");
+        HttpRequest r5 = DefaultRequest.of("http://localhost:50000/hellrrr/ff");
         r5.addQueryParam("k1" , "k2");
         smartHttpClient.get(r5);
 

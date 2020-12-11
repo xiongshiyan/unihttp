@@ -4,9 +4,9 @@ import top.jfunc.common.http.base.FormFile;
 import top.jfunc.common.http.request.HttpRequest;
 import top.jfunc.common.http.request.StringBodyRequest;
 import top.jfunc.common.http.request.UploadRequest;
-import top.jfunc.common.http.request.basic.CommonBodyRequest;
-import top.jfunc.common.http.request.basic.CommonRequest;
-import top.jfunc.common.http.request.basic.UpLoadRequest;
+import top.jfunc.common.http.request.DefaultBodyRequest;
+import top.jfunc.common.http.request.DefaultRequest;
+import top.jfunc.common.http.request.DefaultUpLoadRequest;
 import top.jfunc.common.utils.ArrayUtil;
 import top.jfunc.common.utils.MapUtil;
 import top.jfunc.common.utils.MultiValueMap;
@@ -22,7 +22,7 @@ public class DefaultSimpleAssemblingFactory implements AssemblingFactory {
                               int connectTimeout,
                               int readTimeout,
                               String resultCharset) {
-        HttpRequest httpRequest = CommonRequest.of(url);
+        HttpRequest httpRequest = DefaultRequest.of(url);
         set(httpRequest, queryParams, headers, connectTimeout, readTimeout, resultCharset);
         return httpRequest;
     }
@@ -37,7 +37,7 @@ public class DefaultSimpleAssemblingFactory implements AssemblingFactory {
                                     int readTimeout,
                                     String bodyCharset,
                                     String resultCharset) {
-        CommonBodyRequest stringBodyRequest = CommonBodyRequest.of(url);
+        DefaultBodyRequest stringBodyRequest = DefaultBodyRequest.of(url);
         stringBodyRequest.setBody(body , contentType);
         if(null != bodyCharset){
             stringBodyRequest.setBodyCharset(bodyCharset);
@@ -54,7 +54,7 @@ public class DefaultSimpleAssemblingFactory implements AssemblingFactory {
                                 int connectTimeout,
                                 int readTimeout,
                                 String resultCharset) {
-        UploadRequest uploadRequest = UpLoadRequest.of(url);
+        UploadRequest uploadRequest = DefaultUpLoadRequest.of(url);
 
         if(MapUtil.notEmpty(formParams)){
             uploadRequest.setFormParams(formParams);

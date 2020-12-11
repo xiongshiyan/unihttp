@@ -1,7 +1,6 @@
 package top.jfunc.common.http.request;
 
 import top.jfunc.common.http.base.Method;
-import top.jfunc.common.http.request.basic.*;
 
 import java.io.File;
 
@@ -15,28 +14,28 @@ import java.io.File;
  * @see MutableStringBodyRequest
  * @see FormRequest
  * @see UploadRequest
- * @see DownLoadRequest
+ * @see DefaultDownLoadRequest
  * @author xiongshiyan at 2019/7/1 , contact me with email yanshixiong@126.com or phone 15208384257
  */
 public class RequestCreator {
     private RequestCreator(){}
 
-    public static CommonRequest get(String url){
-        return CommonRequest.of(url);
+    public static DefaultRequest get(String url){
+        return DefaultRequest.of(url);
     }
-    public static CommonBodyRequest post(String url , String body){
-        return CommonBodyRequest.of(url, body, null);
+    public static DefaultBodyRequest post(String url , String body){
+        return DefaultBodyRequest.of(url, body, null);
     }
-    public static CommonBodyRequest post(String url , String body , String contentType){
-        return CommonBodyRequest.of(url, body, contentType);
+    public static DefaultBodyRequest post(String url , String body , String contentType){
+        return DefaultBodyRequest.of(url, body, contentType);
     }
-    public static FormBodyRequest form(String url){
-        return FormBodyRequest.of(url);
+    public static DefaultFormBodyRequest form(String url){
+        return DefaultFormBodyRequest.of(url);
     }
-    public static DownLoadRequest download(String url , File fileToSave){
-        return DownLoadRequest.of(url, fileToSave);
+    public static DefaultDownLoadRequest download(String url , File fileToSave){
+        return DefaultDownLoadRequest.of(url, fileToSave);
     }
-    public static UpLoadRequest upload(String url){
-        return UpLoadRequest.of(url);
+    public static DefaultUpLoadRequest upload(String url){
+        return DefaultUpLoadRequest.of(url);
     }
 }

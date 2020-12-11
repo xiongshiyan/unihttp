@@ -1,9 +1,9 @@
 package top.jfunc.common.http.base;
 
-import top.jfunc.common.http.annotation.method.GET;
-import top.jfunc.common.http.annotation.method.PATCH;
-import top.jfunc.common.http.annotation.method.POST;
-import top.jfunc.common.http.annotation.method.PUT;
+import top.jfunc.common.http.annotation.GET;
+import top.jfunc.common.http.annotation.PATCH;
+import top.jfunc.common.http.annotation.POST;
+import top.jfunc.common.http.annotation.PUT;
 
 /**
  * @author xiongshiyan at 2020/10/15 , contact me with email yanshixiong@126.com or phone 15208384257

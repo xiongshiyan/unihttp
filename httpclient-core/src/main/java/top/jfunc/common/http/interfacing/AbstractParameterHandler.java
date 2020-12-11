@@ -1,5 +1,6 @@
 package top.jfunc.common.http.interfacing;
 
+import top.jfunc.common.http.annotation.*;
 import top.jfunc.common.http.base.FormFile;
 import top.jfunc.common.http.request.FormRequest;
 import top.jfunc.common.http.request.HttpRequest;
@@ -50,7 +51,7 @@ abstract class AbstractParameterHandler<P>{
     }
     /**
      * 处理header的
-     * @see top.jfunc.common.http.annotation.parameter.Header
+     * @see top.jfunc.common.http.annotation.Header
      */
     static final class Header  extends AbstractParameterHandler<String> {
         private final String name;
@@ -68,7 +69,7 @@ abstract class AbstractParameterHandler<P>{
     }
     /**
      * 处理headerMap的
-     * @see top.jfunc.common.http.annotation.parameter.HeaderMap
+     * @see top.jfunc.common.http.annotation.HeaderMap
      */
     static final class HeaderMap  extends AbstractParameterHandler<Map<String , String>> {
 
@@ -88,7 +89,7 @@ abstract class AbstractParameterHandler<P>{
 
     /**
      * 处理查询参数的
-     * @see top.jfunc.common.http.annotation.parameter.Query
+     * @see top.jfunc.common.http.annotation.Query
      */
     static final class Query  extends AbstractParameterHandler<Object> {
         private final String name;
@@ -106,7 +107,7 @@ abstract class AbstractParameterHandler<P>{
     }
     /**
      * 处理headerMap的
-     * @see top.jfunc.common.http.annotation.parameter.QueryMap
+     * @see top.jfunc.common.http.annotation.QueryMap
      */
     static final class QueryMap  extends AbstractParameterHandler<Map<String , String>> {
 
@@ -124,7 +125,7 @@ abstract class AbstractParameterHandler<P>{
     }
     /**
      * 处理路径参数的
-     * @see top.jfunc.common.http.annotation.parameter.Path
+     * @see Path
      */
     static final class Route extends AbstractParameterHandler<Object> {
         private final String name;
@@ -142,7 +143,7 @@ abstract class AbstractParameterHandler<P>{
     }
     /**
      * 处理headerMap的
-     * @see top.jfunc.common.http.annotation.parameter.PathMap
+     * @see PathMap
      */
     static final class RouteMap  extends AbstractParameterHandler<Map<String , String>> {
 
@@ -156,7 +157,7 @@ abstract class AbstractParameterHandler<P>{
     }
     /**
      * 处理Part
-     * @see top.jfunc.common.http.annotation.parameter.Part
+     * @see top.jfunc.common.http.annotation.Part
      */
     static final class Part extends AbstractParameterHandler<Object> {
         private final String name;
@@ -188,7 +189,7 @@ abstract class AbstractParameterHandler<P>{
     }
     /**
      * 处理field的
-     * @see top.jfunc.common.http.annotation.parameter.Field
+     * @see top.jfunc.common.http.annotation.Field
      */
     static final class Field  extends AbstractParameterHandler<Object> {
         private final String name;
@@ -206,7 +207,7 @@ abstract class AbstractParameterHandler<P>{
     }
     /**
      * 处理fieldMap的
-     * @see top.jfunc.common.http.annotation.parameter.FieldMap
+     * @see top.jfunc.common.http.annotation.FieldMap
      */
     static final class FieldMap  extends AbstractParameterHandler<Map<String , String>> {
         @Override
@@ -225,7 +226,7 @@ abstract class AbstractParameterHandler<P>{
 
     /**
      * 处理Body的
-     * @see top.jfunc.common.http.annotation.parameter.Body
+     * @see top.jfunc.common.http.annotation.Body
      */
     static final class Body  extends AbstractParameterHandler<String> {
 
@@ -239,7 +240,7 @@ abstract class AbstractParameterHandler<P>{
     }
     /**
      * 处理请求URL的
-     * @see top.jfunc.common.http.annotation.parameter.Url
+     * @see top.jfunc.common.http.annotation.Url
      */
     static final class Url  extends AbstractParameterHandler<Object> {
 

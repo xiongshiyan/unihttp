@@ -9,7 +9,6 @@ import top.jfunc.common.http.request.HttpRequest;
 import top.jfunc.common.http.request.StringBodyRequest;
 import top.jfunc.common.http.request.UploadRequest;
 import top.jfunc.common.http.response.ClientHttpResponseConverter;
-import top.jfunc.common.http.template.SmartHttpTemplate;
 import top.jfunc.common.http.util.ResponseExtractor;
 import top.jfunc.common.utils.*;
 

@@ -7,7 +7,7 @@ import top.jfunc.common.http.download.InterruptBaseConfFileDownloader;
 import top.jfunc.common.http.download.InterruptBaseDownloadFileDownloader;
 import top.jfunc.common.http.download.MultiThreadDownloader;
 import top.jfunc.common.http.request.RequestCreator;
-import top.jfunc.common.http.request.basic.DownLoadRequest;
+import top.jfunc.common.http.request.DefaultDownLoadRequest;
 import top.jfunc.common.http.smart.OkHttp3SmartHttpClient;
 import top.jfunc.common.http.smart.SmartHttpClient;
 import top.jfunc.common.utils.CommonUtil;
@@ -20,14 +20,14 @@ import java.io.IOException;
  */
 @Ignore
 public class DownloadTest {
-    DownLoadRequest downLoadRequest = RequestCreator.download("http://mirrors.tuna.tsinghua.edu.cn/apache/tomcat/tomcat-8/v8.5.51/bin/apache-tomcat-8.5.51.tar.gz"
+    DefaultDownLoadRequest defaultDownLoadRequest = RequestCreator.download("http://mirrors.tuna.tsinghua.edu.cn/apache/tomcat/tomcat-8/v8.5.51/bin/apache-tomcat-8.5.51.tar.gz"
             , new File("C:\\Users\\xiongshiyan\\Desktop\\tomcat-" + CommonUtil.randomString(16) + ".tar.gz"));
     SmartHttpClient smartHttpClient = new OkHttp3SmartHttpClient();
 
     @Test
     public void testCommonDownload() throws IOException{
         long l = System.currentTimeMillis();
-        smartHttpClient.download(downLoadRequest);
+        smartHttpClient.download(defaultDownLoadRequest);
         System.out.println(System.currentTimeMillis() - l);
     }
 
@@ -35,7 +35,7 @@ public class DownloadTest {
     public void multiThreadDownload() throws IOException{
         long l = System.currentTimeMillis();
         MultiThreadDownloader downloader = new MultiThreadDownloader(smartHttpClient , 102400 , 10);
-        downloader.download(downLoadRequest);
+        downloader.download(defaultDownLoadRequest);
         System.out.println(System.currentTimeMillis() - l);
     }
 
@@ -43,9 +43,9 @@ public class DownloadTest {
     public void interruptBaseConfFileDownloader() throws IOException{
         long l = System.currentTimeMillis();
         Downloader downloader = new InterruptBaseConfFileDownloader(smartHttpClient , 1024);
-        DownLoadRequest downLoadRequest = RequestCreator.download("http://mirrors.tuna.tsinghua.edu.cn/apache/tomcat/tomcat-8/v8.5.51/bin/apache-tomcat-8.5.51.tar.gz"
+        DefaultDownLoadRequest defaultDownLoadRequest = RequestCreator.download("http://mirrors.tuna.tsinghua.edu.cn/apache/tomcat/tomcat-8/v8.5.51/bin/apache-tomcat-8.5.51.tar.gz"
                 , new File("C:\\Users\\xiongshiyan\\Desktop\\tomcat-okhttp3.tar.gz"));
-        downloader.download(downLoadRequest);
+        downloader.download(defaultDownLoadRequest);
         System.out.println(System.currentTimeMillis() - l);
     }
 
@@ -53,18 +53,18 @@ public class DownloadTest {
     public void interruptBaseDownloadFileDownloader() throws IOException{
         long l = System.currentTimeMillis();
         Downloader downloader = new InterruptBaseDownloadFileDownloader(smartHttpClient , 1024);
-        DownLoadRequest downLoadRequest = RequestCreator.download("http://mirrors.tuna.tsinghua.edu.cn/apache/tomcat/tomcat-8/v8.5.51/bin/apache-tomcat-8.5.51.tar.gz"
+        DefaultDownLoadRequest defaultDownLoadRequest = RequestCreator.download("http://mirrors.tuna.tsinghua.edu.cn/apache/tomcat/tomcat-8/v8.5.51/bin/apache-tomcat-8.5.51.tar.gz"
                 , new File("C:\\Users\\xiongshiyan\\Desktop\\tomcat-okhttp3.tar.gz"));
-        downloader.download(downLoadRequest);
+        downloader.download(defaultDownLoadRequest);
         System.out.println(System.currentTimeMillis() - l);
     }
 
     @Test
     public void getNetFileLength() throws IOException{
         Downloader downloader = new InterruptBaseDownloadFileDownloader(smartHttpClient , 1024);
-        DownLoadRequest downLoadRequest = RequestCreator.download("http://mirrors.tuna.tsinghua.edu.cn/apache/tomcat/tomcat-8/v8.5.51/bin/apache-tomcat-8.5.51.tar.gz"
+        DefaultDownLoadRequest defaultDownLoadRequest = RequestCreator.download("http://mirrors.tuna.tsinghua.edu.cn/apache/tomcat/tomcat-8/v8.5.51/bin/apache-tomcat-8.5.51.tar.gz"
                 , new File("C:\\Users\\xiongshiyan\\Desktop\\tomcat.tar.gz"));
-        long netFileLength = downloader.getNetFileLength(downLoadRequest);
+        long netFileLength = downloader.getNetFileLength(defaultDownLoadRequest);
         System.out.println(netFileLength);
     }
 }

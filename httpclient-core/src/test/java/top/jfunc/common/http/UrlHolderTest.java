@@ -7,8 +7,8 @@ import top.jfunc.common.http.holder.DefaultPhpUrlHolder;
 import top.jfunc.common.http.holder.DefaultUrlHolder;
 import top.jfunc.common.http.holder.PhpUrlHolder;
 import top.jfunc.common.http.holder.UrlHolder;
-import top.jfunc.common.http.holderrequest.HolderHttpRequest;
-import top.jfunc.common.http.holderrequest.impl.HolderGetRequest;
+import top.jfunc.common.http.holderrequest.DefaultRequest;
+import top.jfunc.common.http.holderrequest.HttpRequest;
 import top.jfunc.common.http.util.ParamUtil;
 import top.jfunc.common.utils.MultiValueMap;
 
@@ -34,7 +34,7 @@ public class UrlHolderTest {
         Assert.assertEquals("http://127.0.0.1:8090/dddd/tttt?hill=hell&haven=heavy&kkk=kkk", holderUrl);
         Assert.assertEquals("http://127.0.0.1:8090/dddd/tttt?hill=hell&haven=heavy&kkk=kkk", holderUrl);
 
-        HolderHttpRequest httpRequest = HolderGetRequest.of("");
+        HttpRequest httpRequest = DefaultRequest.of("");
         Assert.assertTrue(httpRequest.urlHolder() instanceof UrlHolder);
         httpRequest.urlHolder(new DefaultPhpUrlHolder());
         Assert.assertTrue(httpRequest.urlHolder() instanceof PhpUrlHolder);

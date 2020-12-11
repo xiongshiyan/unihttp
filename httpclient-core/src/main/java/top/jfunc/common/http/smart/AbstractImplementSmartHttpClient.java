@@ -11,8 +11,6 @@ import top.jfunc.common.http.cookie.DefaultCookieAccessor;
 import top.jfunc.common.http.request.HttpRequest;
 import top.jfunc.common.http.response.ClientHttpResponse;
 import top.jfunc.common.http.response.ClientHttpResponseConverter;
-import top.jfunc.common.http.template.SmartHttpTemplate;
-import top.jfunc.common.http.template.TemplateInterceptor;
 import top.jfunc.common.utils.IoUtil;
 
 import java.io.IOException;
