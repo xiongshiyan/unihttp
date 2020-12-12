@@ -1,7 +1,7 @@
 package top.jfunc.http.component.apache;
 
 import org.apache.http.client.methods.HttpRequestBase;
-import top.jfunc.http.base.Config;
+import top.jfunc.http.config.Config;
 import top.jfunc.http.base.ProxyInfo;
 import top.jfunc.http.component.AbstractRequesterFactory;
 import top.jfunc.http.request.HttpRequest;

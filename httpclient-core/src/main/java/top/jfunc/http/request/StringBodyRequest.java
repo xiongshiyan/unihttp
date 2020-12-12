@@ -1,6 +1,6 @@
 package top.jfunc.http.request;
 
-import top.jfunc.http.base.Config;
+import top.jfunc.http.config.Config;
 import top.jfunc.http.base.MediaType;
 import top.jfunc.common.utils.StrUtil;
 
@@ -25,8 +25,8 @@ public interface StringBodyRequest extends HttpRequest {
 
     /**
      * 设置BodyCharset
-     * 默认都是{@link top.jfunc.http.base.Config#DEFAULT_CHARSET}，如果不是
-     * 需要显式地设置为null才能利用{@link top.jfunc.http.base.Config#defaultBodyCharset}
+     * 默认都是{@link Config#DEFAULT_CHARSET}，如果不是
+     * 需要显式地设置为null才能利用{@link Config#defaultBodyCharset}
      * @see #calculateBodyCharset()
      * @param bodyCharset bodyCharset
      * @return this

@@ -1,4 +1,4 @@
-package top.jfunc.http.base;
+package top.jfunc.http.config;
 
 /**
  * 配置是否冻结检测器

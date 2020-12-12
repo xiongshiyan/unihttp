@@ -1,5 +1,7 @@
 package top.jfunc.http.base;
 
+import top.jfunc.http.config.ConfigAccessor;
+
 /**
  * 提供冻结功能
  * @author xiongshiyan at 2019/12/16 , contact me with email yanshixiong@126.com or phone 15208384257

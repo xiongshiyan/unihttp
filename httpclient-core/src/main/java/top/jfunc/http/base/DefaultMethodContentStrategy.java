@@ -4,6 +4,7 @@ import top.jfunc.http.annotation.GET;
 import top.jfunc.http.annotation.PATCH;
 import top.jfunc.http.annotation.POST;
 import top.jfunc.http.annotation.PUT;
+import top.jfunc.http.config.Config;
 
 /**
  * @author xiongshiyan at 2020/10/15 , contact me with email yanshixiong@126.com or phone 15208384257

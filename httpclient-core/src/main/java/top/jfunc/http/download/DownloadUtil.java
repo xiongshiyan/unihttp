@@ -1,6 +1,6 @@
 package top.jfunc.http.download;
 
-import top.jfunc.http.base.Config;
+import top.jfunc.http.config.Config;
 import top.jfunc.http.base.HttpHeaders;
 import top.jfunc.http.request.DownloadRequest;
 import top.jfunc.http.SmartHttpClient;

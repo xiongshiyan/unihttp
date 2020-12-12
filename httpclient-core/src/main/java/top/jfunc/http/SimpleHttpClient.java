@@ -1,6 +1,6 @@
 package top.jfunc.http;
 
-import top.jfunc.http.base.Config;
+import top.jfunc.http.config.Config;
 import top.jfunc.http.base.FormFile;
 import top.jfunc.http.base.FreezableConfigAccessor;
 import top.jfunc.http.base.MediaType;

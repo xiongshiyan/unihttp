@@ -1,6 +1,8 @@
 package top.jfunc.http.request;
 
 import top.jfunc.http.base.*;
+import top.jfunc.http.config.Config;
+import top.jfunc.http.config.ConfigAccessor;
 import top.jfunc.http.ssl.SSLSocketFactoryBuilder;
 import top.jfunc.common.utils.MapUtil;
 import top.jfunc.common.utils.MultiValueMap;

@@ -1,5 +1,8 @@
-package top.jfunc.http.base;
+package top.jfunc.http.config;
 
+import top.jfunc.http.base.DefaultMethodContentStrategy;
+import top.jfunc.http.base.MethodContentStrategy;
+import top.jfunc.http.base.ProxyInfo;
 import top.jfunc.http.holder.*;
 import top.jfunc.http.interceptor.CompositeInterceptor;
 import top.jfunc.http.interceptor.Interceptor;
@@ -17,7 +20,7 @@ import java.io.IOException;
  */
 public class Config {
     /**
-     * 未指定的时候，相关设置就是{@link top.jfunc.http.base.Config}默认的
+     * 未指定的时候，相关设置就是{@link Config}默认的
      */
     public static final int UNSIGNED                        = -1;
     /**

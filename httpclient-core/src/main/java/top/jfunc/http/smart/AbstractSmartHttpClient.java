@@ -7,6 +7,8 @@ import top.jfunc.http.base.*;
 import top.jfunc.http.component.AssemblingFactory;
 import top.jfunc.http.component.ContentCallbackCreator;
 import top.jfunc.http.component.DefaultSimpleAssemblingFactory;
+import top.jfunc.http.config.Config;
+import top.jfunc.http.config.ConfigFrozen;
 import top.jfunc.http.request.HttpRequest;
 import top.jfunc.http.request.StringBodyRequest;
 import top.jfunc.http.request.UploadRequest;

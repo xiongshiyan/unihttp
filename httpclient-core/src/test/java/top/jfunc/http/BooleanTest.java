@@ -2,7 +2,7 @@ package top.jfunc.http;
 
 import org.junit.Assert;
 import org.junit.Test;
-import top.jfunc.http.base.Config;
+import top.jfunc.http.config.Config;
 import top.jfunc.http.request.DefaultRequest;
 import top.jfunc.common.utils.ObjectUtil;
 

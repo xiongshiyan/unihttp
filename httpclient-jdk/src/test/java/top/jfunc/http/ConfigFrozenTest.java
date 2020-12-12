@@ -1,8 +1,7 @@
 package top.jfunc.http;
 
 import org.junit.Test;
-import top.jfunc.http.SmartHttpClient;
-import top.jfunc.http.base.Config;
+import top.jfunc.http.config.Config;
 import top.jfunc.http.smart.NativeSmartHttpClient;
 
 /**

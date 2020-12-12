@@ -1,6 +1,6 @@
 package top.jfunc.http.holder;
 
-import top.jfunc.http.base.Config;
+import top.jfunc.http.config.Config;
 
 /**
  * 默认的基于String的实现，如果字节场景较多，可以基于字节实现

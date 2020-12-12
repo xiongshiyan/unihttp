@@ -1,6 +1,6 @@
 package top.jfunc.http.response;
 
-import top.jfunc.http.base.Config;
+import top.jfunc.http.config.Config;
 import top.jfunc.common.utils.ArrayUtil;
 import top.jfunc.common.utils.MultiValueMap;
 

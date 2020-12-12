@@ -1,6 +1,6 @@
 package top.jfunc.http.holder;
 
-import top.jfunc.http.base.Config;
+import top.jfunc.http.config.Config;
 import top.jfunc.common.utils.MultiValueMap;
 
 /**

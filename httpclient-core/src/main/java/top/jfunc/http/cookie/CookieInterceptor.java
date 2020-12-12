@@ -1,6 +1,6 @@
 package top.jfunc.http.cookie;
 
-import top.jfunc.http.base.Config;
+import top.jfunc.http.config.Config;
 import top.jfunc.http.interceptor.InterceptorAdapter;
 import top.jfunc.http.request.HttpRequest;
 import top.jfunc.http.response.ClientHttpResponse;

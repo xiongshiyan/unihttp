@@ -1,7 +1,7 @@
 package top.jfunc.http.request;
 
 import top.jfunc.common.ChainCall;
-import top.jfunc.http.base.Config;
+import top.jfunc.http.config.Config;
 import top.jfunc.common.utils.ArrayListMultiValueMap;
 import top.jfunc.common.utils.MapUtil;
 import top.jfunc.common.utils.MultiValueMap;

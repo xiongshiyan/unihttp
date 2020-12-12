@@ -1,7 +1,7 @@
 package top.jfunc.http.request;
 
 import top.jfunc.common.ChainCall;
-import top.jfunc.http.base.Config;
+import top.jfunc.http.config.Config;
 import top.jfunc.http.base.MediaType;
 import top.jfunc.http.base.Method;
 import top.jfunc.http.base.ProxyInfo;

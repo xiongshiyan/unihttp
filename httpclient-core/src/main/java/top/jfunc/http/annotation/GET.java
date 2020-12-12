@@ -15,6 +15,8 @@
  */
 package top.jfunc.http.annotation;
 
+import top.jfunc.http.config.Config;
+
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
@@ -31,7 +33,7 @@ public @interface GET {
    * A relative or absolute path, or full URL of the endpoint. This value is optional if the first
    * parameter of the method is annotated with {@link Url @Url}.
    * <p>
-   * See {@linkplain top.jfunc.http.base.Config base URL} for details of how
+   * See {@linkplain Config base URL} for details of how
    * this is resolved against a base URL to create the full endpoint URL.
    */
   String value() default "";

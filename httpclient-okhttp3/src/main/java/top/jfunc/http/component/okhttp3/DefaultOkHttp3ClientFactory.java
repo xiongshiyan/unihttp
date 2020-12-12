@@ -2,7 +2,7 @@ package top.jfunc.http.component.okhttp3;
 
 import okhttp3.ConnectionPool;
 import okhttp3.OkHttpClient;
-import top.jfunc.http.base.Config;
+import top.jfunc.http.config.Config;
 import top.jfunc.http.base.ProxyInfo;
 import top.jfunc.http.component.AbstractRequesterFactory;
 import top.jfunc.http.request.HttpRequest;

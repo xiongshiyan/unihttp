@@ -3,7 +3,7 @@ package top.jfunc.http.smart;
 import top.jfunc.http.HttpRequestHttpClient;
 import top.jfunc.http.SimpleHttpClient;
 import top.jfunc.http.SmartHttpClient;
-import top.jfunc.http.base.Config;
+import top.jfunc.http.config.Config;
 import top.jfunc.http.base.ContentCallback;
 import top.jfunc.http.component.AssemblingFactory;
 import top.jfunc.http.component.ContentCallbackCreator;

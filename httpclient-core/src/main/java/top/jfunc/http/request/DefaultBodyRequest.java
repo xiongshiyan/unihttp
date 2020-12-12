@@ -1,6 +1,6 @@
 package top.jfunc.http.request;
 
-import top.jfunc.http.base.Config;
+import top.jfunc.http.config.Config;
 
 /**
  * 通用的StringBody请求

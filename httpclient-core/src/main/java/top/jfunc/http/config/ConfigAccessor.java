@@ -1,7 +1,7 @@
-package top.jfunc.http.base;
+package top.jfunc.http.config;
 
 /**
- * {@link top.jfunc.http.base.Config} 访问器
+ * {@link Config} 访问器
  * @author xiongshiyan at 2019/12/16 , contact me with email yanshixiong@126.com or phone 15208384257
  */
 public interface ConfigAccessor {

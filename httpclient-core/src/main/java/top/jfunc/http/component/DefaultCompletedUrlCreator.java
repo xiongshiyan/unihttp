@@ -1,6 +1,6 @@
 package top.jfunc.http.component;
 
-import top.jfunc.http.base.Config;
+import top.jfunc.http.config.Config;
 import top.jfunc.http.request.HttpRequest;
 import top.jfunc.http.util.ParamUtil;
 import top.jfunc.common.utils.MapUtil;
