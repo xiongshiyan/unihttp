@@ -12,13 +12,13 @@ public class DefaultBodyRequest extends BaseHttpRequest<DefaultBodyRequest> impl
     }
     public DefaultBodyRequest(){
     }
-    public static DefaultBodyRequest of(){
+    public static MutableStringBodyRequest of(){
         return new DefaultBodyRequest();
     }
-    public static DefaultBodyRequest of(String url){
+    public static MutableStringBodyRequest of(String url){
         return new DefaultBodyRequest(url);
     }
-    public static DefaultBodyRequest of(String url , String body , String contentType){
+    public static MutableStringBodyRequest of(String url , String body , String contentType){
         DefaultBodyRequest defaultBodyRequest = new DefaultBodyRequest(url);
         defaultBodyRequest.setBody(body, contentType);
         return defaultBodyRequest;
@@ -27,13 +27,13 @@ public class DefaultBodyRequest extends BaseHttpRequest<DefaultBodyRequest> impl
     private String bodyCharset = Config.DEFAULT_CHARSET;
 
     @Override
-    public DefaultBodyRequest setBody(String body) {
+    public MutableStringBodyRequest setBody(String body) {
         this.body = body;
         return myself();
     }
 
     @Override
-    public DefaultBodyRequest setBody(String body, String contentType) {
+    public MutableStringBodyRequest setBody(String body, String contentType) {
         this.body = body;
         setContentType(contentType);
         return myself();
@@ -50,7 +50,7 @@ public class DefaultBodyRequest extends BaseHttpRequest<DefaultBodyRequest> impl
     }
 
     @Override
-    public DefaultBodyRequest setBodyCharset(String bodyCharset) {
+    public MutableStringBodyRequest setBodyCharset(String bodyCharset) {
         this.bodyCharset = bodyCharset;
         return myself();
     }

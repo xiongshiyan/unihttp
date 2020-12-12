@@ -1,11 +1,11 @@
 package top.jfunc.http.holderrequest;
 
+import top.jfunc.common.utils.MultiValueMap;
 import top.jfunc.http.base.FormFile;
 import top.jfunc.http.holder.DefaultFormFileHolder;
 import top.jfunc.http.holder.DefaultParamHolder;
 import top.jfunc.http.holder.FormFileHolder;
 import top.jfunc.http.holder.ParamHolder;
-import top.jfunc.common.utils.MultiValueMap;
 
 import java.net.URL;
 import java.util.Map;
@@ -52,47 +52,47 @@ public class DefaultUploadRequest extends BaseHttpRequest<DefaultUploadRequest> 
     }
 
     @Override
-    public DefaultUploadRequest setParamCharset(String paramCharset) {
+    public UploadRequest setParamCharset(String paramCharset) {
         formParamHolder().setParamCharset(paramCharset);
         return myself();
     }
 
     @Override
-    public DefaultUploadRequest addFormParam(String key, String value, String... values) {
+    public UploadRequest addFormParam(String key, String value, String... values) {
         formParamHolder().add(key, value, values);
         return myself();
     }
 
     @Override
-    public top.jfunc.http.request.UploadRequest setFormParams(Map<String, String> formParams) {
+    public UploadRequest setFormParams(Map<String, String> formParams) {
         formParamHolder().set(formParams);
         return myself();
     }
 
     @Override
-    public top.jfunc.http.request.UploadRequest setFormParams(MultiValueMap<String, String> formParams) {
+    public UploadRequest setFormParams(MultiValueMap<String, String> formParams) {
         formParamHolder().set(formParams);
         return myself();
     }
 
     @Override
-    public DefaultUploadRequest addFormFile(FormFile... formFiles) {
+    public UploadRequest addFormFile(FormFile... formFiles) {
         formFileHolder().addFormFile(formFiles);
         return myself();
     }
 
     @Override
-    public DefaultUploadRequest addFormFiles(Iterable<FormFile> formFiles) {
+    public UploadRequest addFormFiles(Iterable<FormFile> formFiles) {
         formFileHolder().addFormFiles(formFiles);
         return myself();
     }
 
-    public DefaultUploadRequest setFormParamHolder(ParamHolder formParamHolder) {
+    public UploadRequest setFormParamHolder(ParamHolder formParamHolder) {
         this.formParamHolder = formParamHolder;
         return myself();
     }
 
-    public DefaultUploadRequest setFormFileHolder(FormFileHolder formFileHolder) {
+    public UploadRequest setFormFileHolder(FormFileHolder formFileHolder) {
         this.formFileHolder = formFileHolder;
         return myself();
     }

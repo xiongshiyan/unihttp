@@ -1,10 +1,10 @@
 package top.jfunc.http.request;
 
-import top.jfunc.http.config.Config;
-import top.jfunc.http.base.FormFile;
 import top.jfunc.common.utils.ArrayListMultiValueMap;
 import top.jfunc.common.utils.MapUtil;
 import top.jfunc.common.utils.MultiValueMap;
+import top.jfunc.http.base.FormFile;
+import top.jfunc.http.config.Config;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -21,10 +21,10 @@ public class DefaultUploadRequest extends BaseHttpRequest<DefaultUploadRequest> 
     }
     public DefaultUploadRequest(){
     }
-    public static DefaultUploadRequest of(String url){
+    public static UploadRequest of(String url){
         return new DefaultUploadRequest(url);
     }
-    public static DefaultUploadRequest of(){
+    public static UploadRequest of(){
         return new DefaultUploadRequest();
     }
 
@@ -43,19 +43,19 @@ public class DefaultUploadRequest extends BaseHttpRequest<DefaultUploadRequest> 
     }
 
     @Override
-    public DefaultUploadRequest addFormParam(String key, String value, String... values) {
+    public UploadRequest addFormParam(String key, String value, String... values) {
         formParams.add(key, value, values);
         return myself();
     }
 
     @Override
-    public DefaultUploadRequest setFormParams(MultiValueMap<String, String> formParams) {
+    public UploadRequest setFormParams(MultiValueMap<String, String> formParams) {
         this.formParams = formParams;
         return myself();
     }
 
     @Override
-    public DefaultUploadRequest setFormParams(Map<String, String> formParams) {
+    public UploadRequest setFormParams(Map<String, String> formParams) {
         if(MapUtil.notEmpty(formParams)){
             this.formParams = ArrayListMultiValueMap.fromMap(formParams);
         }
@@ -68,13 +68,13 @@ public class DefaultUploadRequest extends BaseHttpRequest<DefaultUploadRequest> 
     }
 
     @Override
-    public DefaultUploadRequest setParamCharset(String paramCharset) {
+    public UploadRequest setParamCharset(String paramCharset) {
         this.formParamCharset = paramCharset;
         return myself();
     }
 
     @Override
-    public DefaultUploadRequest addFormFile(FormFile... formFiles) {
+    public UploadRequest addFormFile(FormFile... formFiles) {
         this.formFiles.addAll(Arrays.asList(formFiles));
         return myself();
     }

@@ -9,10 +9,10 @@ public class DefaultRequest extends BaseHttpRequest<DefaultRequest> {
     }
     public DefaultRequest(){
     }
-    public static DefaultRequest of(String url){
+    public static HttpRequest of(String url){
         return new DefaultRequest(url);
     }
-    public static DefaultRequest of(){
+    public static HttpRequest of(){
         return new DefaultRequest();
     }
 }

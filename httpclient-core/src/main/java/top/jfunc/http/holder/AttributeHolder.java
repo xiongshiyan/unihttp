@@ -1,6 +1,6 @@
 package top.jfunc.http.holder;
 
-import top.jfunc.http.request.HttpRequest;
+import top.jfunc.http.holderrequest.HttpRequest;
 
 /**
  * 属性处理器

@@ -1,6 +1,5 @@
 package top.jfunc.http.holder;
 
-import top.jfunc.http.kv.MultiValueEntry;
 import top.jfunc.common.utils.MultiValueMap;
 
 import java.util.Map;
@@ -57,6 +56,7 @@ public interface ValuesMapHolder {
      * @param entries kvs
      * @return this
      */
+    @SuppressWarnings("unchecked")
     default ValuesMapHolder set(Iterable<Map.Entry<String, String>> entries){
         entries.forEach(this::set);
         return this;
@@ -91,19 +91,11 @@ public interface ValuesMapHolder {
     ValuesMapHolder add(String key, Iterable<String> values);
 
     /**
-     * 添加MultiValueEntry
-     * @param multiValueEntry MultiValueEntry
-     * @param multiValueEntries MultiValueEntry
-     * @return this
-     */
-    ValuesMapHolder add(MultiValueEntry multiValueEntry, MultiValueEntry... multiValueEntries);
-
-    /**
      * 添加Iterable<MultiValueEntry>
      * @param multiValueEntries Iterable<MultiValueEntry>
      * @return this
      */
-    ValuesMapHolder add(Iterable<MultiValueEntry> multiValueEntries);
+    ValuesMapHolder add(Iterable<Map.Entry<String, Iterable<String>>> multiValueEntries);
 
     /**
      * 添加Map.Entry<String, Iterable<String>>

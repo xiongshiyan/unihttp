@@ -21,23 +21,21 @@ public class DefaultDownloadRequest extends BaseHttpRequest<DefaultDownloadReque
     public DefaultDownloadRequest(){
     }
 
-    public static DefaultDownloadRequest of(){
+    public static DownloadRequest of(){
         return new DefaultDownloadRequest();
     }
-    public static DefaultDownloadRequest of(URL url){
+    public static DownloadRequest of(URL url){
         return new DefaultDownloadRequest(url);
     }
-
-
-    public static DefaultDownloadRequest of(String url){
+    public static DownloadRequest of(String url){
         return new DefaultDownloadRequest(url);
     }
-    public static DefaultDownloadRequest of(String url , String filePath){
+    public static DownloadRequest of(String url , String filePath){
         DefaultDownloadRequest downLoadFileRequest = new DefaultDownloadRequest(url);
         downLoadFileRequest.fileHolder().setFile(filePath);
         return downLoadFileRequest;
     }
-    public static DefaultDownloadRequest of(String url , File file){
+    public static DownloadRequest of(String url , File file){
         DefaultDownloadRequest downLoadFileRequest = new DefaultDownloadRequest(url);
         downLoadFileRequest.fileHolder().setFile(file);
         return downLoadFileRequest;
@@ -51,12 +49,12 @@ public class DefaultDownloadRequest extends BaseHttpRequest<DefaultDownloadReque
     }
 
     @Override
-    public DefaultDownloadRequest setFile(File file) {
+    public DownloadRequest setFile(File file) {
         fileHolder().setFile(file);
         return myself();
     }
 
-    public DefaultDownloadRequest setFileHolder(FileHolder fileHolder) {
+    public DownloadRequest setFileHolder(FileHolder fileHolder) {
         this.fileHolder = fileHolder;
         return myself();
     }

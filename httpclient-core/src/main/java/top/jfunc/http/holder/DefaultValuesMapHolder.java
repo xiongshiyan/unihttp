@@ -1,6 +1,5 @@
 package top.jfunc.http.holder;
 
-import top.jfunc.http.kv.MultiValueEntry;
 import top.jfunc.common.utils.ArrayListMultiValueMap;
 import top.jfunc.common.utils.MapUtil;
 import top.jfunc.common.utils.MultiValueMap;
@@ -68,22 +67,16 @@ public class DefaultValuesMapHolder implements ValuesMapHolder {
         return this;
     }
     @Override
-    public ValuesMapHolder add(MultiValueEntry multiValueEntry , MultiValueEntry... multiValueEntries){
-        add(multiValueEntry.getKey() , multiValueEntry.getValue());
-        for (MultiValueEntry h : multiValueEntries) {
-            add(h.getKey() , h.getValue());
+    public ValuesMapHolder add(Iterable<Map.Entry<String , Iterable<String>>> multiValueEntries){
+        for (Map.Entry<String , Iterable<String>> entry : multiValueEntries) {
+            add(entry.getKey() , entry.getValue());
         }
         return this;
     }
+
+    @SafeVarargs
     @Override
-    public ValuesMapHolder add(Iterable<MultiValueEntry> multiValueEntries){
-        for (MultiValueEntry multiValueEntry : multiValueEntries) {
-            add(multiValueEntry.getKey() , multiValueEntry.getValue());
-        }
-        return this;
-    }
-    @Override
-    public ValuesMapHolder add(Map.Entry<String , Iterable<String>> entry , Map.Entry<String , Iterable<String>>... entries){
+    public final ValuesMapHolder add(Map.Entry<String, Iterable<String>> entry, Map.Entry<String, Iterable<String>>... entries){
         add(entry.getKey() , entry.getValue());
         for (Map.Entry<String , Iterable<String>> h : entries) {
             add(h.getKey() , h.getValue());

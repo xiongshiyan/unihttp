@@ -19,18 +19,18 @@ public class DefaultBodyRequest extends BaseHttpRequest<DefaultBodyRequest> impl
     public DefaultBodyRequest(){
     }
 
-    public static DefaultBodyRequest of(){
+    public static MutableStringBodyRequest of(){
         return new DefaultBodyRequest();
     }
-    public static DefaultBodyRequest of(URL url){
+    public static MutableStringBodyRequest of(URL url){
         return new DefaultBodyRequest(url);
     }
 
 
-    public static DefaultBodyRequest of(String url){
+    public static MutableStringBodyRequest of(String url){
         return new DefaultBodyRequest(url);
     }
-    public static DefaultBodyRequest of(String url , String body , String contentType){
+    public static MutableStringBodyRequest of(String url , String body , String contentType){
         DefaultBodyRequest defaultBodyRequest = new DefaultBodyRequest(url);
         defaultBodyRequest.setBody(body, contentType);
         return defaultBodyRequest;
@@ -41,7 +41,7 @@ public class DefaultBodyRequest extends BaseHttpRequest<DefaultBodyRequest> impl
     private BodyHolder bodyHolder = new DefaultBodyHolder();
 
     @Override
-    public DefaultBodyRequest setBody(String body , String contentType) {
+    public MutableStringBodyRequest setBody(String body , String contentType) {
         bodyHolder().setBody(body);
         setContentType(contentType);
         return myself();
@@ -52,7 +52,7 @@ public class DefaultBodyRequest extends BaseHttpRequest<DefaultBodyRequest> impl
         return bodyHolder;
     }
 
-    public DefaultBodyRequest setBodyHolder(BodyHolder bodyHolder) {
+    public MutableStringBodyRequest setBodyHolder(BodyHolder bodyHolder) {
         this.bodyHolder = bodyHolder;
         return myself();
     }

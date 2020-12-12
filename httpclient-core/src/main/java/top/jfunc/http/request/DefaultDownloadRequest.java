@@ -12,13 +12,13 @@ public class DefaultDownloadRequest extends BaseHttpRequest<DefaultDownloadReque
     }
     public DefaultDownloadRequest(){
     }
-    public static DefaultDownloadRequest of(String url){
+    public static DownloadRequest of(String url){
         return new DefaultDownloadRequest(url);
     }
-    public static DefaultDownloadRequest of(){
+    public static DownloadRequest of(){
         return new DefaultDownloadRequest();
     }
-    public static DefaultDownloadRequest of(String url , File file){
+    public static DownloadRequest of(String url , File file){
         DefaultDownloadRequest downLoadFileRequest = new DefaultDownloadRequest(url);
         downLoadFileRequest.setFile(file);
         return downLoadFileRequest;
@@ -27,7 +27,7 @@ public class DefaultDownloadRequest extends BaseHttpRequest<DefaultDownloadReque
     private File file;
 
     @Override
-    public DefaultDownloadRequest setFile(File file) {
+    public DownloadRequest setFile(File file) {
         this.file = file;
         return myself();
     }

@@ -1,4 +1,4 @@
-package top.jfunc.http.kv;
+package top.jfunc.http.holder;
 
 /**
  * Http的Query或者Form参数模型(multiValue),key-value1,value2

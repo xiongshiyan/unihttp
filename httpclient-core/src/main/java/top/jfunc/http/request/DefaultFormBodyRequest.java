@@ -1,9 +1,9 @@
 package top.jfunc.http.request;
 
-import top.jfunc.http.config.Config;
 import top.jfunc.common.utils.ArrayListMultiValueMap;
 import top.jfunc.common.utils.MapUtil;
 import top.jfunc.common.utils.MultiValueMap;
+import top.jfunc.http.config.Config;
 
 import java.util.Map;
 
@@ -29,20 +29,20 @@ public class DefaultFormBodyRequest extends BaseHttpRequest<DefaultFormBodyReque
     private String formParamCharset = Config.DEFAULT_CHARSET;
 
     @Override
-    public DefaultFormBodyRequest setFormParams(Map<String, String> params) {
+    public FormRequest setFormParams(Map<String, String> params) {
         if(MapUtil.notEmpty(params)){
             this.formParams = ArrayListMultiValueMap.fromMap(params);
         }
         return myself();
     }
     @Override
-    public DefaultFormBodyRequest setFormParams(MultiValueMap<String, String> params) {
+    public FormRequest setFormParams(MultiValueMap<String, String> params) {
         this.formParams = params;
         return myself();
     }
 
     @Override
-    public DefaultFormBodyRequest addFormParam(String key, String value, String... values) {
+    public FormRequest addFormParam(String key, String value, String... values) {
         formParams.add(key, value, values);
         return myself();
     }
@@ -58,7 +58,7 @@ public class DefaultFormBodyRequest extends BaseHttpRequest<DefaultFormBodyReque
     }
 
     @Override
-    public DefaultFormBodyRequest setBodyCharset(String bodyCharset) {
+    public FormRequest setBodyCharset(String bodyCharset) {
         this.formParamCharset = bodyCharset;
         return myself();
     }
