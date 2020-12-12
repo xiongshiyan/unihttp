@@ -6,8 +6,8 @@ import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.beans.factory.support.BeanDefinitionRegistryPostProcessor;
 import org.springframework.context.ResourceLoaderAware;
 import org.springframework.core.io.ResourceLoader;
-import top.jfunc.common.http.annotation.HttpService;
-import top.jfunc.common.http.interfacing.HttpServiceCreator;
+import top.jfunc.http.annotation.HttpService;
+import top.jfunc.http.interfacing.HttpServiceCreator;
 
 import java.lang.annotation.Annotation;
 

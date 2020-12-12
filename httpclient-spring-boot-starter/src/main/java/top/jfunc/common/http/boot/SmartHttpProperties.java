@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @see top.jfunc.common.http.base.Config
+ * @see top.jfunc.http.base.Config
  * @author xiongshiyan at 2019/5/10 , contact me with email yanshixiong@126.com or phone 15208384257
  */
 //@ConfigurationProperties("http.smart")

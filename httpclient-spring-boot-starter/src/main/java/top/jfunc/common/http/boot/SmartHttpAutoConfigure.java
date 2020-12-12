@@ -13,7 +13,7 @@ public class SmartHttpAutoConfigure {
 
 /*    @ConditionalOnClass(OkHttp3SmartHttpClient.class)
     @ConditionalOnMissingBean(SmartHttpClient.class)
-    @ConditionalOnProperty(name = "spring.http.smart.type", havingValue = "top.jfunc.common.http.smart.OkHttp3SmartHttpClient", matchIfMissing = true)
+    @ConditionalOnProperty(name = "spring.http.smart.type", havingValue = "top.jfunc.http.smart.OkHttp3SmartHttpClient", matchIfMissing = true)
     static class OkHttp3{
         @Bean(name = "OkHttp3SmartHttpClient")
         @ConditionalOnMissingBean(SmartHttpClient.class)
@@ -26,7 +26,7 @@ public class SmartHttpAutoConfigure {
 
     @ConditionalOnClass(NativeSmartHttpClient.class)
     @ConditionalOnMissingBean(SmartHttpClient.class)
-    @ConditionalOnProperty(name = "spring.http.smart.type", havingValue = "top.jfunc.common.http.smart.NativeSmartHttpClient", matchIfMissing = true)
+    @ConditionalOnProperty(name = "spring.http.smart.type", havingValue = "top.jfunc.http.smart.NativeSmartHttpClient", matchIfMissing = true)
     static class Jdk{
         @Bean(name = "JdkSmartHttpClient")
         @ConditionalOnMissingBean(SmartHttpClient.class)
@@ -39,7 +39,7 @@ public class SmartHttpAutoConfigure {
 
     @ConditionalOnClass(ApacheSmartHttpClient.class)
     @ConditionalOnMissingBean(SmartHttpClient.class)
-    @ConditionalOnProperty(name = "spring.http.smart.type", havingValue = "top.jfunc.common.http.smart.ApacheSmartHttpClient", matchIfMissing = true)
+    @ConditionalOnProperty(name = "spring.http.smart.type", havingValue = "top.jfunc.http.smart.ApacheSmartHttpClient", matchIfMissing = true)
     static class Apache{
         @Bean(name = "ApacheSmartHttpClient")
         @ConditionalOnMissingBean(SmartHttpClient.class)
@@ -53,7 +53,7 @@ public class SmartHttpAutoConfigure {
 
     @ConditionalOnClass(JoddSmartHttpClient.class)
     @ConditionalOnMissingBean(SmartHttpClient.class)
-    @ConditionalOnProperty(name = "spring.http.smart.type", havingValue = "top.jfunc.common.http.smart.JoddSmartHttpClient", matchIfMissing = true)
+    @ConditionalOnProperty(name = "spring.http.smart.type", havingValue = "top.jfunc.http.smart.JoddSmartHttpClient", matchIfMissing = true)
     static class Jodd{
         @Bean(name = "JoddSmartHttpClient")
         @ConditionalOnMissingBean(SmartHttpClient.class)
@@ -66,7 +66,7 @@ public class SmartHttpAutoConfigure {
 
 
     ///必须手动配置以下代码才可以
-    /*@ConditionalOnMissingBean(type = "top.jfunc.common.http.interfacing.HttpServiceCreator")
+    /*@ConditionalOnMissingBean(type = "top.jfunc.http.interfacing.HttpServiceCreator")
     static class HttpServiceScannerAutoConfigure{
         @Bean
         public HttpServiceCreator httpServiceCreator(@Autowired SmartHttpClient smartHttpClient){

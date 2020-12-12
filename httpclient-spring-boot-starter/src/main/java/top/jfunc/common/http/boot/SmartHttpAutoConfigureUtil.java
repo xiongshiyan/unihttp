@@ -1,10 +1,10 @@
 package top.jfunc.common.http.boot;
 
-import top.jfunc.common.http.base.Config;
-import top.jfunc.common.http.base.ProxyInfo;
-import top.jfunc.common.http.interceptor.CompositeInterceptor;
-import top.jfunc.common.http.interceptor.Interceptor;
-import top.jfunc.common.http.smart.SmartHttpClient;
+import top.jfunc.http.base.Config;
+import top.jfunc.http.base.ProxyInfo;
+import top.jfunc.http.interceptor.CompositeInterceptor;
+import top.jfunc.http.interceptor.Interceptor;
+import top.jfunc.http.smart.SmartHttpClient;
 import top.jfunc.common.utils.BeanUtil;
 import top.jfunc.common.utils.ClassUtil;
 

@@ -296,8 +296,8 @@ https://gitee.com/xxssyyyyssxx/http-server-test
 
 https://gitee.com/xxssyyyyssxx/http-client-test
 
-如果你想实现自己的，只需要继承 `top.jfunc.common.http.smart.AbstractSmartHttpClient` , 
-参考`top.jfunc.common.http.smart.DemoImpl`实现抽象方法即可。实现方法可以参考httpclient-jdk、apache、okhttp3、jodd等。
+如果你想实现自己的，只需要继承 `top.jfunc.http.smart.AbstractSmartHttpClient` , 
+参考`top.jfunc.http.smart.DemoImpl`实现抽象方法即可。实现方法可以参考httpclient-jdk、apache、okhttp3、jodd等。
 
 
 http模块的架构设计和使用方式见 CSDN博客

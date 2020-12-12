@@ -1,7 +1,7 @@
 package top.jfunc.common.http.scan;
 
 import org.springframework.beans.factory.FactoryBean;
-import top.jfunc.common.http.interfacing.HttpServiceCreator;
+import top.jfunc.http.interfacing.HttpServiceCreator;
 
 /**
  * 用于通过HttpServiceCreator生成HttpService接口的代理类

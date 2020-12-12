@@ -10,7 +10,7 @@ import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.beans.factory.support.GenericBeanDefinition;
 import org.springframework.context.annotation.ClassPathBeanDefinitionScanner;
 import org.springframework.core.type.filter.AnnotationTypeFilter;
-import top.jfunc.common.http.interfacing.HttpServiceCreator;
+import top.jfunc.http.interfacing.HttpServiceCreator;
 
 import java.lang.annotation.Annotation;
 import java.util.Arrays;
