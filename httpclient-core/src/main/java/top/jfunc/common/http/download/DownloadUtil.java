@@ -3,7 +3,7 @@ package top.jfunc.common.http.download;
 import top.jfunc.common.http.base.Config;
 import top.jfunc.common.http.base.HttpHeaders;
 import top.jfunc.common.http.request.DownloadRequest;
-import top.jfunc.common.http.smart.SmartHttpClient;
+import top.jfunc.common.http.SmartHttpClient;
 import top.jfunc.common.utils.MapUtil;
 import top.jfunc.common.utils.MultiValueMap;
 

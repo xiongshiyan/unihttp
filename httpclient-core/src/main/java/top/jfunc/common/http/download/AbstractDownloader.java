@@ -1,7 +1,7 @@
 package top.jfunc.common.http.download;
 
 import top.jfunc.common.http.request.DownloadRequest;
-import top.jfunc.common.http.smart.SmartHttpClient;
+import top.jfunc.common.http.SmartHttpClient;
 import top.jfunc.common.utils.ObjectUtil;
 
 import java.io.IOException;

@@ -9,7 +9,6 @@ import top.jfunc.common.http.holderrequest.DefaultRequest;
 import top.jfunc.common.http.interceptor.UrlStatisticsInterceptor;
 import top.jfunc.common.http.request.HttpRequest;
 import top.jfunc.common.http.smart.NativeSmartHttpClient;
-import top.jfunc.common.http.smart.SmartHttpClient;
 
 import java.util.HashSet;
 import java.util.Set;

@@ -1,5 +1,6 @@
 package top.jfunc.common.http.component;
 
+import top.jfunc.common.http.SmartHttpClient;
 import top.jfunc.common.http.base.ContentCallback;
 import top.jfunc.common.http.request.HttpRequest;
 
@@ -10,7 +11,7 @@ import java.io.IOException;
  */
 public interface ContentCallbackCreator<CC> {
     /**
-     * 创建body设置器(为{@link top.jfunc.common.http.smart.SmartHttpClient}体系使用)
+     * 创建body设置器(为{@link SmartHttpClient}体系使用)
      * @param httpRequest HttpRequest
      * @return ContentCallback<CC> 可能为null，当不支持BODY的时候
      * @throws IOException IOException

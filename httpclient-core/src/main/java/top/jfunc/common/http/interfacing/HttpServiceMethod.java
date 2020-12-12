@@ -4,7 +4,7 @@ import top.jfunc.common.http.base.Method;
 import top.jfunc.common.http.request.HttpRequest;
 import top.jfunc.common.http.request.StringBodyRequest;
 import top.jfunc.common.http.request.UploadRequest;
-import top.jfunc.common.http.smart.SmartHttpClient;
+import top.jfunc.common.http.SmartHttpClient;
 
 import java.io.IOException;
 

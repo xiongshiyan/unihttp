@@ -4,7 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import top.jfunc.common.http.base.HttpHeaders;
 import top.jfunc.common.http.request.DownloadRequest;
-import top.jfunc.common.http.smart.SmartHttpClient;
+import top.jfunc.common.http.SmartHttpClient;
 
 import java.io.File;
 import java.io.FileOutputStream;

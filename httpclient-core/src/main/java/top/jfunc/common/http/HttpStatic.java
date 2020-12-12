@@ -8,7 +8,6 @@ import top.jfunc.common.http.request.HttpRequest;
 import top.jfunc.common.http.request.StringBodyRequest;
 import top.jfunc.common.http.request.UploadRequest;
 import top.jfunc.common.http.response.Response;
-import top.jfunc.common.http.smart.SmartHttpClient;
 import top.jfunc.common.utils.MultiValueMap;
 
 import java.io.File;
@@ -18,7 +17,7 @@ import java.util.Map;
 import java.util.ServiceLoader;
 
 /**
- * 1.静态初始化SmartHttpClient，基于ServiceLoader机制，提供者需要把实现类的全面放到 <pre>/META-INF/services/top.jfunc.common.http.smart.SmartHttpClient</pre> 文件下
+ * 1.静态初始化SmartHttpClient，基于ServiceLoader机制，提供者需要把实现类的全面放到 <pre>/META-INF/services/top.jfunc.common.http.SmartHttpClient</pre> 文件下
  * 2.动态设置SmartHttpClient的实现类
  * 3.提供对SmartHttpClient的静态代理，使可以一句话实现Http请求
  * @author xiongshiyan at 2017/12/11

@@ -1,6 +1,6 @@
 package top.jfunc.common.http.interfacing;
 
-import top.jfunc.common.http.smart.SmartHttpClient;
+import top.jfunc.common.http.SmartHttpClient;
 
 import java.lang.invoke.MethodHandles;
 import java.lang.reflect.Constructor;

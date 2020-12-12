@@ -9,7 +9,6 @@ import top.jfunc.common.http.download.MultiThreadDownloader;
 import top.jfunc.common.http.request.DownloadRequest;
 import top.jfunc.common.http.request.RequestCreator;
 import top.jfunc.common.http.smart.ApacheSmartHttpClient;
-import top.jfunc.common.http.smart.SmartHttpClient;
 import top.jfunc.common.utils.CommonUtil;
 
 import java.io.File;

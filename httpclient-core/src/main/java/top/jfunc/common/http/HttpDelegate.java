@@ -2,7 +2,6 @@ package top.jfunc.common.http;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import top.jfunc.common.http.smart.SmartHttpClient;
 import top.jfunc.common.utils.ClassUtil;
 
 /**

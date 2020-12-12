@@ -1,4 +1,4 @@
-package top.jfunc.common.http.smart;
+package top.jfunc.common.http;
 
 import top.jfunc.common.http.base.Config;
 import top.jfunc.common.http.base.FreezableConfigAccessor;
