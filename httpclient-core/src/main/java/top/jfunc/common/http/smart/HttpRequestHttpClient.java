@@ -5,6 +5,7 @@ import top.jfunc.common.http.base.FreezableConfigAccessor;
 import top.jfunc.common.http.base.Method;
 import top.jfunc.common.http.request.*;
 import top.jfunc.common.http.response.ClientHttpResponseConverter;
+import top.jfunc.common.http.response.Response;
 import top.jfunc.common.http.util.ResponseExtractor;
 import top.jfunc.common.utils.IoUtil;
 import top.jfunc.common.utils.MultiValueMap;

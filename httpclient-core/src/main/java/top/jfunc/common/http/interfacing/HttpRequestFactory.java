@@ -8,7 +8,7 @@ import top.jfunc.common.http.base.Method;
 import top.jfunc.common.http.holderrequest.DefaultBodyRequest;
 import top.jfunc.common.http.holderrequest.DefaultRequest;
 import top.jfunc.common.http.holderrequest.DefaultFormBodyRequest;
-import top.jfunc.common.http.holderrequest.DefaultUpLoadRequest;
+import top.jfunc.common.http.holderrequest.DefaultUploadRequest;
 import top.jfunc.common.http.request.HttpRequest;
 import top.jfunc.common.utils.ArrayListMultiValueMap;
 import top.jfunc.common.utils.ArrayUtil;
@@ -215,7 +215,7 @@ class HttpRequestFactory implements RequestFactory {
         }
 
         if(multiPart){
-            httpRequest = DefaultUpLoadRequest.of(relativeUrl);
+            httpRequest = DefaultUploadRequest.of(relativeUrl);
         }
         if (formEncoded){
             httpRequest = DefaultFormBodyRequest.of(relativeUrl);

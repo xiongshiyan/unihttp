@@ -1,8 +1,8 @@
 package top.jfunc.common.http.util;
 
 import top.jfunc.common.http.response.ClientHttpResponse;
-import top.jfunc.common.http.smart.DefaultResponse;
-import top.jfunc.common.http.smart.Response;
+import top.jfunc.common.http.response.DefaultResponse;
+import top.jfunc.common.http.response.Response;
 import top.jfunc.common.utils.IoUtil;
 import top.jfunc.common.utils.MultiValueMap;
 

@@ -8,7 +8,6 @@ import top.jfunc.common.http.download.InterruptBaseDownloadFileDownloader;
 import top.jfunc.common.http.download.MultiThreadDownloader;
 import top.jfunc.common.http.request.DownloadRequest;
 import top.jfunc.common.http.request.RequestCreator;
-import top.jfunc.common.http.request.DefaultDownLoadRequest;
 import top.jfunc.common.http.smart.ApacheSmartHttpClient;
 import top.jfunc.common.http.smart.SmartHttpClient;
 import top.jfunc.common.utils.CommonUtil;
@@ -63,7 +62,7 @@ public class DownloadTest {
     @Test
     public void getNetFileLength() throws IOException{
         Downloader downloader = new InterruptBaseDownloadFileDownloader(smartHttpClient , 1024);
-        DefaultDownLoadRequest defaultDownLoadRequest = RequestCreator.download("https://dss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=974248807,3098128878&fm=26&gp=0.jpg"
+        DownloadRequest defaultDownLoadRequest = RequestCreator.download("https://dss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=974248807,3098128878&fm=26&gp=0.jpg"
                 , new File("C:\\Users\\xiongshiyan\\Desktop\\3.jpg"));
         long netFileLength = downloader.getNetFileLength(defaultDownLoadRequest);
         System.out.println(netFileLength);

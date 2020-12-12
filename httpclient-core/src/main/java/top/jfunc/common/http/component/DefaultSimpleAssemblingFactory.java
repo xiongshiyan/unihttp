@@ -6,7 +6,7 @@ import top.jfunc.common.http.request.StringBodyRequest;
 import top.jfunc.common.http.request.UploadRequest;
 import top.jfunc.common.http.request.DefaultBodyRequest;
 import top.jfunc.common.http.request.DefaultRequest;
-import top.jfunc.common.http.request.DefaultUpLoadRequest;
+import top.jfunc.common.http.request.DefaultUploadRequest;
 import top.jfunc.common.utils.ArrayUtil;
 import top.jfunc.common.utils.MapUtil;
 import top.jfunc.common.utils.MultiValueMap;
@@ -54,7 +54,7 @@ public class DefaultSimpleAssemblingFactory implements AssemblingFactory {
                                 int connectTimeout,
                                 int readTimeout,
                                 String resultCharset) {
-        UploadRequest uploadRequest = DefaultUpLoadRequest.of(url);
+        UploadRequest uploadRequest = DefaultUploadRequest.of(url);
 
         if(MapUtil.notEmpty(formParams)){
             uploadRequest.setFormParams(formParams);

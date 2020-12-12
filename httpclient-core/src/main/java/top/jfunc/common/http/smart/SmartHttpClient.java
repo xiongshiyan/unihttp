@@ -3,6 +3,7 @@ package top.jfunc.common.http.smart;
 import top.jfunc.common.http.base.Config;
 import top.jfunc.common.http.request.HttpRequest;
 import top.jfunc.common.http.response.ClientHttpResponseConverter;
+import top.jfunc.common.http.response.Response;
 
 /**
  * 是面向使用者的一个门面类，既有{@link SimpleHttpClient}的简单快捷，也有{@link HttpRequestHttpClient}的简约全面

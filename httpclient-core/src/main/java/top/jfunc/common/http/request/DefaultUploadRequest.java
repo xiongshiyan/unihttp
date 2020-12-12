@@ -15,17 +15,17 @@ import java.util.Map;
  * 多文件、参数同时支持的上传请求
  * @author xiongshiyan at 2019/5/18 , contact me with email yanshixiong@126.com or phone 15208384257
  */
-public class DefaultUpLoadRequest extends BaseHttpRequest<DefaultUpLoadRequest> implements UploadRequest {
-    public DefaultUpLoadRequest(String url){
+public class DefaultUploadRequest extends BaseHttpRequest<DefaultUploadRequest> implements UploadRequest {
+    public DefaultUploadRequest(String url){
         super(url);
     }
-    public DefaultUpLoadRequest(){
+    public DefaultUploadRequest(){
     }
-    public static DefaultUpLoadRequest of(String url){
-        return new DefaultUpLoadRequest(url);
+    public static DefaultUploadRequest of(String url){
+        return new DefaultUploadRequest(url);
     }
-    public static DefaultUpLoadRequest of(){
-        return new DefaultUpLoadRequest();
+    public static DefaultUploadRequest of(){
+        return new DefaultUploadRequest();
     }
 
     private MultiValueMap<String , String> formParams = new ArrayListMultiValueMap<>(2);
@@ -43,19 +43,19 @@ public class DefaultUpLoadRequest extends BaseHttpRequest<DefaultUpLoadRequest> 
     }
 
     @Override
-    public DefaultUpLoadRequest addFormParam(String key, String value, String... values) {
+    public DefaultUploadRequest addFormParam(String key, String value, String... values) {
         formParams.add(key, value, values);
         return myself();
     }
 
     @Override
-    public DefaultUpLoadRequest setFormParams(MultiValueMap<String, String> formParams) {
+    public DefaultUploadRequest setFormParams(MultiValueMap<String, String> formParams) {
         this.formParams = formParams;
         return myself();
     }
 
     @Override
-    public DefaultUpLoadRequest setFormParams(Map<String, String> formParams) {
+    public DefaultUploadRequest setFormParams(Map<String, String> formParams) {
         if(MapUtil.notEmpty(formParams)){
             this.formParams = ArrayListMultiValueMap.fromMap(formParams);
         }
@@ -68,13 +68,13 @@ public class DefaultUpLoadRequest extends BaseHttpRequest<DefaultUpLoadRequest> 
     }
 
     @Override
-    public DefaultUpLoadRequest setParamCharset(String paramCharset) {
+    public DefaultUploadRequest setParamCharset(String paramCharset) {
         this.formParamCharset = paramCharset;
         return myself();
     }
 
     @Override
-    public DefaultUpLoadRequest addFormFile(FormFile... formFiles) {
+    public DefaultUploadRequest addFormFile(FormFile... formFiles) {
         this.formFiles.addAll(Arrays.asList(formFiles));
         return myself();
     }

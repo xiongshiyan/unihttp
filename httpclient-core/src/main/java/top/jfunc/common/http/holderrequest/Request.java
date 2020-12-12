@@ -1,9 +1,11 @@
-package top.jfunc.common.http.smart;
+package top.jfunc.common.http.holderrequest;
 
 import top.jfunc.common.http.base.FormFile;
 import top.jfunc.common.http.base.MediaType;
 import top.jfunc.common.http.holder.*;
-import top.jfunc.common.http.holderrequest.*;
+import top.jfunc.common.http.smart.HttpRequestHttpClient;
+import top.jfunc.common.http.smart.SimpleHttpClient;
+import top.jfunc.common.http.smart.SmartHttpClient;
 import top.jfunc.common.http.util.ParamUtil;
 import top.jfunc.common.utils.MultiValueMap;
 import top.jfunc.common.utils.StrUtil;
@@ -23,8 +25,8 @@ import java.util.Map;
  * @see DefaultBodyRequest
  * @see StringBodyRequest
  * @see DefaultFormBodyRequest
- * @see DefaultUpLoadRequest
- * @see DefaultDownLoadRequest
+ * @see DefaultUploadRequest
+ * @see DefaultDownloadRequest
  * @author xiongshiyan at 2017/12/9
  */
 public class Request extends BaseHttpRequest<Request> implements

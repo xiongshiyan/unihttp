@@ -9,7 +9,9 @@ import org.mockserver.model.Header;
 import org.mockserver.model.Parameter;
 import top.jfunc.common.http.base.Config;
 import top.jfunc.common.http.base.MediaType;
+import top.jfunc.common.http.holderrequest.Request;
 import top.jfunc.common.http.request.StringBodyRequest;
+import top.jfunc.common.http.response.Response;
 import top.jfunc.common.http.smart.*;
 
 import static org.mockserver.model.HttpRequest.request;

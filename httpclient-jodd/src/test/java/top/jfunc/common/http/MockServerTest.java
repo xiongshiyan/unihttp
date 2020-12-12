@@ -11,8 +11,8 @@ import top.jfunc.common.http.base.Config;
 import top.jfunc.common.http.base.MediaType;
 import top.jfunc.common.http.request.StringBodyRequest;
 import top.jfunc.common.http.smart.JoddSmartHttpClient;
-import top.jfunc.common.http.smart.Request;
-import top.jfunc.common.http.smart.Response;
+import top.jfunc.common.http.holderrequest.Request;
+import top.jfunc.common.http.response.Response;
 import top.jfunc.common.http.smart.SmartHttpClient;
 
 import static org.mockserver.model.HttpRequest.request;

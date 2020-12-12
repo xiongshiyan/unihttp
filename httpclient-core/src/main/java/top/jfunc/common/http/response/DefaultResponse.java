@@ -1,7 +1,6 @@
-package top.jfunc.common.http.smart;
+package top.jfunc.common.http.response;
 
 import top.jfunc.common.http.base.Config;
-import top.jfunc.common.http.base.HttpStatus;
 import top.jfunc.common.utils.ArrayUtil;
 import top.jfunc.common.utils.MultiValueMap;
 
@@ -15,7 +14,7 @@ public class DefaultResponse implements Response {
     /**
      * 返回码
      */
-    private int statusCode = HttpStatus.HTTP_OK;
+    private int statusCode;
     private String statusPhrase;
     /**
      * 返回体的字节数组
@@ -34,7 +33,7 @@ public class DefaultResponse implements Response {
     /**
      * 返回的header
      */
-    private MultiValueMap<String, String> headers = null;
+    private MultiValueMap<String, String> headers;
 
     public DefaultResponse(int statusCode, String statusPhrase, byte[] bodyBytes, String resultCharset, MultiValueMap<String, String> headers) {
         this.statusCode = statusCode;

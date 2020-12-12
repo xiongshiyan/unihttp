@@ -14,28 +14,28 @@ import java.io.File;
  * @see MutableStringBodyRequest
  * @see FormRequest
  * @see UploadRequest
- * @see DefaultDownLoadRequest
+ * @see DefaultDownloadRequest
  * @author xiongshiyan at 2019/7/1 , contact me with email yanshixiong@126.com or phone 15208384257
  */
 public class RequestCreator {
     private RequestCreator(){}
 
-    public static DefaultRequest get(String url){
+    public static HttpRequest get(String url){
         return DefaultRequest.of(url);
     }
-    public static DefaultBodyRequest post(String url , String body){
+    public static MutableStringBodyRequest post(String url , String body){
         return DefaultBodyRequest.of(url, body, null);
     }
-    public static DefaultBodyRequest post(String url , String body , String contentType){
+    public static MutableStringBodyRequest post(String url , String body , String contentType){
         return DefaultBodyRequest.of(url, body, contentType);
     }
-    public static DefaultFormBodyRequest form(String url){
+    public static FormRequest form(String url){
         return DefaultFormBodyRequest.of(url);
     }
-    public static DefaultDownLoadRequest download(String url , File fileToSave){
-        return DefaultDownLoadRequest.of(url, fileToSave);
+    public static DownloadRequest download(String url , File fileToSave){
+        return DefaultDownloadRequest.of(url, fileToSave);
     }
-    public static DefaultUpLoadRequest upload(String url){
-        return DefaultUpLoadRequest.of(url);
+    public static UploadRequest upload(String url){
+        return DefaultUploadRequest.of(url);
     }
 }

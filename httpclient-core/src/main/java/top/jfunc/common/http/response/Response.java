@@ -1,9 +1,10 @@
-package top.jfunc.common.http.smart;
+package top.jfunc.common.http.response;
 
 
 import top.jfunc.common.http.base.HttpHeaders;
 import top.jfunc.common.http.base.HttpStatus;
 import top.jfunc.common.http.request.DownloadRequest;
+import top.jfunc.common.http.smart.SmartHttpClient;
 import top.jfunc.common.string.FromString;
 import top.jfunc.common.string.FromStringHandler;
 import top.jfunc.common.utils.ArrayUtil;

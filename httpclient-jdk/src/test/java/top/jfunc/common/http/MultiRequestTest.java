@@ -15,7 +15,7 @@ import top.jfunc.common.http.request.HttpRequest;
 import top.jfunc.common.http.request.StringBodyRequest;
 import top.jfunc.common.http.holderrequest.DefaultFormBodyRequest;
 import top.jfunc.common.http.smart.NativeSmartHttpClient;
-import top.jfunc.common.http.smart.Response;
+import top.jfunc.common.http.response.Response;
 import top.jfunc.common.http.smart.SmartHttpClient;
 
 import static org.mockserver.model.HttpRequest.request;
