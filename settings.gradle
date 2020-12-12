@@ -1,9 +1,9 @@
-rootProject.name = 'httpclient-interfacing'
+rootProject.name = 'unihttp'
 
-include 'httpclient-core'
-include 'httpclient-jdk'
-include 'httpclient-okhttp3'
-include 'httpclient-apache'
-include 'httpclient-jodd'
+include 'unihttp-core'
+include 'unihttp-jdk'
+include 'unihttp-okhttp3'
+include 'unihttp-apache'
+include 'unihttp-jodd'
 
-include 'httpclient-spring-configure'
+include 'unihttp-spring-configure'

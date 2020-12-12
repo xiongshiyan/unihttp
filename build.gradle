@@ -14,7 +14,7 @@ buildscript {
 
 subprojects{
     group 'top.jfunc.network'
-    version '1.2.12'
+    version '2.0.0'
 
     apply plugin: 'java'
     apply plugin: 'maven'
@@ -72,8 +72,8 @@ subprojects{
             attributes('Email': 'yanshixiong@126.com')
             attributes('Build-By': 'Gradle-4.6')
             attributes('Licences': 'Apache-2.0')
-            attributes('GitUrl-Gitee': 'https://gitee.com/xxssyyyyssxx/httpclient-interfacing')
-            attributes('GitUrl-Github': 'https://github.com/xiongshiyan/httpclient-interfacing')
+            attributes('GitUrl-Gitee': 'https://gitee.com/xxssyyyyssxx/unihttp')
+            attributes('GitUrl-Github': 'https://github.com/xiongshiyan/unihttp')
         }
     }
 }
