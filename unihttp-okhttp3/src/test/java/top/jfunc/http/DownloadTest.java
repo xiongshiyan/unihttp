@@ -2,7 +2,6 @@ package top.jfunc.http;
 
 import org.junit.Ignore;
 import org.junit.Test;
-import top.jfunc.http.SmartHttpClient;
 import top.jfunc.http.download.Downloader;
 import top.jfunc.http.download.InterruptBaseConfFileDownloader;
 import top.jfunc.http.download.InterruptBaseDownloadFileDownloader;

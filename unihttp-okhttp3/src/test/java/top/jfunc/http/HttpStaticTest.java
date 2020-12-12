@@ -2,9 +2,6 @@ package top.jfunc.http;
 
 import org.junit.Assert;
 import org.junit.Test;
-import top.jfunc.http.HttpDelegate;
-import top.jfunc.http.HttpStatic;
-import top.jfunc.http.SmartHttpClient;
 import top.jfunc.http.smart.OkHttp3SmartHttpClient;
 
 /**

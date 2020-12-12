@@ -5,7 +5,6 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.mockserver.client.MockServerClient;
 import org.mockserver.junit.MockServerRule;
-import top.jfunc.http.SmartHttpClient;
 import top.jfunc.http.holderrequest.DefaultRequest;
 import top.jfunc.http.interceptor.UrlStatisticsInterceptor;
 import top.jfunc.http.request.HttpRequest;
