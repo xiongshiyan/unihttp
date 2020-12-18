@@ -1,9 +1,5 @@
 package top.jfunc.http.base;
 
-import top.jfunc.http.annotation.GET;
-import top.jfunc.http.annotation.PATCH;
-import top.jfunc.http.annotation.POST;
-import top.jfunc.http.annotation.PUT;
 import top.jfunc.http.config.Config;
 
 /**
@@ -11,8 +7,8 @@ import top.jfunc.http.config.Config;
  */
 public class DefaultMethodContentStrategy implements MethodContentStrategy {
     /**
-     默认{@link POST}、{@link PUT}、{@link PATCH}支持，
-     但是在es这种rest风格的应用中，可能{@link GET}也需要支持BODY，
+     默认{@link Method#POST}、{@link Method#PUT}、{@link Method#PATCH}支持，
+     但是在es这种rest风格的应用中，可能{@link Method#GET}也需要支持BODY，
      那么只需要设置{@link Config#methodContentStrategy}即可
     */
     @Override
