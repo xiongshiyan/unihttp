@@ -10,7 +10,7 @@ import java.util.Set;
  * 统计系统会访问哪些URL
  * @author xiongshiyan at 2019/12/12 , contact me with email yanshixiong@126.com or phone 15208384257
  */
-public class UrlStatisticsInterceptor extends InterceptorAdapter {
+public class UrlStatisticsInterceptor implements Interceptor {
     /**
      * URL是否包含Query参数/Route参数，建议设置为false，否则可能会有大量的URL
      */
@@ -40,7 +40,7 @@ public class UrlStatisticsInterceptor extends InterceptorAdapter {
             String url = getSaveUrl(httpRequest);
             saveUrl(url);
         }
-        return super.onBefore(httpRequest);
+        return httpRequest;
     }
 
     /**

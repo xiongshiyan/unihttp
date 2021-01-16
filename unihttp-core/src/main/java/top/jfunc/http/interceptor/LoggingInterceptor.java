@@ -15,7 +15,7 @@ import static top.jfunc.common.utils.StrUtil.CRLF;
  * 打印日志的拦截器
  * @author xiongshiyan at 2019/7/24 , contact me with email yanshixiong@126.com or phone 15208384257
  */
-public class LoggingInterceptor extends InterceptorAdapter {
+public class LoggingInterceptor implements Interceptor {
     private static final Logger logger = LoggerFactory.getLogger(LoggingInterceptor.class);
     /**默认超过1M就不打印了*/
     private static final int DEFAULT_THRESHOLD = 1024*1024;
@@ -90,7 +90,7 @@ public class LoggingInterceptor extends InterceptorAdapter {
         } catch (Exception e) {
             logger.error(e.getMessage() , e);
         }
-        return super.onBefore(httpRequest);
+        return httpRequest;
     }
 
     protected boolean notEmpty(Object o){

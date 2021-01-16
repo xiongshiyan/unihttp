@@ -1,7 +1,7 @@
 package top.jfunc.http.cookie;
 
 import top.jfunc.http.config.Config;
-import top.jfunc.http.interceptor.InterceptorAdapter;
+import top.jfunc.http.interceptor.Interceptor;
 import top.jfunc.http.request.HttpRequest;
 import top.jfunc.http.response.ClientHttpResponse;
 
@@ -12,7 +12,7 @@ import java.util.Objects;
  * 用于处理{@link Cookie}的拦截器
  * @author xiongshiyan at 2020/12/8 , contact me with email yanshixiong@126.com or phone 15208384257
  */
-public class CookieInterceptor extends InterceptorAdapter {
+public class CookieInterceptor implements Interceptor {
     private CookieAccessor cookieAccessor;
 
     public CookieInterceptor(CookieAccessor cookieAccessor) {

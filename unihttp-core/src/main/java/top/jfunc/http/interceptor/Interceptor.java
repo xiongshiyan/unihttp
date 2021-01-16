@@ -17,7 +17,9 @@ public interface Interceptor {
      * @return 可能被修改后的HttpRequest
      * @throws IOException IOException
      */
-    HttpRequest onBefore(HttpRequest httpRequest) throws IOException;
+    default HttpRequest onBefore(HttpRequest httpRequest) throws IOException{
+        return httpRequest;
+    }
 
     /**
      * 执行之后拦截 beforeReturn
@@ -26,18 +28,20 @@ public interface Interceptor {
      * @throws IOException IOException
      * @return ClientHttpResponse
      */
-    ClientHttpResponse onBeforeReturn(HttpRequest httpRequest, ClientHttpResponse clientHttpResponse) throws IOException;
+    default ClientHttpResponse onBeforeReturn(HttpRequest httpRequest, ClientHttpResponse clientHttpResponse) throws IOException{
+        return clientHttpResponse;
+    }
 
     /**
      * 发生异常的时候 exception
      * @param httpRequest HttpRequest
      * @param exception Exception
      */
-    void onError(HttpRequest httpRequest, Exception exception);
+    default void onError(HttpRequest httpRequest, Exception exception){}
 
     /**
      * finally执行 finally
      * @param httpRequest HttpRequest
      */
-    void onFinally(HttpRequest httpRequest);
+    default void onFinally(HttpRequest httpRequest){}
 }
