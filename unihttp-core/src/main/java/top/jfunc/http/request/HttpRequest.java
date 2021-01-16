@@ -341,6 +341,15 @@ public interface HttpRequest extends ConfigAccessor, Cloneable{
      * @return this
      */
     HttpRequest addAttribute(String key, Object value);
+    Object getAttribute(String key);
+    @SuppressWarnings("unchecked")
+    default <A> A getAttributeAs(String key){
+        Object attribute = getAttribute(key);
+        if(null == attribute){
+            return null;
+        }
+        return (A)attribute;
+    }
 
     /**
      * 获取设置的属性,maybe null

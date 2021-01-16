@@ -224,6 +224,11 @@ public abstract class BaseHttpRequest<THIS extends BaseHttpRequest> extends Abst
     }
 
     @Override
+    public Object getAttribute(String key) {
+        return null == attributes ? null : attributes.get(key);
+    }
+
+    @Override
     public Map<String, Object> getAttributes() {
         return attributes;
     }
