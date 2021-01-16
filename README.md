@@ -26,18 +26,19 @@ uni既作unique，是一个比较特别的项目。
 - [x] 支持https
 - [x] 支持无代码修改的`OkHttp3、ApacheHttpComponents、HttpURLConnection、JoddHttp`的切换
 - [x] HttpUtil支持根据jar包的存在性加载实现
-- [x] 可以对某个实现的对象例如 `NativeSmartHttpClient` 全局设置，也可以针对某一个请求Request单独设置，优先级逐渐升高
+- [x] 可以对某个实现的对象例如 `JdkSmartHttpClient` 全局设置，也可以针对某一个请求Request单独设置，优先级逐渐升高
 - [x] 通过`Config`全局配置默认参数
 - [x] 支持全局header设置、全局Query参数
 - [x] 支持请求之前之后加入特定的处理,复写`SmartHttpClient`的`beforeTemplate`和`afterTemplate`方法
 - [x] `Proxy`代理支持
 - [x] `HttpUtil`提供的静态方法完全代理`SmartHttpClient`接口，实现一句话完成Http请求
 - [x] 从1.1.1版本开始Request分裂为表达每种请求的不同Request
-- [x] 从1.1.1版本开始支持基于CookieHandler的Cookie支持,在全局设置中设置CookieHandler即可
 - [x] 从1.1.2版本开始类似Retrofit、MyBatis-Mapper的接口使用方式
 - [x] 从1.1.2版本开始支持全局拦截器拦截
 - [x] 从1.1.5版本开始支持每个HttpRequest中设置属性便于后续使用
 - [x] 从1.1.8版本开始支持所有的HTTP METHOD
+- [x] 从2.0.0版本开始支持基于CookieInterceptor的Cookie支持
+- [x] 从2.0.0版本开始包名换为top.jfunc.http，项目名换为unihttp
 - [ ] 文件上传支持断点续传
 
 ### how to import it?
@@ -105,8 +106,9 @@ public class HttpConfig {
     @Bean("smartHttpClient")
     public SmartHttpClient smartHttpClient(){
         //如果要更换http的实现或者做更多的事情，可以对此bean进行配置
-        JdkSmartHttpClient smartHttpClient = new JdkSmartHttpClient();
+        SmartHttpClient smartHttpClient = new JdkSmartHttpClient();
         // new OkHttp3SmartHttpClient();
+        // new JoddSmartHttpClient();
         // new ApacheSmartHttpClient(){
                 //重写某些方法
         };
@@ -116,17 +118,11 @@ public class HttpConfig {
 ```
 
 当拿到实例之后，就可以使用接口定义的所有的方法用于http请求。
- **HttpClient接口定义了基本的http请求方法，SmartHttpClient继承于HttpClient，新增了基于Request的方法** 见架构图。
 
-setConfig可以设置SmartHttpClient实例的全局默认设置。目前定义了一下一些参数。
-
-baseUrl、defaultConnectionTimeout、defaultReadTimeout、defaultBodyCharset、defaultResultCharset、defaultHeaders。
-
-定义了这些可配置项，可以对某个实现的对象例如 `NativeSmartHttpClient` 全局设置，也可以针对某一个请求单独设置，优先级逐渐升高
-
-https://gitee.com/xxssyyyyssxx/httpclient/blob/master/src/test/java/top/jfunc/common/http/HttpBasicTest.java
-
-https://gitee.com/xxssyyyyssxx/httpclient/blob/master/src/test/java/top/jfunc/common/http/HttpSmartTest.java
+https://gitee.com/xxssyyyyssxx/unihttp/blob/master/unihttp-apache/src/test/java/top/jfunc/http/MultiRequestTest.java
+https://gitee.com/xxssyyyyssxx/unihttp/blob/master/unihttp-jdk/src/test/java/top/jfunc/http/MultiRequestTest.java
+https://gitee.com/xxssyyyyssxx/unihttp/blob/master/unihttp-jodd/src/test/java/top/jfunc/http/MultiRequestTest.java
+https://gitee.com/xxssyyyyssxx/unihttp/blob/master/unihttp-okhttp3/src/test/java/top/jfunc/http/MultiRequestTest.java
 
 下面演示几种用法：
 1. Request代表所有请求的变量，支持链式编程
