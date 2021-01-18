@@ -45,7 +45,7 @@ public interface RouteParamHolder extends MapHolder<String , String> {
     default RouteParamHolder addOrderedRouteParams(String first, String... others){
         int from = orderedParamsFrom();
 
-        put("" + from , first);
+        put(String.valueOf(from) , first);
         for (int i = 0; i < others.length; i++) {
             put(String.valueOf(from + 1 +i) , others[i]);
         }

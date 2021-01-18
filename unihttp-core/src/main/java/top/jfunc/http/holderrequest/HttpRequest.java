@@ -310,6 +310,11 @@ public interface HttpRequest extends top.jfunc.http.request.HttpRequest {
         return this;
     }
 
+    /**
+     * 获取属性
+     * @param key key
+     * @return 属性值
+     */
     @Override
     default Object getAttribute(String key){
         Map<String, Object> map = attributeHolder().getMap();

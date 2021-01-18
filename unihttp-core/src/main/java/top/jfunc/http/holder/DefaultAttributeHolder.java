@@ -21,6 +21,12 @@ public class DefaultAttributeHolder implements AttributeHolder {
         this.attributes = attributes;
     }
 
+
+    @Override
+    public Object get(String key) {
+        return null == attributes ? null : attributes.get(key);
+    }
+
     @Override
     public AttributeHolder put(String key, Object value) {
         if(null == this.attributes){

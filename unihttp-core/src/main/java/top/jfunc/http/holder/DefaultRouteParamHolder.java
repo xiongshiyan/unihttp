@@ -37,6 +37,11 @@ public class DefaultRouteParamHolder implements RouteParamHolder {
     }
 
     @Override
+    public String get(String key) {
+        return null == routeParams ? null : routeParams.get(key);
+    }
+
+    @Override
     public RouteParamHolder put(String key, String value) {
         if(null == this.routeParams){
             this.routeParams = new HashMap<>(2);

@@ -22,6 +22,13 @@ public interface MapHolder<K , V>{
     void setMap(Map<K, V> map);
 
     /**
+     * 获取某个属性
+     * @param key key
+     * @return 属性值
+     */
+    V get(K key);
+
+    /**
      * 添加参数
      * @param key key
      * @param value value
