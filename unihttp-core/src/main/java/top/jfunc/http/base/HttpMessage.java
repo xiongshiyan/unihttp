@@ -15,7 +15,8 @@ public interface HttpMessage {
 
 	/**
 	 * Return the headers of this message.
-	 * @return a corresponding HttpHeaders object (never {@code null})
+	 * @return a corresponding HttpHeaders object (maybe {@code null})
+	 * @throws IOException in case of I/O Errors
 	 */
 	MultiValueMap<String, String> getHeaders() throws IOException;
 
