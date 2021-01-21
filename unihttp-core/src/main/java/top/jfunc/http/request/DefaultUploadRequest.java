@@ -43,12 +43,6 @@ public class DefaultUploadRequest extends BaseHttpRequest<DefaultUploadRequest> 
     }
 
     @Override
-    public UploadRequest addFormParam(String key, String value, String... values) {
-        formParams.add(key, value, values);
-        return myself();
-    }
-
-    @Override
     public UploadRequest setFormParams(MultiValueMap<String, String> formParams) {
         this.formParams = formParams;
         return myself();
@@ -59,6 +53,12 @@ public class DefaultUploadRequest extends BaseHttpRequest<DefaultUploadRequest> 
         if(MapUtil.notEmpty(formParams)){
             this.formParams = ArrayListMultiValueMap.fromMap(formParams);
         }
+        return myself();
+    }
+
+    @Override
+    public UploadRequest addFormParam(String key, String value, String... values) {
+        formParams.add(key, value, values);
         return myself();
     }
 

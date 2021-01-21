@@ -18,15 +18,6 @@ public interface UploadRequest extends HttpRequest {
     MultiValueMap<String, String> getFormParams();
 
     /**
-     * 新增form参数
-     * @param key key
-     * @param value value
-     * @param values values
-     * @return this
-     */
-    UploadRequest addFormParam(String key, String value, String... values);
-
-    /**
      * 设置form参数
      * @param formParams formParams
      * @return this
@@ -39,6 +30,15 @@ public interface UploadRequest extends HttpRequest {
      * @return this
      */
     UploadRequest setFormParams(Map<String, String> formParams);
+
+    /**
+     * 新增form参数
+     * @param key key
+     * @param value value
+     * @param values values
+     * @return this
+     */
+    UploadRequest addFormParam(String key, String value, String... values);
 
     /**
      * 获取charset
