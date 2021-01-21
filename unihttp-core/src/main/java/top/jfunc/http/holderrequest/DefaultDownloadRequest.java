@@ -48,12 +48,6 @@ public class DefaultDownloadRequest extends BaseHttpRequest<DefaultDownloadReque
         return this.fileHolder;
     }
 
-    @Override
-    public DownloadRequest setFile(File file) {
-        fileHolder().setFile(file);
-        return myself();
-    }
-
     public DownloadRequest setFileHolder(FileHolder fileHolder) {
         this.fileHolder = fileHolder;
         return myself();

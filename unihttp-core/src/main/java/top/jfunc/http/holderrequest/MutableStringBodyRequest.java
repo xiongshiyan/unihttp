@@ -33,6 +33,18 @@ public interface MutableStringBodyRequest extends HttpRequest, StringBodyRequest
     }
 
     /**
+     * 设置请求体
+     * @param body body
+     * @param contentType Content-Type
+     * @return this
+     */
+    @Override
+    default MutableStringBodyRequest setBody(String body, String contentType){
+        bodyHolder().setBody(body);
+        setContentType(contentType);
+        return this;
+    }
+    /**
      * 提供便捷方法
      * @param bodyCharset bodyCharset
      * @return this
@@ -51,13 +63,4 @@ public interface MutableStringBodyRequest extends HttpRequest, StringBodyRequest
     default String getBodyCharset(){
         return bodyHolder().getBodyCharset();
     }
-
-    /**
-     * 设置请求体
-     * @param body body
-     * @param contentType Content-Type
-     * @return this
-     */
-    @Override
-    MutableStringBodyRequest setBody(String body, String contentType);
 }

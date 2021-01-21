@@ -1,11 +1,9 @@
 package top.jfunc.http.holderrequest;
 
-import top.jfunc.common.utils.MultiValueMap;
 import top.jfunc.http.holder.DefaultParamHolder;
 import top.jfunc.http.holder.ParamHolder;
 
 import java.net.URL;
-import java.util.Map;
 
 /**
  * Form表单请求
@@ -42,29 +40,6 @@ public class DefaultFormBodyRequest extends BaseHttpRequest<DefaultFormBodyReque
     @Override
     public ParamHolder formParamHolder() {
         return formParamHolder;
-    }
-
-    @Override
-    public FormRequest setFormParams(Map<String, String> params) {
-        formParamHolder().set(params);
-        return myself();
-    }
-    @Override
-    public FormRequest setFormParams(MultiValueMap<String, String> params) {
-        formParamHolder().set(params);
-        return myself();
-    }
-
-    @Override
-    public FormRequest addFormParam(String key, String value, String... values) {
-        formParamHolder().add(key, value, values);
-        return myself();
-    }
-
-    @Override
-    public FormRequest setParamCharset(String paramCharset) {
-        formParamHolder().setParamCharset(paramCharset);
-        return myself();
     }
 
     public FormRequest setFormParamHolder(ParamHolder formParamHolder) {

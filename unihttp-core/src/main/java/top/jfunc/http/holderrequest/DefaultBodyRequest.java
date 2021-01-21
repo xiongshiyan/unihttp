@@ -41,13 +41,6 @@ public class DefaultBodyRequest extends BaseHttpRequest<DefaultBodyRequest> impl
     private BodyHolder bodyHolder = new DefaultBodyHolder();
 
     @Override
-    public MutableStringBodyRequest setBody(String body , String contentType) {
-        bodyHolder().setBody(body);
-        setContentType(contentType);
-        return myself();
-    }
-
-    @Override
     public BodyHolder bodyHolder() {
         return bodyHolder;
     }

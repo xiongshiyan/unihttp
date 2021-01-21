@@ -1,14 +1,11 @@
 package top.jfunc.http.holderrequest;
 
-import top.jfunc.common.utils.MultiValueMap;
-import top.jfunc.http.base.FormFile;
 import top.jfunc.http.holder.DefaultFormFileHolder;
 import top.jfunc.http.holder.DefaultParamHolder;
 import top.jfunc.http.holder.FormFileHolder;
 import top.jfunc.http.holder.ParamHolder;
 
 import java.net.URL;
-import java.util.Map;
 
 /**
  * 多文件、参数同时支持的上传请求
@@ -49,42 +46,6 @@ public class DefaultUploadRequest extends BaseHttpRequest<DefaultUploadRequest> 
     @Override
     public FormFileHolder formFileHolder() {
         return formFileHolder;
-    }
-
-    @Override
-    public UploadRequest setParamCharset(String paramCharset) {
-        formParamHolder().setParamCharset(paramCharset);
-        return myself();
-    }
-
-    @Override
-    public UploadRequest addFormParam(String key, String value, String... values) {
-        formParamHolder().add(key, value, values);
-        return myself();
-    }
-
-    @Override
-    public UploadRequest setFormParams(Map<String, String> formParams) {
-        formParamHolder().set(formParams);
-        return myself();
-    }
-
-    @Override
-    public UploadRequest setFormParams(MultiValueMap<String, String> formParams) {
-        formParamHolder().set(formParams);
-        return myself();
-    }
-
-    @Override
-    public UploadRequest addFormFile(FormFile... formFiles) {
-        formFileHolder().addFormFile(formFiles);
-        return myself();
-    }
-
-    @Override
-    public UploadRequest addFormFiles(Iterable<FormFile> formFiles) {
-        formFileHolder().addFormFiles(formFiles);
-        return myself();
     }
 
     public UploadRequest setFormParamHolder(ParamHolder formParamHolder) {
