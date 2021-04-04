@@ -49,7 +49,7 @@ uni既作unique，是一个比较特别的项目。
 
 ##### 项目管理工具导入 
 
-项目已经发布至 `jcenter`、`mavenCentral` （2.0.1之前）和jitpack（v2.0.2开始）。引入其中一种实现即可。
+项目已经发布至 `jcenter`、`mavenCentral` （2.0.1之前）和jitpack（v2.0.2开始）[![](https://jitpack.io/v/com.gitee.xxssyyyyssxx/unihttp.svg)](https://jitpack.io/#com.gitee.xxssyyyyssxx/unihttp)
 
 Gradle:
 
