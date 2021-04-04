@@ -6,7 +6,8 @@ def siteUrl = 'https://gitee.com/xxssyyyyssxx/unihttp'
 def REPO_NAME = 'network'
 
 dependencies{
-    compile "top.jfunc.common:utils:${CommonUtilVersion}"
+    //compile "top.jfunc.common:utils:${CommonUtilVersion}"
+    compile "com.gitee.xxssyyyyssxx:utils:${CommonUtilVersion}"
 }
 
 install {
