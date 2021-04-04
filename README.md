@@ -52,14 +52,15 @@ uni既作unique，是一个比较特别的项目。
 项目已经发布至 `jcenter`、`mavenCentral` （2.0.1之前）和jitpack（v2.0.2开始）。引入其中一种实现即可。
 
 Gradle:
-mavenCentral和jcenter
+
+【mavenCentral和jcenter】
 ```dsl
 compile 'top.jfunc.network:unihttp-jdk:${version}'
 compile 'top.jfunc.network:unihttp-apache:${version}'
 compile 'top.jfunc.network:unihttp-okhttp3:${version}'
 compile 'top.jfunc.network:unihttp-jodd:${version}'
 ```
-jitpack】
+【jitpack】
 ```dsl
 compile 'com.gitee.xxssyyyyssxx.unihttp:unihttp-jdk:${version}'
 compile 'com.gitee.xxssyyyyssxx.unihttp:unihttp-apache:${version}'
