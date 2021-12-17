@@ -75,7 +75,10 @@ public class OkHttp3Util {
 
         if(null != formFiles){
             for (FormFile formFile : formFiles) {
-                builder.addPart(Headers.of(HttpHeaders.CONTENT_DISPOSITION, "form-data; name=\"" + formFile.getParameterName() + "\"; filename=\"" + formFile.getFileName() + "\"") ,
+                String fileName = formFile.getFileName();
+                //如果这里文件名含有中文会报错
+                //@see Headers#okhttp3.Headers.checkValue()
+                builder.addPart(Headers.of(HttpHeaders.CONTENT_DISPOSITION, "form-data; name=\"" + formFile.getParameterName() + "\"; filename=\"" + fileName + "\"") ,
                         inputStreamBody(formFile.getContentType() , formFile.getInStream() , formFile.getFileLen()));
             }
         }
