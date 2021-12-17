@@ -75,7 +75,7 @@ public class OkHttp3Util {
 
         if(null != formFiles){
             for (FormFile formFile : formFiles) {
-                builder.addPart(Headers.of(HttpHeaders.CONTENT_DISPOSITION, "form-data; name=\"" + formFile.getParameterName() + "\"; filename=\"" + formFile.getFilName() + "\"") ,
+                builder.addPart(Headers.of(HttpHeaders.CONTENT_DISPOSITION, "form-data; name=\"" + formFile.getParameterName() + "\"; filename=\"" + formFile.getFileName() + "\"") ,
                         inputStreamBody(formFile.getContentType() , formFile.getInStream() , formFile.getFileLen()));
             }
         }

@@ -128,7 +128,7 @@ public class ApacheUtil {
 
         if(null != formFiles){
             for (FormFile formFile : formFiles) {
-                builder.addBinaryBody(formFile.getParameterName(), formFile.getInStream() , ContentType.parse(formFile.getContentType()) , formFile.getFilName());
+                builder.addBinaryBody(formFile.getParameterName(), formFile.getInStream() , ContentType.parse(formFile.getContentType()) , formFile.getFileName());
             }
         }
 

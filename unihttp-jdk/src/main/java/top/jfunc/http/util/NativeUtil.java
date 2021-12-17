@@ -75,7 +75,7 @@ public class NativeUtil {
      */
     private static void writeOneFile(DataOutputStream ds, FormFile formFile, String paramCharset) throws IOException {
         ds.writeBytes(PART_BEGIN_LINE);
-        String filName = CharsetUtil.convert(formFile.getFilName(), paramCharset, CharsetUtil.ISO_8859_1);
+        String filName = CharsetUtil.convert(formFile.getFileName(), paramCharset, CharsetUtil.ISO_8859_1);
         ds.writeBytes("Content-Disposition: form-data; name=\"" + formFile.getParameterName() + "\"; filename=\"" + filName + "\"" + CRLF);
         ds.writeBytes("Content-Type: " + formFile.getContentType() + CRLF + CRLF);
 
@@ -96,7 +96,7 @@ public class NativeUtil {
         for (FormFile formFile : formFiles) {
             StringBuilder fileExplain = new StringBuilder();
             fileExplain.append(PART_BEGIN_LINE);
-            String filName = CharsetUtil.convert(formFile.getFilName(), paramCharset, CharsetUtil.ISO_8859_1);
+            String filName = CharsetUtil.convert(formFile.getFileName(), paramCharset, CharsetUtil.ISO_8859_1);
             fileExplain.append("Content-Disposition: form-data; name=\"" + formFile.getParameterName() + "\";filename=\"" + filName + "\"" + CRLF);
             fileExplain.append("Content-Type: " + formFile.getContentType() + CRLF + CRLF);
             fileDataLength += fileExplain.length();

@@ -12,14 +12,14 @@ public class FormFile {
     /**文件长度*/
     private long        fileLen;
     /**文件名称 */
-    private String      filName;
+    private String      fileName;
     /**请求参数名称 */
     private String      parameterName;
     /**内容类型 */
     private String      contentType = MediaType.APPLICATION_OCTET_STREAM_STRING;
 
-    public static FormFile of(String filName, byte[] data, String parameterName, String contentType){
-        return new FormFile(filName , data , parameterName , contentType);
+    public static FormFile of(String fileName, byte[] data, String parameterName, String contentType){
+        return new FormFile(fileName , data , parameterName , contentType);
     }
     public static FormFile of(File file, String parameterName, String contentType) throws IOException{
         return new FormFile(file , parameterName , contentType);
@@ -30,9 +30,9 @@ public class FormFile {
     public static FormFile of(String fileName, InputStream inStream, String parameterName, String contentType) throws IOException{
         return new FormFile(fileName , inStream , inStream.available() , parameterName , contentType);
     }
-    public FormFile(String filName, byte[] data, String parameterName, String contentType){
+    public FormFile(String fileName, byte[] data, String parameterName, String contentType){
         this.inStream = new ByteArrayInputStream(data);
-        init(filName, data.length , parameterName, contentType);
+        init(fileName, data.length , parameterName, contentType);
     }
 
 
@@ -47,8 +47,8 @@ public class FormFile {
         init(fileName , fileLen , parameterName , contentType);
     }
 
-    private void init(String filName, long fileLen , String parameterName, String contentType) {
-        this.filName = filName;
+    private void init(String fileName, long fileLen , String parameterName, String contentType) {
+        this.fileName = fileName;
         this.parameterName = parameterName;
         this.fileLen = fileLen;
         if(contentType != null){
@@ -64,12 +64,12 @@ public class FormFile {
         return fileLen;
     }
 
-    public String getFilName(){
-        return filName;
+    public String getFileName(){
+        return fileName;
     }
 
-    public void setFilName(String filName){
-        this.filName = filName;
+    public void setFileName(String fileName){
+        this.fileName = fileName;
     }
 
     public String getParameterName(){
@@ -90,7 +90,7 @@ public class FormFile {
 
     @Override
     public String toString() {
-        return parameterName + " : " + filName;
+        return parameterName + " : " + fileName;
     }
 
     @Override
@@ -102,7 +102,7 @@ public class FormFile {
 
         if (fileLen != formFile.fileLen) return false;
         if (inStream != null ? !inStream.equals(formFile.inStream) : formFile.inStream != null) return false;
-        if (filName != null ? !filName.equals(formFile.filName) : formFile.filName != null) return false;
+        if (fileName != null ? !fileName.equals(formFile.fileName) : formFile.fileName != null) return false;
         if (parameterName != null ? !parameterName.equals(formFile.parameterName) : formFile.parameterName != null)
             return false;
         return contentType != null ? contentType.equals(formFile.contentType) : formFile.contentType == null;
@@ -112,7 +112,7 @@ public class FormFile {
     public int hashCode() {
         int result = inStream != null ? inStream.hashCode() : 0;
         result = 31 * result + (int) (fileLen ^ (fileLen >>> 32));
-        result = 31 * result + (filName != null ? filName.hashCode() : 0);
+        result = 31 * result + (fileName != null ? fileName.hashCode() : 0);
         result = 31 * result + (parameterName != null ? parameterName.hashCode() : 0);
         result = 31 * result + (contentType != null ? contentType.hashCode() : 0);
         return result;

@@ -123,7 +123,7 @@ public class JoddUtil {
 
         @Override
         public String getFileName() {
-            return this.formFile.getFilName();
+            return this.formFile.getFileName();
         }
 
         @Override
