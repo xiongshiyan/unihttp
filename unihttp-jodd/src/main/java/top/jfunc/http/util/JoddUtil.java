@@ -94,7 +94,7 @@ public class JoddUtil {
         if(MapUtil.notEmpty(params)){
             params.forEachKeyValue(httpRequest::form);
         }
-        if(ArrayUtil.isNotEmpty(formFiles)){
+        if(null != formFiles){
             for (FormFile formFile : formFiles) {
                 httpRequest.form(formFile.getParameterName() , new FormFileUpload(formFile));
             }

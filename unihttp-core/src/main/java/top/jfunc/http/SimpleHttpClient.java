@@ -521,13 +521,13 @@ public interface SimpleHttpClient extends FreezableConfigAccessor {
      * 上传文件
      * @see SimpleHttpClient#upload(String, MultiValueMap, int, int, String, FormFile...)
      * @param url url
-     * @param headers headers
+     * @param params params
      * @param formFiles formFiles
      * @return String
      * @throws IOException IOException
      */
-    default String upload(String url, MultiValueMap<String, String> headers, FormFile... formFiles) throws IOException{
-        return upload(url, headers ,null, Config.UNSIGNED, Config.UNSIGNED, formFiles);
+    default String upload(String url, MultiValueMap<String, String> params, FormFile... formFiles) throws IOException{
+        return upload(url, params,null, Config.UNSIGNED, Config.UNSIGNED, formFiles);
     }
 
     /**

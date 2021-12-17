@@ -10,11 +10,14 @@ import org.apache.http.entity.mime.HttpMultipartMode;
 import org.apache.http.entity.mime.MultipartEntityBuilder;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.protocol.HttpContext;
+import top.jfunc.common.utils.ArrayListMultiValueMap;
+import top.jfunc.common.utils.CharsetUtil;
+import top.jfunc.common.utils.MapUtil;
+import top.jfunc.common.utils.MultiValueMap;
 import top.jfunc.http.base.FormFile;
 import top.jfunc.http.base.HttpHeaders;
 import top.jfunc.http.base.Method;
 import top.jfunc.http.base.ProxyInfo;
-import top.jfunc.common.utils.*;
 
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLContext;
@@ -123,7 +126,7 @@ public class ApacheUtil {
             params.forEachKeyValue(builder::addTextBody);
         }
 
-        if(ArrayUtil.isNotEmpty(formFiles)){
+        if(null != formFiles){
             for (FormFile formFile : formFiles) {
                 builder.addBinaryBody(formFile.getParameterName(), formFile.getInStream() , ContentType.parse(formFile.getContentType()) , formFile.getFilName());
             }
