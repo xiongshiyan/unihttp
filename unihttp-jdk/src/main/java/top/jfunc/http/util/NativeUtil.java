@@ -1,11 +1,8 @@
 package top.jfunc.http.util;
 
+import top.jfunc.common.utils.*;
 import top.jfunc.http.base.FormFile;
 import top.jfunc.http.base.HttpHeaders;
-import top.jfunc.common.utils.ArrayListMultiValueMap;
-import top.jfunc.common.utils.IoUtil;
-import top.jfunc.common.utils.MapUtil;
-import top.jfunc.common.utils.MultiValueMap;
 
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.HttpsURLConnection;
@@ -37,12 +34,12 @@ public class NativeUtil {
 
 
     public static void upload0(HttpURLConnection connection , Iterable<FormFile> formFiles) throws IOException {
-        connection.setRequestProperty(HttpHeaders.CONTENT_LENGTH , String.valueOf(getFormFilesLen(formFiles) + END_LINE.length()));
+        connection.setRequestProperty(HttpHeaders.CONTENT_LENGTH , String.valueOf(getFormFilesLen(formFiles,CharsetUtil.UTF_8) + END_LINE.length()));
         connection.setRequestProperty(HttpHeaders.CONTENT_TYPE , "multipart/form-data; boundary=" + BOUNDARY);
 
         try(DataOutputStream ds = new DataOutputStream(connection.getOutputStream())) {
             for (FormFile formFile : formFiles) {
-                writeOneFile(ds, formFile);
+                writeOneFile(ds, formFile, CharsetUtil.UTF_8);
             }
             ds.writeBytes(END_LINE);
             ds.flush();
@@ -50,7 +47,7 @@ public class NativeUtil {
     }
 
     public static void upload0(HttpURLConnection connection , MultiValueMap<String, String> params, String paramCharset, Iterable<FormFile> formFiles) throws IOException{
-        int fileDataLength = getFormFilesLen(formFiles);
+        int fileDataLength = getFormFilesLen(formFiles, paramCharset);
 
         String textEntity = getTextEntity(params);
         // 计算传输给服务器的实体数据总长度
@@ -64,7 +61,7 @@ public class NativeUtil {
             ds.writeBytes(textEntity);
             //写文件
             for (FormFile formFile : formFiles) {
-                writeOneFile(ds, formFile);
+                writeOneFile(ds, formFile, paramCharset);
             }
             //写末尾行
             ds.writeBytes(END_LINE);
@@ -74,11 +71,12 @@ public class NativeUtil {
 
     /**
      * 写一个文件 ， 必须保证和getFormFilesLen的内容一致
-     * @see NativeUtil#getFormFilesLen(Iterable)
+     * @see NativeUtil#getFormFilesLen(Iterable, String)
      */
-    private static void writeOneFile(DataOutputStream ds, FormFile formFile) throws IOException {
+    private static void writeOneFile(DataOutputStream ds, FormFile formFile, String paramCharset) throws IOException {
         ds.writeBytes(PART_BEGIN_LINE);
-        ds.writeBytes("Content-Disposition: form-data; name=\"" + formFile.getParameterName() + "\"; filename=\"" + formFile.getFilName() + "\"" + CRLF);
+        String filName = CharsetUtil.convert(formFile.getFilName(), paramCharset, CharsetUtil.ISO_8859_1);
+        ds.writeBytes("Content-Disposition: form-data; name=\"" + formFile.getParameterName() + "\"; filename=\"" + filName + "\"" + CRLF);
         ds.writeBytes("Content-Type: " + formFile.getContentType() + CRLF + CRLF);
 
         try(InputStream inStream = formFile.getInStream()){
@@ -89,16 +87,17 @@ public class NativeUtil {
 
     /**
      * 计算需要传输的字节数
-     * @see NativeUtil#writeOneFile(DataOutputStream, FormFile)
+     * @see NativeUtil#writeOneFile(DataOutputStream, FormFile, String)
      * @param formFiles FormFile
      * @return 总的字节数
      */
-    private static int getFormFilesLen(Iterable<FormFile> formFiles){
+    private static int getFormFilesLen(Iterable<FormFile> formFiles, String paramCharset){
         int fileDataLength = 0;
         for (FormFile formFile : formFiles) {
             StringBuilder fileExplain = new StringBuilder();
             fileExplain.append(PART_BEGIN_LINE);
-            fileExplain.append("Content-Disposition: form-data; name=\"" + formFile.getParameterName() + "\";filename=\"" + formFile.getFilName() + "\"" + CRLF);
+            String filName = CharsetUtil.convert(formFile.getFilName(), paramCharset, CharsetUtil.ISO_8859_1);
+            fileExplain.append("Content-Disposition: form-data; name=\"" + formFile.getParameterName() + "\";filename=\"" + filName + "\"" + CRLF);
             fileExplain.append("Content-Type: " + formFile.getContentType() + CRLF + CRLF);
             fileDataLength += fileExplain.length();
             fileDataLength += formFile.getFileLen();
